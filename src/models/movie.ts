@@ -2,6 +2,9 @@ export interface Movie {
   id: string;
   name: string;
   urlName: string;
-  releaseDate: number;
+  releaseDate: string;
   description: string;
+  rating: number;
+  genre: string;
+  runtime: number;
 }

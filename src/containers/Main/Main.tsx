@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import { StyledMain, StyledSumDiv } from "./Main.styled";
 import { movieList, nav } from "../../assets/data/constData";

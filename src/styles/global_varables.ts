@@ -36,6 +36,7 @@ export const buttonTransparentHeight = "46px";
 export const dividerHeight = "4px";
 export const contextMenuSize = "36px";
 export const dotSize = "3.5px";
+export const dropDownWidth = "190px";
 
 export const radius = "4px";
 export const border = "1px";

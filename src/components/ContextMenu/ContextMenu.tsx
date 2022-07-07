@@ -1,18 +1,58 @@
-import React from "react";
+import React, {useState} from "react";
 
-import { StyledContextMenu, StyledDot } from "./ContextMenu.styled";
+import {
+    StyledContextMenu,
+    StyledDot,
+    StyledDropDown,
+    CloseBtn,
+    StyledFlex,
+    StyledUl,
+    Span, StyledLi
+} from "./ContextMenu.styled";
 
-const ContextMenu: React.FC = () => {
-  const openDropDowm = () => {
-    console.log(3);
+interface ContextMenuProps {
+  editModalHandler: () => void;
+  deleteModalHandler: () => void;
+};
+
+const ContextMenu: React.FC<ContextMenuProps> = (props) => {
+  const [openDropDown, setOpenDropDown] = useState(false);
+
+  const toggleDropDown = () => {
+    setOpenDropDown(!openDropDown);
   };
+
+  const handleClickEdit = () => {
+    toggleDropDown();
+    props.editModalHandler();
+  };
+
+    const handleClickDelete = () => {
+      toggleDropDown();
+      props.deleteModalHandler();
+    };
+
   return (
-    <StyledContextMenu onClick={openDropDowm}>
-      <StyledDot />
-      <StyledDot />
-      <StyledDot />
-    </StyledContextMenu>
+      <>
+          {openDropDown ?
+              <StyledDropDown>
+                  <StyledFlex>
+                      <CloseBtn onClick={toggleDropDown}>&times;</CloseBtn>
+                  </StyledFlex>
+                  <StyledUl>
+                      <StyledLi onClick={handleClickEdit}><Span>Edit</Span></StyledLi>
+                      <StyledLi onClick={handleClickDelete}><Span>Delete</Span></StyledLi>
+                  </StyledUl>
+              </StyledDropDown> :
+              <StyledContextMenu onClick={toggleDropDown}>
+                  <StyledDot />
+                  <StyledDot />
+                  <StyledDot />
+              </StyledContextMenu>
+          }
+      </>
   );
+
 };
 
 export default ContextMenu;
