@@ -85,7 +85,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
       <StyledFlex>
         <div>
           <Label htmlFor="genre">Genre</Label>
-          <Select id="genre" name="genre" value={form.genre} onChange={handleOnChange}>
+          <Select id="genre" name="genre" multiple value={form.genre} onChange={handleOnChange}>
             <option value="default" disabled>Select genre</option>
             <option value="documentary">Documentary</option>
             <option value="horror">Horror</option>

@@ -5,7 +5,8 @@ import NavItem from "./NavItem/NavItem";
 import Filter from "../Filter/Filter";
 
 interface NavProps {
-    navList: string[]
+    navList: string[];
+    sortingHandler: (type: string) => void;
 }
 
 const Nav: React.FC<NavProps> = (props) => {
@@ -17,7 +18,7 @@ const Nav: React.FC<NavProps> = (props) => {
             <NavItem index={index} navItem={item} key={item} />
           ))}
         </StyledUl>
-        <Filter />
+        <Filter sortingHandler={(type: string) => props.sortingHandler(type)} />
       </StyledFlex>
       <StyledDivider />
     </nav>

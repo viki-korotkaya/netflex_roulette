@@ -7,14 +7,11 @@ import ModalWindow from "./components/ModalWindow/ModalWindow";
 import "./App.css";
 
 const App: React.FC = () => {
-  // const [openModal, setOpenModal] = useState(true);
-
   return (
     <>
       <Header />
       <Main />
       <Footer />
-      {/*<ModalWindow open={openModal} />*/}
     </>
   );
 };

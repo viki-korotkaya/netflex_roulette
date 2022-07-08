@@ -2,7 +2,7 @@ import { Movie } from "../../models/movie";
 
 export const nav = ["all", "documentary", "comedy", "horror", "crime"];
 
-export const sortBy = ["release date"];
+export const sortBy = ["release date", "name"];
 
 export let movieList: Movie[] = [
   {
