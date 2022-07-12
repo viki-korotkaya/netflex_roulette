@@ -19,7 +19,7 @@ interface ModalWindowProps {
         releaseDate: string,
         urlName: string,
         rating: string | number,
-        genre: string,
+        genre: string[],
         runtime: string | number,
         description: string
     }
@@ -32,7 +32,7 @@ type Movie = {
     releaseDate: string;
     description: string;
     rating: number;
-    genre: string;
+    genre: string[];
     runtime: number;
 }
 
@@ -85,6 +85,8 @@ const ModalWindow: React.FC<ModalWindowProps> = ({closeHandler, initialState, mo
         }
     }
 
+    const handleGenreChange = () => {};
+
     const addMovie = (movie: Movie) => {
         return new Promise((res, rej) => setTimeout(() => {
             movieList.push(movie);
@@ -120,25 +122,33 @@ const ModalWindow: React.FC<ModalWindowProps> = ({closeHandler, initialState, mo
                     <CloseBtn onClick={closeHandler}>&times;</CloseBtn>
                 </StyledFlex>
 
-                {mode === 'edit' &&
-                  <EditModalWindow
-                    form={form}
-                    handleOnChange={handleOnChange}
-                    handleSubmit={handleSubmit}
-                    handleFormReset={handleFormReset}
-                  />
-                }
-                {mode === 'add' &&
-                  <AddModalWindow
-                    form={form}
-                    handleOnChange={handleOnChange}
-                    handleSubmit={handleSubmit}
-                    handleFormReset={handleFormReset}
-                  />}
-                {mode === 'delete' &&
+                {/*{mode === 'edit' &&*/}
+                {/*  <AddModalWindow*/}
+                {/*    form={form}*/}
+                {/*    handleOnChange={handleOnChange}*/}
+                {/*    handleSubmit={handleSubmit}*/}
+                {/*    handleFormReset={handleFormReset}*/}
+                {/*  />*/}
+                {/*}*/}
+                {/*{mode === 'add' &&*/}
+                {/*  <AddModalWindow*/}
+                {/*    form={form}*/}
+                {/*    handleOnChange={handleOnChange}*/}
+                {/*    handleSubmit={handleSubmit}*/}
+                {/*    handleFormReset={handleFormReset}*/}
+                {/*  />}*/}
+                {mode === 'delete' ?
                   <DeleteModalWindow
                     handleDeleteMovie={handleDeleteMovie}
-                  />}
+                  /> :
+                    <AddModalWindow
+                    form={form}
+                    handleOnChange={handleOnChange}
+                    handleSubmit={handleSubmit}
+                    handleFormReset={handleFormReset}
+                    mode={mode}
+                    />
+                }
             </ModalContent>
         </StyledModal>
     );

@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from "react";
+import React, {SyntheticEvent, useState} from "react";
 import {
   Form,
   TitleModal,
@@ -9,9 +9,14 @@ import {
   Select,
   StyledFlex,
   StyledFlexForButtons,
-  TextArea
+  TextArea, SelectBox, OverSelect, CheckBoxes, CheckboxesWrapper, SelectWrapper
 } from "./AddModal.styled";
 import {PrimaryButton, SecondaryButton} from "../../Button/Button.styled";
+import {default as ReactSelect, MultiValue} from "react-select";
+import { ActionMeta, components } from "react-select";
+import {genreOptions} from "../../../assets/data/constData";
+import Option from './Option/Option';
+import {backgroundGrey} from "../../../styles/global_varables";
 
 interface ModalWindowProps {
   form: {
@@ -19,20 +24,36 @@ interface ModalWindowProps {
     releaseDate: string,
     url: string,
     rating: string | number,
-    genre: string,
+    genre: string[],
     runtime: string | number,
     overview: string
   };
   handleOnChange: (e: SyntheticEvent) => void;
   handleSubmit: (e: SyntheticEvent) => void;
   handleFormReset: (e: SyntheticEvent) => void;
+  // handleGenreChange: ((newValue: MultiValue<unknown>, actionMeta: ActionMeta<unknown>) => void) | undefined;
+  mode: string;
 };
 
+interface Option {
+  value: string, label: string
+}
+
 const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
-  const {form, handleOnChange, handleSubmit, handleFormReset} = props;
+  const {form, handleOnChange, handleSubmit, handleFormReset, mode} = props;
+  const [openCheckboxes, setOpenCheckboxes] = useState(false);
+
+  const onChangeCheckbox = () => {
+
+  }
+
+  const showCheckboxes = () => {
+    setOpenCheckboxes(!openCheckboxes);
+  }
+
   return (
     <Form onSubmit={handleSubmit}>
-      <TitleModal>Add movie</TitleModal>
+      <TitleModal>{mode === 'add' ? 'Add movie' : 'Edit movie'}</TitleModal>
       <StyledFlex>
         <div>
           <Label htmlFor="title">Title</Label>
@@ -85,13 +106,61 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
       <StyledFlex>
         <div>
           <Label htmlFor="genre">Genre</Label>
-          <Select id="genre" name="genre" multiple value={form.genre} onChange={handleOnChange}>
-            <option value="default" disabled>Select genre</option>
-            <option value="documentary">Documentary</option>
-            <option value="horror">Horror</option>
-            <option value="crime">Crime</option>
-            <option value="comedy">Comedy</option>
-          </Select>
+          {/*<ReactSelect*/}
+          {/*  options={genreOptions}*/}
+          {/*  isMulti*/}
+          {/*  closeMenuOnSelect={false}*/}
+          {/*  hideSelectedOptions={false}*/}
+          {/*  onChange={handleGenreChange}*/}
+          {/*  components={{Option}}*/}
+          {/*  theme={(theme) => ({*/}
+          {/*    ...theme,*/}
+          {/*    borderRadius: 0,*/}
+          {/*    background: '#323232',*/}
+          {/*    colors: {*/}
+          {/*      ...theme.colors,*/}
+          {/*      primary25: 'hotpink',*/}
+          {/*      primary: 'black',*/}
+          {/*    },*/}
+          {/*  })}*/}
+          {/*/>*/}
+          <SelectBox onClick={showCheckboxes}>
+            {/*<Label htmlFor="genre">Genre</Label>*/}
+            {/*<Select id="genre" name="genre" multiple value={form.genre} onChange={handleOnChange}>*/}
+            {/*  <option value="default" disabled>Select genre</option>*/}
+            {/*  <option value="documentary">Documentary</option>*/}
+            {/*  <option value="horror">Horror</option>*/}
+            {/*  <option value="crime">Crime</option>*/}
+            {/*  <option value="comedy">Comedy</option>*/}
+            {/*</Select>*/}
+
+            <Select>
+              <option>Select genre</option>
+            </Select>
+            <OverSelect></OverSelect>
+          </SelectBox>
+
+          <CheckboxesWrapper>
+            {openCheckboxes && <CheckBoxes>
+              <label htmlFor="crime">
+                <input type="checkbox" id="crime" onChange={onChangeCheckbox}/>
+                Crime
+              </label>
+
+              <label htmlFor="documentary">
+                <input type="checkbox" id="documentary"/>
+                Documentary
+              </label>
+              <label htmlFor="horror">
+                <input type="checkbox" id="horror"/>
+                Horror
+              </label>
+              <label htmlFor="comedy">
+                <input type="checkbox" id="comedy"/>
+                Comedy
+              </label>
+            </CheckBoxes>}
+          </CheckboxesWrapper>
         </div>
         <div>
           <Label htmlFor="runtime">Runtime</Label>

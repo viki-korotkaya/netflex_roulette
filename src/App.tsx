@@ -7,6 +7,7 @@ import ModalWindow from "./components/ModalWindow/ModalWindow";
 import "./App.css";
 
 const App: React.FC = () => {
+
   return (
     <>
       <Header />

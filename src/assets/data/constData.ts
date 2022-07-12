@@ -12,7 +12,7 @@ export let movieList: Movie[] = [
     releaseDate: '2004',
     description: "Action $ Adventure",
     rating: 8.9,
-    genre: "crime",
+    genre: ["crime"],
     runtime: 168
   },
   {
@@ -22,7 +22,7 @@ export let movieList: Movie[] = [
     releaseDate: '2003',
     description: "Drama, Biography, Music",
     rating: 7.9,
-    genre: "drama",
+    genre: ["drama"],
     runtime: 134
   },
   {
@@ -32,7 +32,7 @@ export let movieList: Movie[] = [
     releaseDate: '1994',
     description: "Oscar winning Movie",
     rating: 8,
-    genre: "crime",
+    genre: ["crime"],
     runtime: 135
   },
   {
@@ -42,7 +42,7 @@ export let movieList: Movie[] = [
     releaseDate: '2004',
     description: "Action & Adventure",
     rating: 8.4,
-    genre: "crime",
+    genre: ["crime"],
     runtime: 159
   },
   {
@@ -52,7 +52,7 @@ export let movieList: Movie[] = [
     releaseDate: '2003',
     description: "Action & Adventure",
     rating: 8.8,
-    genre: "crime",
+    genre: ["crime"],
     runtime: 158
   },
   {
@@ -62,7 +62,7 @@ export let movieList: Movie[] = [
     releaseDate: '1994',
     description: "Oscar winning Movie",
     rating: 8.3,
-    genre: "crime",
+    genre: ["crime"],
     runtime: 99
   },
 ];
@@ -72,7 +72,14 @@ export const initialState = {
   releaseDate: '',
   urlName: '',
   rating: '',
-  genre: 'default',
+  genre: [],
   runtime: '',
   description: ''
-}
+};
+
+export const genreOptions = [
+  { value: "documentary", label: "Documentary" },
+  { value: "comedy", label: "Comedy" },
+  { value: "horror", label: "Horror" },
+  { value: "crime", label: "Crime" }
+];

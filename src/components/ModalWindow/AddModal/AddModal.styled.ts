@@ -8,6 +8,7 @@ import {
   red, smallWeight, xlarge, xxLarge
 } from "../../../styles/global_varables";
 import Calendar from "../../../assets/images/calendar.svg";
+import {default as ReactSelect} from "react-select";
 
 export const Form = styled.form`
 
@@ -59,6 +60,10 @@ export const InputDate = styled(InputRight)`
   
 `;
 
+export const SelectWrapper = styled.div`
+  width: 100%;
+`;
+
 export const Select = styled.select`
   width: 525px;
   background: ${backgroundGrey};
@@ -82,6 +87,39 @@ export const Select = styled.select`
           5px 5px,
           1.5em 1.5em;
   background-repeat: no-repeat;
+`;
+
+export const SelectBox = styled.div`
+  position: relative;
+`;
+
+export const OverSelect = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+`;
+
+export const CheckboxesWrapper = styled.div`
+  position: relative;
+`;
+
+export const CheckBoxes = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: ${backgroundMain};
+  opacity: 0.9;
+  & label {
+    display: block;
+    padding: 9px 18px;
+    & > input {
+      accent-color: ${red};
+      padding-right: 15px;
+    }
+  }
 `;
 
 export const TextArea = styled.textarea`
