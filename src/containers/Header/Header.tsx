@@ -7,19 +7,23 @@ import { StyledHeader, StyledFlex } from "./Header.styled";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import {initialState} from "../../assets/data/constData";
 
-const Header: React.FC = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const callHandler = () => {
-      setOpenModal(!openModal);
-  };
+interface HeaderProps {
+  open: boolean;
+  toggleHandler: (mode?: string) => void;
+}
+
+const Header: React.FC<HeaderProps>  = (props) => {
+  // const [openModal, setOpenModal] = useState(false);
+  // const callHandler = () => {
+  //     setOpenModal(!openModal);
+  // };
   return (
     <StyledHeader >
       <StyledFlex>
         <Logo />
-        <TransparentButton onClick={callHandler}>+ Add movie</TransparentButton>
+        <TransparentButton onClick={() => props.toggleHandler('add')}>+ Add movie</TransparentButton>
       </StyledFlex>
       <Search />
-      {openModal && <ModalWindow closeHandler={callHandler} initialState={initialState} mode="add" />}
     </StyledHeader>
   );
 };

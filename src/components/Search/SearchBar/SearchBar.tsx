@@ -5,7 +5,6 @@ import { PrimaryButton } from "../../Button/Button.styled";
 
 const SearchBar: React.FC = () => {
   const callHandler = () => {
-    return console.log(2);
   };
   return (
     <form>

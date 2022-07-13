@@ -56,12 +56,8 @@ export const InputRight = styled.input`
 
 export const InputDate = styled(InputRight)`
   
-    background: url(${Calendar})  no-repeat center right 15px, ${backgroundGrey};
+    //background: url(${Calendar})  no-repeat center right 15px, ${backgroundGrey};
   
-`;
-
-export const SelectWrapper = styled.div`
-  width: 100%;
 `;
 
 export const Select = styled.select`

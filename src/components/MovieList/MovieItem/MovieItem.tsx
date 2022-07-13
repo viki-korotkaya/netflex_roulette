@@ -12,20 +12,30 @@ import ModalWindow from "../../ModalWindow/ModalWindow";
 
 interface MovieProps {
   movie: Movie;
+  openModal: boolean;
+  modalOpenHandler: (mode?: string, state?: any) => void;
 }
 
-const MovieItem: React.FC<MovieProps> = ({ movie }) => {
-  const { name, urlName, description, releaseDate } = movie;
-  const [openEditModal, setEditModal] = useState(false);
-  const [openDeleteModal, setDeleteModal] = useState(false);
+const MovieItem: React.FC<MovieProps> = ({ movie, modalOpenHandler, openModal }) => {
+  const { name, urlName, genre, releaseDate } = movie;
+  // const [openEditModal, setEditModal] = useState(false);
+  // const [openDeleteModal, setDeleteModal] = useState(false);
 
-  const editModalHandler = () => {
-    setEditModal(!openEditModal);
-  };
+  // const editModalHandler = () => {
+  //   setEditModal(!openEditModal);
+  // };
 
-  const deleteModalHandler = () => {
-    setDeleteModal(!openDeleteModal);
-  };
+  // const deleteModalHandler = () => {
+  //   setDeleteModal(!openDeleteModal);
+  // };
+
+  const openEditModal = () => {
+    modalOpenHandler('edit', movie);
+  }
+
+  const openDeleteModal = () => {
+    modalOpenHandler('delete', movie);
+  }
 
   const getMovieSrc = (name: string): string => {
     return `/images/${name}.png`;
@@ -33,17 +43,16 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
 
   return (
     <StyledMovieItem>
-      <ContextMenu editModalHandler={editModalHandler}  deleteModalHandler={deleteModalHandler} />
+      <ContextMenu editModalHandler={openEditModal}  deleteModalHandler={openDeleteModal} />
+      {/*<ContextMenu editModalHandler={editModalHandler}  deleteModalHandler={deleteModalHandler} />*/}
       <div>
         <img src={process.env.PUBLIC_URL + getMovieSrc(urlName)} alt={name} />
       </div>
       <StyledFlex>
         <StyledMovieTitle>{name}</StyledMovieTitle>
-        <StyledMovieYear>{releaseDate}</StyledMovieYear>
+        <StyledMovieYear>{releaseDate.split('-')[0]}</StyledMovieYear>
       </StyledFlex>
-      <div>{description}</div>
-      {openEditModal && <ModalWindow closeHandler={editModalHandler} initialState={movie} mode="edit" />}
-      {openDeleteModal && <ModalWindow closeHandler={deleteModalHandler} initialState={movie} mode="delete" />}
+      <div>{genre.map((item) => item.label).join(', ')}</div>
     </StyledMovieItem>
   );
 };

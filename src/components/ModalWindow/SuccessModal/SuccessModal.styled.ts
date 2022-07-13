@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {baseWeight, mainFontColor, smallWeight, xlarge, xxLarge} from "../../../styles/global_varables";
 
-export const DeleteModal = styled.div`
+export const SuccessModal = styled.div`
  color: ${mainFontColor};
 `;
 
@@ -10,6 +10,7 @@ export const TitleModal = styled.h2`
   font-weight: ${smallWeight};
   font-size: ${xxLarge};
   margin: 0;
+  text-align: center;
 `;
 
 export const BodyModal = styled.div`
@@ -21,4 +22,10 @@ export const BodyModal = styled.div`
 export const StyledFlex = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+export const ImgWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 `;

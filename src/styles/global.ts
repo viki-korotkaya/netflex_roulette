@@ -9,6 +9,7 @@ import {
   mainFontColor,
   base,
   baseWeight,
+  red
 } from "./global_varables";
 
 export default createGlobalStyle`
@@ -42,6 +43,9 @@ export default createGlobalStyle`
     //-moz-osx-font-smoothing: grayscale;
     html, body {
       height: 100%;
+    }
+    input[type="checkbox"] {
+      accent-color: ${red} !important;
     }
   }
 `;

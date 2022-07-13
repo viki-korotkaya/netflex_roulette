@@ -6,14 +6,16 @@ import { StyledFlex } from "./MovieList.styled";
 
 interface MovieListProps {
   movies: Movie[];
+  openModal: boolean;
+  modalOpenHandler: (mode?: string, state?: any) => void;
 }
 
 const MovieList: React.FC<MovieListProps> = (props) => {
-  const { movies } = props;
+  const { movies, openModal, modalOpenHandler } = props;
   return (
     <StyledFlex>
       {movies.map((movie) => (
-        <MovieItem movie={movie} key={movie.id} />
+        <MovieItem movie={movie} key={movie.id} openModal={openModal} modalOpenHandler={modalOpenHandler} />
       ))}
     </StyledFlex>
   );

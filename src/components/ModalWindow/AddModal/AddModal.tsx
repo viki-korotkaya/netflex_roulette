@@ -9,14 +9,14 @@ import {
   Select,
   StyledFlex,
   StyledFlexForButtons,
-  TextArea, SelectBox, OverSelect, CheckBoxes, CheckboxesWrapper, SelectWrapper
+  TextArea, SelectBox, OverSelect, CheckBoxes, CheckboxesWrapper
 } from "./AddModal.styled";
 import {PrimaryButton, SecondaryButton} from "../../Button/Button.styled";
 import {default as ReactSelect, MultiValue} from "react-select";
 import { ActionMeta, components } from "react-select";
 import {genreOptions} from "../../../assets/data/constData";
-import Option from './Option/Option';
-import {backgroundGrey} from "../../../styles/global_varables";
+import {backgroundGrey, backgroundMain, baseWeight, mainFontColor, xlarge, red} from "../../../styles/global_varables";
+import {Multiselect} from "multiselect-react-dropdown";
 
 interface ModalWindowProps {
   form: {
@@ -24,13 +24,14 @@ interface ModalWindowProps {
     releaseDate: string,
     url: string,
     rating: string | number,
-    genre: string[],
+    genre: { value: string, label: string }[],
     runtime: string | number,
     overview: string
   };
   handleOnChange: (e: SyntheticEvent) => void;
   handleSubmit: (e: SyntheticEvent) => void;
   handleFormReset: (e: SyntheticEvent) => void;
+  handleGenreChange: (selectedList: [], selectedItem: {}) => void;
   // handleGenreChange: ((newValue: MultiValue<unknown>, actionMeta: ActionMeta<unknown>) => void) | undefined;
   mode: string;
 };
@@ -40,11 +41,11 @@ interface Option {
 }
 
 const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
-  const {form, handleOnChange, handleSubmit, handleFormReset, mode} = props;
+  const {form, handleOnChange, handleSubmit, handleFormReset, handleGenreChange, mode} = props;
   const [openCheckboxes, setOpenCheckboxes] = useState(false);
 
-  const onChangeCheckbox = () => {
-
+  const onChangeCheckbox = (e: SyntheticEvent) => {
+    console.log(e);
   }
 
   const showCheckboxes = () => {
@@ -69,7 +70,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
         <div>
           <Label htmlFor="releaseDate">Release Date</Label>
           <InputDate
-            type="text"
+            type="date"
             name="releaseDate"
             id="releaseDate"
             value={form.releaseDate}
@@ -79,7 +80,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
       </StyledFlex>
       <StyledFlex>
         <div>
-          <Label htmlFor="url">Movie URL</Label>
+          <Label htmlFor="url">Models URL</Label>
           <InputLeft
             type="text"
             name="url"
@@ -106,61 +107,55 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
       <StyledFlex>
         <div>
           <Label htmlFor="genre">Genre</Label>
-          {/*<ReactSelect*/}
-          {/*  options={genreOptions}*/}
-          {/*  isMulti*/}
-          {/*  closeMenuOnSelect={false}*/}
-          {/*  hideSelectedOptions={false}*/}
-          {/*  onChange={handleGenreChange}*/}
-          {/*  components={{Option}}*/}
-          {/*  theme={(theme) => ({*/}
-          {/*    ...theme,*/}
-          {/*    borderRadius: 0,*/}
-          {/*    background: '#323232',*/}
-          {/*    colors: {*/}
-          {/*      ...theme.colors,*/}
-          {/*      primary25: 'hotpink',*/}
-          {/*      primary: 'black',*/}
-          {/*    },*/}
-          {/*  })}*/}
-          {/*/>*/}
-          <SelectBox onClick={showCheckboxes}>
-            {/*<Label htmlFor="genre">Genre</Label>*/}
-            {/*<Select id="genre" name="genre" multiple value={form.genre} onChange={handleOnChange}>*/}
-            {/*  <option value="default" disabled>Select genre</option>*/}
-            {/*  <option value="documentary">Documentary</option>*/}
-            {/*  <option value="horror">Horror</option>*/}
-            {/*  <option value="crime">Crime</option>*/}
-            {/*  <option value="comedy">Comedy</option>*/}
-            {/*</Select>*/}
-
-            <Select>
-              <option>Select genre</option>
-            </Select>
-            <OverSelect></OverSelect>
-          </SelectBox>
-
-          <CheckboxesWrapper>
-            {openCheckboxes && <CheckBoxes>
-              <label htmlFor="crime">
-                <input type="checkbox" id="crime" onChange={onChangeCheckbox}/>
-                Crime
-              </label>
-
-              <label htmlFor="documentary">
-                <input type="checkbox" id="documentary"/>
-                Documentary
-              </label>
-              <label htmlFor="horror">
-                <input type="checkbox" id="horror"/>
-                Horror
-              </label>
-              <label htmlFor="comedy">
-                <input type="checkbox" id="comedy"/>
-                Comedy
-              </label>
-            </CheckBoxes>}
-          </CheckboxesWrapper>
+          <Multiselect
+            displayValue="label"
+            selectedValues={form.genre}
+            hidePlaceholder={true}
+            placeholder='Select Genre'
+            onRemove={handleGenreChange}
+            onSelect={handleGenreChange}
+            options={genreOptions}
+            showCheckbox
+            showArrow={false}
+            style={{
+              searchBox: {
+                display: 'flex',
+              width: '525px',
+              height: '56.5px',
+              paddingLeft: '17px',
+              paddingRight: '17px',
+              borderRadius: 0,
+              background: `${backgroundGrey}`,
+              border: 0,
+              color: `${mainFontColor}`,
+              fontWeight: `${baseWeight}`,
+              fontSize: `${xlarge}`,
+              backgroundImage: `linear-gradient(45deg, transparent 50%, ${red} 50%), linear-gradient(135deg, ${red} 50%, transparent 50%)`,
+              backgroundPosition:
+              `calc(100% - 20px) calc(1em + 2px),
+              calc(100% - 15px) calc(1em + 2px),
+              calc(100% - .5em) .5em`,
+              backgroundSize:
+              `5px 5px,
+              5px 5px,
+              1.5em 1.5em`,
+              backgroundRepeat: 'no-repeat'
+            },
+              optionContainer: {
+                color: `${mainFontColor}`,
+                background: `${backgroundMain}`,
+                border: 0
+              },
+              chips: {
+                background: `${red}`,
+                alignSelf: 'center'
+              },
+              option: {
+                background: `${backgroundMain}`
+              },
+              checkbox: {accentColor: `${red} !import`}
+            }}
+          />
         </div>
         <div>
           <Label htmlFor="runtime">Runtime</Label>
@@ -181,7 +176,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
           name="overview"
           rows={4}
           cols={50}
-          placeholder="Movie description"
+          placeholder="Models description"
           value={form.overview}
           onChange={handleOnChange}
         />
