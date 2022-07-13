@@ -1,4 +1,4 @@
-import {Movie, State} from "../../models/movie";
+import {Movie, State, Option} from "../../models/movie";
 
 export const nav = ["all", "documentary", "comedy", "horror", "crime"];
 
@@ -77,7 +77,7 @@ export const initialState: State = {
   description: ''
 };
 
-export const genreOptions = [
+export const genreOptions: Option[] = [
   { value: "documentary", label: "Documentary" },
   { value: "comedy", label: "Comedy" },
   { value: "horror", label: "Horror" },

@@ -8,7 +8,9 @@ import {
   whiteCoconut,
   mediumWeight,
   borderSideTriangle,
-  borderTopTriangle, backgroundMain, mainFontColor, xlarge, backgroundGrey,
+  borderTopTriangle,
+  mainFontColor,
+  black
 } from "../../styles/global_varables";
 
 export const StyledFilterDiv = styled.div`
@@ -77,15 +79,7 @@ export const Select = styled.select`
   grid-area: select;
   cursor: pointer;
   text-transform: uppercase;
-  // background-image: linear-gradient(45deg, transparent 50%, ${red} 50%),
-  // linear-gradient(135deg, ${red} 50%, transparent 50%);
-  // background-position:
-  //         calc(100% - 20px) calc(1em + 2px),
-  //         calc(100% - 15px) calc(1em + 2px),
-  //         calc(100% - .5em) .5em;
-  // background-size:
-  //         5px 5px,
-  //         5px 5px,
-  //         1.5em 1.5em;
-  // background-repeat: no-repeat;
+  & > option {
+    color: ${black};
+  }
 `;

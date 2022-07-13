@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 import { StyledMain, StyledSumDiv } from "./Main.styled";
-import { movieList, nav } from "../../assets/data/constData";
+import { nav } from "../../assets/data/constData";
 import Nav from "../../components/Nav/Nav";
 import MovieList from "../../components/MovieList/MovieList";
 import {Movie} from "../../models/movie";
@@ -13,27 +13,21 @@ interface MainProps {
 }
 
 const Main: React.FC<MainProps> = (props) => {
-  const [data, setData] = useState<Movie[]>([]);
-  const [sortType, setSortType] = useState('default');
+  const [sortedData, setSortedData] = useState<Movie[]>(props.movieList);
+  const [sortType, setSortType] = useState('');
 
   useEffect(() => {
-    const sortArray = (type: string) => {
-      let sorted = [];
+    // const sortArray = (type: string) => {
+      let sorted;
       if (sortType === 'releaseDate') {
-        // @ts-ignore
-        sorted = [...data].sort((a, b) => new Date(b[sortType]) - new Date(a[sortType]));
+        sorted = [...props.movieList].sort((a, b) => +new Date(b[sortType]) - +new Date(a[sortType]));
       } else if (sortType === 'name') {
-        sorted = [...data].sort((a, b) => a[sortType].localeCompare(b[sortType]));
+        sorted = [...props.movieList].sort((a, b) => a[sortType].localeCompare(b[sortType]));
       } else {
-        sorted = [...data];
+        sorted = [...props.movieList];
       }
-      setData(sorted);
-    };
-
-    sortArray(sortType);
-  }, [sortType]);
-
-  useEffect(() => setData(props.movieList), [props.movieList]);
+      setSortedData(sorted);
+  }, [props.movieList, sortType]);
 
   const changeSorting = (type: string) => {
     setSortType(type);
@@ -43,7 +37,7 @@ const Main: React.FC<MainProps> = (props) => {
     <StyledMain>
       <Nav navList={nav} sortingHandler={(type) => changeSorting(type)} />
       <StyledSumDiv>39 movie found</StyledSumDiv>
-      <MovieList movies={data} openModal={props.open} modalOpenHandler={props.toggleHandler} />
+      <MovieList movies={sortedData} openModal={props.open} modalOpenHandler={props.toggleHandler} />
     </StyledMain>
   );
 };

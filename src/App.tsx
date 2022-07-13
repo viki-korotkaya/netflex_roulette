@@ -7,7 +7,6 @@ import ModalWindow from "./components/ModalWindow/ModalWindow";
 import "./App.css";
 import {initialState} from "./assets/data/constData";
 import {Movie, State} from "./models/movie";
-import { movieList } from "./assets/data/constData";
 import {fetchMovies} from "./api/movieService";
 
 const App: React.FC = () => {
@@ -18,7 +17,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     loadMovies();
-  });
+  }, []);
 
   const callHandler = (mode?: string, state?: State | Movie ) => {
     if (mode) {

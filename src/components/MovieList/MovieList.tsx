@@ -11,11 +11,11 @@ interface MovieListProps {
 }
 
 const MovieList: React.FC<MovieListProps> = (props) => {
-  const { movies, openModal, modalOpenHandler } = props;
+  const { movies, modalOpenHandler } = props;
   return (
     <StyledFlex>
       {movies.map((movie) => (
-        <MovieItem movie={movie} key={movie.id} openModal={openModal} modalOpenHandler={modalOpenHandler} />
+        <MovieItem movie={movie} key={movie.id} modalOpenHandler={modalOpenHandler} />
       ))}
     </StyledFlex>
   );

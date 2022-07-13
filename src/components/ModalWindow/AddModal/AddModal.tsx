@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState} from "react";
+import React, {SyntheticEvent} from "react";
 import {
   Form,
   TitleModal,
@@ -6,14 +6,11 @@ import {
   InputLeft,
   InputRight,
   Label,
-  Select,
   StyledFlex,
   StyledFlexForButtons,
-  TextArea, SelectBox, OverSelect, CheckBoxes, CheckboxesWrapper
+  TextArea
 } from "./AddModal.styled";
 import {PrimaryButton, SecondaryButton} from "../../Button/Button.styled";
-import {default as ReactSelect, MultiValue} from "react-select";
-import { ActionMeta, components } from "react-select";
 import {genreOptions} from "../../../assets/data/constData";
 import {backgroundGrey, backgroundMain, baseWeight, mainFontColor, xlarge, red} from "../../../styles/global_varables";
 import {Multiselect} from "multiselect-react-dropdown";
@@ -32,25 +29,11 @@ interface ModalWindowProps {
   handleSubmit: (e: SyntheticEvent) => void;
   handleFormReset: (e: SyntheticEvent) => void;
   handleGenreChange: (selectedList: [], selectedItem: {}) => void;
-  // handleGenreChange: ((newValue: MultiValue<unknown>, actionMeta: ActionMeta<unknown>) => void) | undefined;
   mode: string;
-};
-
-interface Option {
-  value: string, label: string
 }
 
 const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
   const {form, handleOnChange, handleSubmit, handleFormReset, handleGenreChange, mode} = props;
-  const [openCheckboxes, setOpenCheckboxes] = useState(false);
-
-  const onChangeCheckbox = (e: SyntheticEvent) => {
-    console.log(e);
-  }
-
-  const showCheckboxes = () => {
-    setOpenCheckboxes(!openCheckboxes);
-  }
 
   return (
     <Form onSubmit={handleSubmit}>

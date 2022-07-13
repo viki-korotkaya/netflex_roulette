@@ -5,11 +5,11 @@ import {
     StyledFlex,
     CloseBtn
 } from "./ModalWindow.styled";
-import {movieList} from "../../assets/data/constData";
 import AddModalWindow from "./AddModal/AddModal";
 import DeleteModalWindow from "./DeleteModal/DeleteModal";
 import {addMovie, editMovie, deleteMovie} from "../../api/movieService";
 import SuccessModalWindow from "./SuccessModal/SuccessModal";
+import {MovieType} from "../../models/movie";
 
 interface ModalWindowProps {
     closeHandler: () => void;
@@ -25,18 +25,9 @@ interface ModalWindowProps {
         runtime: string | number,
         description: string
     }
-};
-
-type Movie = {
-    id: string;
-    name: string;
-    urlName: string;
-    releaseDate: string;
-    description: string;
-    rating: number;
-    genre: { value: string, label: string }[] | [];
-    runtime: number;
 }
+
+
 
 const ModalWindow: React.FC<ModalWindowProps> = ({closeHandler, initialState, mode, loadMovies}) => {
     const [form, setState] = useState({
@@ -72,8 +63,8 @@ const ModalWindow: React.FC<ModalWindowProps> = ({closeHandler, initialState, mo
 
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault();
-        let movie = {} as Movie;
-        movie.id = initialState.id ? initialState.id : (movieList.length + 1).toString();
+        let movie = {} as MovieType;
+        movie.id = initialState.id ? initialState.id : Date.now().toString();
         movie.name = form.title;
         movie.urlName = form.url;
         movie.releaseDate = form.releaseDate;
@@ -96,7 +87,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({closeHandler, initialState, mo
         }
     }
 
-    const handleGenreChange = (selectedList: { value: string, label: string }[] | [], selectedItem?: any) => {
+    const handleGenreChange = (selectedList: { value: string, label: string }[] | []) => {
         setState({...form, genre: selectedList});
     };
 

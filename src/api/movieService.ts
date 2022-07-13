@@ -4,7 +4,7 @@ import {Movie} from "../models/movie";
 
 export const fetchMovies: () => Promise<Movie[]> = () => {
   return new Promise((res,rej) => {
-    return setTimeout(() => res(movieList), 0);
+    return setTimeout(() => res([...movieList]), 0);
   });
 };
 
@@ -30,4 +30,4 @@ export const deleteMovie = (id: string | undefined) => {
     movieList.splice(indexOfMovie, 1);
     return res(true);
   }, 1000))
-}
+};
