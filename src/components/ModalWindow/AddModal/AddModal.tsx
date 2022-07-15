@@ -21,17 +21,10 @@ import {
   red,
 } from "../../../styles/global_varables";
 import { Multiselect } from "multiselect-react-dropdown";
+import {MovieFormProps} from "../../../models/movie";
 
 interface ModalWindowProps {
-  form: {
-    title: string;
-    releaseDate: string;
-    url: string;
-    rating: string | number;
-    genre: { value: string; label: string }[];
-    runtime: string | number;
-    overview: string;
-  };
+  form: MovieFormProps;
   handleOnChange: (e: SyntheticEvent) => void;
   handleSubmit: (e: SyntheticEvent) => void;
   handleFormReset: (e: SyntheticEvent) => void;

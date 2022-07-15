@@ -1,4 +1,4 @@
-import { formInitialForMovie, Movie, Option } from "../../models/movie";
+import { MovieFormProps, Movie, Option } from "../../models/movie";
 
 export const nav = ["all", "documentary", "comedy", "horror", "crime"];
 
@@ -70,7 +70,7 @@ export let movieList: Movie[] = [
   },
 ];
 
-export const formInitial: formInitialForMovie = {
+export const formInitial: MovieFormProps = {
   title: "",
   releaseDate: "",
   url: "",

@@ -10,9 +10,9 @@ import { fetchMovies } from "./api/movieService";
 
 const App: React.FC = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [mode, setMode] = useState<Mode>(Mode.DEFAULT);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | undefined>(
-    undefined
+  const [mode, setMode] = useState<Mode>(Mode.Default);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(
+    null
   );
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -32,7 +32,7 @@ const App: React.FC = () => {
 
   const closeModalHandler = () => {
     setIsOpenModal(false);
-    setSelectedMovie(undefined);
+    setSelectedMovie(null);
   };
 
   return (

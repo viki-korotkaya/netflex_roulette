@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     <StyledHeader>
       <StyledFlex>
         <Logo />
-        <TransparentButton onClick={() => props.openModal(Mode.ADD)}>
+        <TransparentButton onClick={() => props.openModal(Mode.Add)}>
           + Add movie
         </TransparentButton>
       </StyledFlex>

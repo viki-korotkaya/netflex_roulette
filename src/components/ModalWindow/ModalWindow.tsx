@@ -9,14 +9,14 @@ import AddModalWindow from "./AddModal/AddModal";
 import DeleteModalWindow from "./DeleteModal/DeleteModal";
 import { addMovie, deleteMovie, editMovie } from "../../api/movieService";
 import SuccessModalWindow from "./SuccessModal/SuccessModal";
-import {formInitialForMovie, Mode, Movie} from "../../models/movie";
+import {MovieFormProps, Mode, Movie} from "../../models/movie";
 import { formInitial } from "../../assets/data/constData";
 
 interface ModalWindowProps {
   closeHandler: () => void;
   loadMovies: () => void;
   mode: Mode;
-  editedMovie?: Movie;
+  editedMovie: Movie | null;
 }
 
 const ModalWindow: React.FC<ModalWindowProps> = ({
@@ -26,18 +26,12 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
   loadMovies,
 }) => {
   const movieInitial = editedMovie ? editedMovie : formInitial;
-  const getInitialForm = (initial: formInitialForMovie) =>{
+  const getInitialForm = (initial: MovieFormProps) =>{
     return {
-      title: initial.title,
-      releaseDate: initial.releaseDate,
-      url: initial.url,
-      rating: initial.rating,
-      genre: initial.genre,
-      runtime: initial.runtime,
-      overview: initial.overview
+      ...initial
     }
   }
-  const [form, setState] = useState<formInitialForMovie>(() => getInitialForm(movieInitial));
+  const [form, setState] = useState<MovieFormProps>(() => getInitialForm(movieInitial));
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
 
@@ -56,17 +50,12 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    let movie = {} as Movie;
-    movie.id = editedMovie ? editedMovie.id : Date.now().toString();
-    movie.title = form.title;
-    movie.url = form.url;
-    movie.releaseDate = form.releaseDate;
-    movie.overview = form.overview;
-    movie.rating = form.rating;
-    movie.genre = form.genre;
-    movie.runtime = form.runtime;
-    if (mode === Mode.EDIT) {
-      editMovie(movie, editedMovie?.id).then((res) => {
+    const movie: Movie = {
+      ...form,
+      id: editedMovie ? editedMovie.id : Date.now().toString(),
+    };
+    if (mode === Mode.Edit && editedMovie) {
+      editMovie(movie, editedMovie.id).then((res) => {
         setStep(2);
         setMessage("The movie has been edited successfully");
         loadMovies();

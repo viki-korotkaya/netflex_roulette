@@ -18,11 +18,11 @@ const MovieItem: React.FC<MovieProps> = ({ movie, modalOpenHandler }) => {
   const { title, url, genre, releaseDate } = movie;
 
   const openEditModal = () => {
-    modalOpenHandler(Mode.EDIT, movie);
+    modalOpenHandler(Mode.Edit, movie);
   };
 
   const openDeleteModal = () => {
-    modalOpenHandler(Mode.DELETE, movie);
+    modalOpenHandler(Mode.Delete, movie);
   };
 
   const getMovieSrc = (url: string): string => {

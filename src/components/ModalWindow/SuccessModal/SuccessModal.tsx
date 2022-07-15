@@ -7,11 +7,11 @@ import {
 } from "./SuccessModal.styled";
 import Success from "../../../assets/images/success.svg";
 
-interface ModalWindowProps {
+interface SuccessModalProps {
   message: string;
 }
 
-const SuccessModalWindow: React.FC<ModalWindowProps> = ({ message }) => {
+const SuccessModalWindow: React.FC<SuccessModalProps> = ({ message }) => {
   return (
     <SuccessModal>
       <ImgWrapper>

@@ -9,7 +9,7 @@ export interface Movie {
   runtime: number;
 }
 
-export interface formInitialForMovie {
+export interface MovieFormProps {
   title: string;
   releaseDate: string;
   url: string;
@@ -25,8 +25,8 @@ export interface Option {
 }
 
 export enum Mode {
-  ADD = "add",
-  EDIT = "edit",
-  DELETE = "delete",
-  DEFAULT = "",
+  Add = "add",
+  Edit = "edit",
+  Delete = "delete",
+  Default = "",
 }
