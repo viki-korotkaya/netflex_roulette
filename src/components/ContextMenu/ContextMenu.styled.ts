@@ -2,12 +2,15 @@ import styled from "styled-components";
 import {
   backgroundMain,
   contextMenuSize,
-  dotSize, dropDownWidth,
+  dotSize,
+  dropDownWidth,
   mainFontColor,
-  margin3, medium, mediumWeight,
+  margin3,
+  medium,
+  mediumWeight,
   padding7,
   purpleDark,
-  red
+  red,
 } from "../../styles/global_varables";
 
 export const StyledContextMenu = styled.div`
@@ -22,7 +25,6 @@ export const StyledContextMenu = styled.div`
   cursor: pointer;
   opacity: 0;
   &:hover {
-    
   }
 `;
 

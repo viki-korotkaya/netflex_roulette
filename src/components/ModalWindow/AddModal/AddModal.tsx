@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from "react";
+import React, { SyntheticEvent } from "react";
 import {
   Form,
   TitleModal,
@@ -8,22 +8,29 @@ import {
   Label,
   StyledFlex,
   StyledFlexForButtons,
-  TextArea
+  TextArea,
 } from "./AddModal.styled";
-import {PrimaryButton, SecondaryButton} from "../../Button/Button.styled";
-import {genreOptions} from "../../../assets/data/constData";
-import {backgroundGrey, backgroundMain, baseWeight, mainFontColor, xlarge, red} from "../../../styles/global_varables";
-import {Multiselect} from "multiselect-react-dropdown";
+import { PrimaryButton, SecondaryButton } from "../../Button/Button.styled";
+import { genreOptions } from "../../../assets/data/constData";
+import {
+  backgroundGrey,
+  backgroundMain,
+  baseWeight,
+  mainFontColor,
+  xlarge,
+  red,
+} from "../../../styles/global_varables";
+import { Multiselect } from "multiselect-react-dropdown";
 
 interface ModalWindowProps {
   form: {
-    title: string,
-    releaseDate: string,
-    url: string,
-    rating: string | number,
-    genre: { value: string, label: string }[],
-    runtime: string | number,
-    overview: string
+    title: string;
+    releaseDate: string;
+    url: string;
+    rating: string | number;
+    genre: { value: string; label: string }[];
+    runtime: string | number;
+    overview: string;
   };
   handleOnChange: (e: SyntheticEvent) => void;
   handleSubmit: (e: SyntheticEvent) => void;
@@ -33,11 +40,18 @@ interface ModalWindowProps {
 }
 
 const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
-  const {form, handleOnChange, handleSubmit, handleFormReset, handleGenreChange, mode} = props;
+  const {
+    form,
+    handleOnChange,
+    handleSubmit,
+    handleFormReset,
+    handleGenreChange,
+    mode,
+  } = props;
 
   return (
     <Form onSubmit={handleSubmit}>
-      <TitleModal>{mode === 'add' ? 'Add movie' : 'Edit movie'}</TitleModal>
+      <TitleModal>{mode === "add" ? "Add movie" : "Edit movie"}</TitleModal>
       <StyledFlex>
         <div>
           <Label htmlFor="title">Title</Label>
@@ -94,50 +108,13 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
             displayValue="label"
             selectedValues={form.genre}
             hidePlaceholder={true}
-            placeholder='Select Genre'
+            placeholder="Select Genre"
             onRemove={handleGenreChange}
             onSelect={handleGenreChange}
             options={genreOptions}
             showCheckbox
             showArrow={false}
-            style={{
-              searchBox: {
-                display: 'flex',
-              width: '525px',
-              height: '56.5px',
-              paddingLeft: '17px',
-              paddingRight: '17px',
-              borderRadius: 0,
-              background: `${backgroundGrey}`,
-              border: 0,
-              color: `${mainFontColor}`,
-              fontWeight: `${baseWeight}`,
-              fontSize: `${xlarge}`,
-              backgroundImage: `linear-gradient(45deg, transparent 50%, ${red} 50%), linear-gradient(135deg, ${red} 50%, transparent 50%)`,
-              backgroundPosition:
-              `calc(100% - 20px) calc(1em + 2px),
-              calc(100% - 15px) calc(1em + 2px),
-              calc(100% - .5em) .5em`,
-              backgroundSize:
-              `5px 5px,
-              5px 5px,
-              1.5em 1.5em`,
-              backgroundRepeat: 'no-repeat'
-            },
-              optionContainer: {
-                color: `${mainFontColor}`,
-                background: `${backgroundMain}`,
-                border: 0
-              },
-              chips: {
-                background: `${red}`,
-                alignSelf: 'center'
-              },
-              option: {
-                background: `${backgroundMain}`
-              },
-              checkbox: {accentColor: `${red} !import`}
-            }}
+            style={styleForMultiSelect}
           />
         </div>
         <div>
@@ -170,6 +147,43 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
       </StyledFlexForButtons>
     </Form>
   );
-}
+};
 
 export default AddModalWindow;
+
+const styleForMultiSelect = {
+  searchBox: {
+    display: "flex",
+    width: "525px",
+    height: "56.5px",
+    paddingLeft: "17px",
+    paddingRight: "17px",
+    borderRadius: 0,
+    background: `${backgroundGrey}`,
+    border: 0,
+    color: `${mainFontColor}`,
+    fontWeight: `${baseWeight}`,
+    fontSize: `${xlarge}`,
+    backgroundImage: `linear-gradient(45deg, transparent 50%, ${red} 50%), linear-gradient(135deg, ${red} 50%, transparent 50%)`,
+    backgroundPosition: `calc(100% - 20px) calc(1em + 2px),
+              calc(100% - 15px) calc(1em + 2px),
+              calc(100% - .5em) .5em`,
+    backgroundSize: `5px 5px,
+              5px 5px,
+              1.5em 1.5em`,
+    backgroundRepeat: "no-repeat",
+  },
+  optionContainer: {
+    color: `${mainFontColor}`,
+    background: `${backgroundMain}`,
+    border: 0,
+  },
+  chips: {
+    background: `${red}`,
+    alignSelf: "center",
+  },
+  option: {
+    background: `${backgroundMain}`,
+  },
+  checkbox: { accentColor: `${red} !import` },
+}

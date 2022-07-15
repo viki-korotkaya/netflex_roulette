@@ -8,13 +8,11 @@ import {
   red,
   smallWeight,
   xlarge,
-  xxLarge
+  xxLarge,
 } from "../../../styles/global_varables";
 import Calendar from "../../../assets/images/calendar.svg";
 
-export const Form = styled.form`
-
-`;
+export const Form = styled.form``;
 
 export const TitleModal = styled.h2`
   text-transform: uppercase;
@@ -56,9 +54,7 @@ export const InputRight = styled.input`
   }
 `;
 
-export const InputDate = styled(InputRight)`
-
-`;
+export const InputDate = styled(InputRight)``;
 
 export const TextArea = styled.textarea`
   width: 100%;

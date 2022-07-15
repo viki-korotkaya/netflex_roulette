@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import {
   StyledFilterDiv,
-  StyledDiv,
-  StyledArrowDown,
-  StyledFlex, Select, SelectWrapper
+  StyledFlex,
+  Select,
+  SelectWrapper,
 } from "./Filter.styled";
 
 interface FilterProps {
@@ -12,9 +12,9 @@ interface FilterProps {
 }
 
 const Filter: React.FC<FilterProps> = (props) => {
-  const [type, setType] = useState('default');
+  const [type, setType] = useState("default");
 
-  const  handleOnChange = (sortingType: string) => {
+  const handleOnChange = (sortingType: string) => {
     setType(sortingType);
     props.sortingHandler(sortingType);
   };
@@ -24,9 +24,11 @@ const Filter: React.FC<FilterProps> = (props) => {
       <StyledFilterDiv>Sort by</StyledFilterDiv>
       <SelectWrapper>
         <Select value={type} onChange={(e) => handleOnChange(e.target.value)}>
-          <option value="default" disabled>Sort option:</option>
+          <option value="default" disabled>
+            Sort option:
+          </option>
           <option value="releaseDate">Release Date</option>
-          <option value="name">Name</option>
+          <option value="title">Title</option>
         </Select>
       </SelectWrapper>
     </StyledFlex>

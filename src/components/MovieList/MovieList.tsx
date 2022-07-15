@@ -1,13 +1,12 @@
 import React from "react";
 
-import { Movie } from "../../models/movie";
+import { Mode, Movie } from "../../models/movie";
 import MovieItem from "./MovieItem/MovieItem";
 import { StyledFlex } from "./MovieList.styled";
 
 interface MovieListProps {
   movies: Movie[];
-  openModal: boolean;
-  modalOpenHandler: (mode?: string, state?: any) => void;
+  modalOpenHandler: (mode: Mode, movie?: Movie) => void;
 }
 
 const MovieList: React.FC<MovieListProps> = (props) => {
@@ -15,7 +14,11 @@ const MovieList: React.FC<MovieListProps> = (props) => {
   return (
     <StyledFlex>
       {movies.map((movie) => (
-        <MovieItem movie={movie} key={movie.id} modalOpenHandler={modalOpenHandler} />
+        <MovieItem
+          movie={movie}
+          key={movie.id}
+          modalOpenHandler={modalOpenHandler}
+        />
       ))}
     </StyledFlex>
   );

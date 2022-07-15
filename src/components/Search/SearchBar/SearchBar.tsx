@@ -4,8 +4,7 @@ import { StyledFlex, SearchInput } from "./SearchBar.styled";
 import { PrimaryButton } from "../../Button/Button.styled";
 
 const SearchBar: React.FC = () => {
-  const callHandler = () => {
-  };
+  const callHandler = () => {};
   return (
     <form>
       <StyledFlex>

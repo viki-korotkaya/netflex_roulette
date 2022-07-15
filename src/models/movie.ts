@@ -1,39 +1,32 @@
 export interface Movie {
   id: string;
-  name: string;
-  urlName: string;
+  title: string;
+  url: string;
   releaseDate: string;
-  description: string;
+  overview: string;
   rating: number;
-  genre: { value: string, label: string }[];
+  genre: { value: string; label: string }[] | [];
   runtime: number;
 }
 
-export interface State {
-  name: string;
+export interface formInitialForMovie {
+  title: string;
   releaseDate: string;
-  urlName: string;
-  rating: string;
-  genre: [];
-  runtime: string;
-  description: string;
+  url: string;
+  rating: number;
+  genre: { value: string; label: string }[] | [];
+  runtime: number;
+  overview: string;
 }
-
-
 
 export interface Option {
-  value: string, label: string
+  value: string;
+  label: string;
 }
 
-export type MovieType = {
-  id: string;
-  name: string;
-  urlName: string;
-  releaseDate: string;
-  description: string;
-  rating: number;
-  genre: { value: string, label: string }[] | [];
-  runtime: number;
+export enum Mode {
+  ADD = "add",
+  EDIT = "edit",
+  DELETE = "delete",
+  DEFAULT = "",
 }
-
-

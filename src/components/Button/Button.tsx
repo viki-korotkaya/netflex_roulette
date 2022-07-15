@@ -8,7 +8,14 @@ export interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-  return <StyledButton type={props.type ? props.type : 'button'} onClick={props.onClick}>{props.children}</StyledButton>;
+  return (
+    <StyledButton
+      type={props.type ? props.type : "button"}
+      onClick={props.onClick}
+    >
+      {props.children}
+    </StyledButton>
+  );
 };
 
 export default Button;

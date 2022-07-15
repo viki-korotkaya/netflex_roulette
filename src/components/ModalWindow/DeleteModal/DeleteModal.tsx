@@ -1,14 +1,19 @@
-import React, {SyntheticEvent} from "react";
+import React, { SyntheticEvent } from "react";
 import {
-  TitleModal, BodyModal, DeleteModal, StyledFlex
+  TitleModal,
+  BodyModal,
+  DeleteModal,
+  StyledFlex,
 } from "./DeleteModal.styled";
-import {PrimaryButton, SecondaryButton} from "../../Button/Button.styled";
+import { PrimaryButton } from "../../Button/Button.styled";
 
 interface ModalWindowProps {
   handleDeleteMovie: (e: SyntheticEvent) => void;
-};
+}
 
-const DeleteModalWindow: React.FC<ModalWindowProps> = ({handleDeleteMovie}) => {
+const DeleteModalWindow: React.FC<ModalWindowProps> = ({
+  handleDeleteMovie,
+}) => {
   return (
     <DeleteModal>
       <TitleModal>Delete movie</TitleModal>
@@ -18,6 +23,6 @@ const DeleteModalWindow: React.FC<ModalWindowProps> = ({handleDeleteMovie}) => {
       </StyledFlex>
     </DeleteModal>
   );
-}
+};
 
 export default DeleteModalWindow;

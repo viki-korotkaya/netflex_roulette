@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import {
-    backgroundMain,
-    darkTransparent,
-    mainFontColor,
-    mediumWeight
+  backgroundMain,
+  darkTransparent,
+  mainFontColor,
+  mediumWeight,
 } from "../../styles/global_varables";
 
 export const StyledModal = styled.div`

@@ -4,18 +4,20 @@ import Search from "../../components/Search/Search";
 import Logo from "../../components/Logo/Logo";
 import { TransparentButton } from "../../components/Button/Button.styled";
 import { StyledHeader, StyledFlex } from "./Header.styled";
+import { Mode, Movie } from "../../models/movie";
 
 interface HeaderProps {
-  open: boolean;
-  toggleHandler: (mode?: string) => void;
+  openModal: (mode: Mode, movie?: Movie) => void;
 }
 
-const Header: React.FC<HeaderProps>  = (props) => {
+const Header: React.FC<HeaderProps> = (props) => {
   return (
-    <StyledHeader >
+    <StyledHeader>
       <StyledFlex>
         <Logo />
-        <TransparentButton onClick={() => props.toggleHandler('add')}>+ Add movie</TransparentButton>
+        <TransparentButton onClick={() => props.openModal(Mode.ADD)}>
+          + Add movie
+        </TransparentButton>
       </StyledFlex>
       <Search />
     </StyledHeader>

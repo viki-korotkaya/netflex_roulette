@@ -1,45 +1,53 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 
 import Header from "./containers/Header/Header";
 import Main from "./containers/Main/Main";
 import Footer from "./containers/Footer/Footer";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
 import "./App.css";
-import {initialState} from "./assets/data/constData";
-import {Movie, State} from "./models/movie";
-import {fetchMovies} from "./api/movieService";
+import { Mode, Movie } from "./models/movie";
+import { fetchMovies } from "./api/movieService";
 
 const App: React.FC = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const [mode, setMode] = useState('');
-  const [initialDate, setInitialDate] = useState<State | Movie>(initialState);
-  const [movies, setMovies] = useState<Movie[] | []>([]);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [mode, setMode] = useState<Mode>(Mode.DEFAULT);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | undefined>(
+    undefined
+  );
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     loadMovies();
   }, []);
 
-  const callHandler = (mode?: string, state?: State | Movie ) => {
-    if (mode) {
-      setMode(mode);
-      setInitialDate(initialState);
-    }
-    if (state) {
-      setInitialDate(state);
-    }
-    setOpenModal(!openModal);
+  const loadMovies = () => {
+    fetchMovies().then((data: Movie[]) => setMovies(data));
   };
 
-  const loadMovies = () => {
-    fetchMovies().then((data: Movie[] | []) => setMovies(data));
-  }
+  const openModalHandler = (mode: Mode, movie?: Movie) => {
+    setMode(mode);
+    if (movie) setSelectedMovie(movie);
+    setIsOpenModal(true);
+  };
+
+  const closeModalHandler = () => {
+    setIsOpenModal(false);
+    setSelectedMovie(undefined);
+  };
 
   return (
     <>
-      <Header open={openModal} toggleHandler={callHandler} />
-      <Main open={openModal} toggleHandler={callHandler} movieList={movies} />
+      <Header openModal={openModalHandler} />
+      <Main movieList={movies} openModal={openModalHandler} />
       <Footer />
-      {openModal && <ModalWindow closeHandler={callHandler} initialState={initialDate} mode={mode} loadMovies={loadMovies} />}
+      {isOpenModal && (
+        <ModalWindow
+          closeHandler={closeModalHandler}
+          editedMovie={selectedMovie}
+          mode={mode}
+          loadMovies={loadMovies}
+        />
+      )}
     </>
   );
 };

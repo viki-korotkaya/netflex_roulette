@@ -5,8 +5,8 @@ import NavItem from "./NavItem/NavItem";
 import Filter from "../Filter/Filter";
 
 interface NavProps {
-    navList: string[];
-    sortingHandler: (type: string) => void;
+  navList: string[];
+  sortingHandler: (type: string) => void;
 }
 
 const Nav: React.FC<NavProps> = (props) => {

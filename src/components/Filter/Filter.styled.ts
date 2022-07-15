@@ -10,7 +10,7 @@ import {
   borderSideTriangle,
   borderTopTriangle,
   mainFontColor,
-  black
+  black,
 } from "../../styles/global_varables";
 
 export const StyledFilterDiv = styled.div`
@@ -73,9 +73,9 @@ export const Select = styled.select`
   color: ${mainFontColor};
   font-weight: ${mediumWeight};
   font-size: ${medium};
-  -moz-appearance:none; /* Firefox */
-  -webkit-appearance:none; /* Safari and Chrome */
-  appearance:none;
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
   grid-area: select;
   cursor: pointer;
   text-transform: uppercase;

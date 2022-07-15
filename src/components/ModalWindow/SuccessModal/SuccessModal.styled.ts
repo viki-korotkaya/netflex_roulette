@@ -1,8 +1,14 @@
 import styled from "styled-components";
-import {baseWeight, mainFontColor, smallWeight, xlarge, xxLarge} from "../../../styles/global_varables";
+import {
+  baseWeight,
+  mainFontColor,
+  smallWeight,
+  xlarge,
+  xxLarge,
+} from "../../../styles/global_varables";
 
 export const SuccessModal = styled.div`
- color: ${mainFontColor};
+  color: ${mainFontColor};
 `;
 
 export const TitleModal = styled.h2`

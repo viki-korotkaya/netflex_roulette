@@ -1,45 +1,48 @@
 import React from "react";
 
 import {
+  StyledFlex,
   StyledMovieItem,
   StyledMovieTitle,
   StyledMovieYear,
-  StyledFlex,
 } from "./MovieItem.styled";
 import ContextMenu from "../../ContextMenu/ContextMenu";
-import { Movie } from "../../../models/movie";
+import { Mode, Movie } from "../../../models/movie";
 
 interface MovieProps {
   movie: Movie;
-  modalOpenHandler: (mode?: string, state?: any) => void;
+  modalOpenHandler: (mode: Mode, movie?: Movie) => void;
 }
 
 const MovieItem: React.FC<MovieProps> = ({ movie, modalOpenHandler }) => {
-  const { name, urlName, genre, releaseDate } = movie;
+  const { title, url, genre, releaseDate } = movie;
 
   const openEditModal = () => {
-    modalOpenHandler('edit', movie);
-  }
+    modalOpenHandler(Mode.EDIT, movie);
+  };
 
   const openDeleteModal = () => {
-    modalOpenHandler('delete', movie);
-  }
+    modalOpenHandler(Mode.DELETE, movie);
+  };
 
-  const getMovieSrc = (name: string): string => {
-    return `/images/${name}.png`;
+  const getMovieSrc = (url: string): string => {
+    return `/images/${url}.png`;
   };
 
   return (
     <StyledMovieItem>
-      <ContextMenu editModalHandler={openEditModal}  deleteModalHandler={openDeleteModal} />
+      <ContextMenu
+        editModalHandler={openEditModal}
+        deleteModalHandler={openDeleteModal}
+      />
       <div>
-        <img src={process.env.PUBLIC_URL + getMovieSrc(urlName)} alt={name} />
+        <img src={process.env.PUBLIC_URL + getMovieSrc(url)} alt={title} />
       </div>
       <StyledFlex>
-        <StyledMovieTitle>{name}</StyledMovieTitle>
-        <StyledMovieYear>{releaseDate.split('-')[0]}</StyledMovieYear>
+        <StyledMovieTitle>{title}</StyledMovieTitle>
+        <StyledMovieYear>{releaseDate.split("-")[0]}</StyledMovieYear>
       </StyledFlex>
-      <div>{genre.map((item) => item.label).join(', ')}</div>
+      <div>{genre.map((item) => item.label).join(", ")}</div>
     </StyledMovieItem>
   );
 };

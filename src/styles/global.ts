@@ -9,7 +9,7 @@ import {
   mainFontColor,
   base,
   baseWeight,
-  red
+  red,
 } from "./global_varables";
 
 export default createGlobalStyle`
