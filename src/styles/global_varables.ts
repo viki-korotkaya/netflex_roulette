@@ -8,6 +8,8 @@ export const greyLight = "#424242";
 export const black = "#080707";
 export const whiteCoconut = "#a5a1a1";
 export const purpleDark = "#2A202D";
+export const darkTransparent = "rgba(35,35,35,0.7)";
+export const backgroundGrey = "#323232";
 
 //fonts
 export const base = "14px";
@@ -34,6 +36,7 @@ export const buttonTransparentHeight = "46px";
 export const dividerHeight = "4px";
 export const contextMenuSize = "36px";
 export const dotSize = "3.5px";
+export const dropDownWidth = "190px";
 
 export const radius = "4px";
 export const border = "1px";

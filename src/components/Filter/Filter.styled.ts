@@ -9,6 +9,8 @@ import {
   mediumWeight,
   borderSideTriangle,
   borderTopTriangle,
+  mainFontColor,
+  black,
 } from "../../styles/global_varables";
 
 export const StyledFilterDiv = styled.div`
@@ -43,4 +45,41 @@ export const StyledFlex = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
+`;
+
+export const SelectWrapper = styled.div`
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+  &:after {
+    content: "";
+    width: 12px;
+    height: 7px;
+    background-color: ${red};
+    grid-area: select;
+    justify-self: end;
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  }
+`;
+
+export const Select = styled.select`
+  width: 160px;
+  background-color: transparent;
+  border: none;
+  outline: 0;
+  margin: 0;
+  padding: 0 1em 0 0;
+  color: ${mainFontColor};
+  font-weight: ${mediumWeight};
+  font-size: ${medium};
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  appearance: none;
+  grid-area: select;
+  cursor: pointer;
+  text-transform: uppercase;
+  & > option {
+    color: ${black};
+  }
 `;
