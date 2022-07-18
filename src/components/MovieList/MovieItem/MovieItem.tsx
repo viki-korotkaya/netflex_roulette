@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 
 import {
   StyledFlex,
@@ -8,6 +8,7 @@ import {
 } from "./MovieItem.styled";
 import ContextMenu from "../../ContextMenu/ContextMenu";
 import { Mode, Movie } from "../../../models/movie";
+import {AppContext} from "../../../Context";
 
 interface MovieProps {
   movie: Movie;
@@ -16,6 +17,7 @@ interface MovieProps {
 
 const MovieItem: React.FC<MovieProps> = ({ movie, modalOpenHandler }) => {
   const { title, url, genre, releaseDate } = movie;
+  const {setSelectedMovie} = useContext(AppContext);
 
   const openEditModal = () => {
     modalOpenHandler(Mode.Edit, movie);
@@ -30,11 +32,16 @@ const MovieItem: React.FC<MovieProps> = ({ movie, modalOpenHandler }) => {
   };
 
   return (
-    <StyledMovieItem>
+    <StyledMovieItem onClick={(e) => {
+      setSelectedMovie(movie);
+      console.log(e.target);
+
+    }}>
       <ContextMenu
-        editModalHandler={openEditModal}
-        deleteModalHandler={openDeleteModal}
-      />
+          editModalHandler={openEditModal}
+          deleteModalHandler={openDeleteModal}
+        />
+
       <div>
         <img src={process.env.PUBLIC_URL + getMovieSrc(url)} alt={title} />
       </div>

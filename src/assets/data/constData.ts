@@ -10,7 +10,7 @@ export let movieList: Movie[] = [
     title: "Pulp Fiction",
     url: "pulp-fiction",
     releaseDate: "2004-10-14",
-    overview: "Action $ Adventure",
+    overview: "Action & Adventure",
     rating: 8.9,
     genre: [{ value: "crime", label: "Crime" }],
     runtime: 168,

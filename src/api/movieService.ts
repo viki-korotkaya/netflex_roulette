@@ -12,9 +12,7 @@ export const fetchMovies: () => Promise<Movie[]> = () => {
 export const addMovie = (newMovie: Movie) => {
   return new Promise((res, rej) =>
     setTimeout(() => {
-      let updatedList = [...movies];
-      updatedList.push(newMovie);
-      movies = updatedList;
+      movies = [...movies, newMovie];
       return res(true);
     }, 1000)
   );
