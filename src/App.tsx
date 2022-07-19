@@ -8,14 +8,12 @@ import "./App.css";
 import { Mode, Movie } from "./models/movie";
 import { fetchMovies } from "./api/movieService";
 import MovieDetail from "./components/MovieDetail/MovieDetail";
-import {AppContext} from "./Context";
+import { AppContext } from "./Context";
 
 const App: React.FC = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mode, setMode] = useState<Mode>(Mode.Default);
-  const [editedMovie, setEditedMovie] = useState<Movie | null>(
-    null
-  );
+  const [editedMovie, setEditedMovie] = useState<Movie | null>(null);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -39,19 +37,23 @@ const App: React.FC = () => {
   };
 
   return (
-    <AppContext.Provider value={{selectedMovie, setSelectedMovie}}>
-      {selectedMovie ? <MovieDetail /> : <Header openModal={openModalHandler} />}
-      <Main movieList={movies} openModal={openModalHandler} />
-      <Footer />
-      {isOpenModal && (
-        <ModalWindow
-          closeHandler={closeModalHandler}
-          editedMovie={editedMovie}
-          mode={mode}
-          loadMovies={loadMovies}
-        />
-      )}
-    </AppContext.Provider>
+    <>
+      <AppContext.Provider
+        value={{ selectedMovie, setSelectedMovie, openModalHandler }}
+      >
+        {selectedMovie ? <MovieDetail /> : <Header />}
+        <Main movieList={movies} />
+        <Footer />
+        {isOpenModal && (
+          <ModalWindow
+            closeHandler={closeModalHandler}
+            editedMovie={editedMovie}
+            mode={mode}
+            loadMovies={loadMovies}
+          />
+        )}
+      </AppContext.Provider>
+    </>
   );
 };
 

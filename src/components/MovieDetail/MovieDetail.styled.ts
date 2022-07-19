@@ -3,7 +3,14 @@ import {
   mainWidth,
   backgroundMain,
   paddingX,
-  paddingY, mainFontColor, xxxLarge, smallWeight, xlarge, whiteCoconut, red, xxlarge
+  paddingY,
+  mainFontColor,
+  xxxLarge,
+  smallWeight,
+  xlarge,
+  whiteCoconut,
+  red,
+  xxlarge,
 } from "../../styles/global_varables";
 
 export const StyledWrapper = styled.div`
@@ -69,7 +76,7 @@ export const RatingStyled = styled.div`
 `;
 
 export const DivForGenre = styled.div`
-  margin-bottom: 30px
+  margin-bottom: 30px;
 `;
 
 export const YearAndTimeContainer = styled(StyledMovieDetails)`

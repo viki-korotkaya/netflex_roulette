@@ -18,7 +18,7 @@ export const addMovie = (newMovie: Movie) => {
   );
 };
 
-export const editMovie = (movie: Movie, id: string ) => {
+export const editMovie = (movie: Movie, id: string) => {
   return new Promise((res, rej) =>
     setTimeout(() => {
       let updatedList = [...movies];

@@ -21,7 +21,7 @@ import {
   red,
 } from "../../../styles/global_varables";
 import { Multiselect } from "multiselect-react-dropdown";
-import {MovieFormProps} from "../../../models/movie";
+import { MovieFormProps } from "../../../models/movie";
 
 interface ModalWindowProps {
   form: MovieFormProps;
@@ -179,4 +179,4 @@ const styleForMultiSelect = {
     background: `${backgroundMain}`,
   },
   checkbox: { accentColor: `${red} !import` },
-}
+};

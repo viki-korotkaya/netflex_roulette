@@ -1,4 +1,4 @@
-import React, {ReactNode} from "react";
+import React, { ReactNode } from "react";
 import { StyledButton } from "./Button.styled";
 
 export interface ButtonProps {

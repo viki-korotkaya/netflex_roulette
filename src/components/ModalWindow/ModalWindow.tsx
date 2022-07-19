@@ -9,7 +9,7 @@ import AddModalWindow from "./AddModal/AddModal";
 import DeleteModalWindow from "./DeleteModal/DeleteModal";
 import { addMovie, deleteMovie, editMovie } from "../../api/movieService";
 import SuccessModalWindow from "./SuccessModal/SuccessModal";
-import {MovieFormProps, Mode, Movie} from "../../models/movie";
+import { MovieFormProps, Mode, Movie } from "../../models/movie";
 import { formInitial } from "../../assets/data/constData";
 
 interface ModalWindowProps {
@@ -26,16 +26,16 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
   loadMovies,
 }) => {
   const movieInitial = editedMovie ? editedMovie : formInitial;
-  const getInitialForm = (initial: MovieFormProps) =>{
+  const getInitialForm = (initial: MovieFormProps) => {
     return {
-      ...initial
-    }
-  }
-  const [form, setState] = useState<MovieFormProps>(() => getInitialForm(movieInitial));
+      ...initial,
+    };
+  };
+  const [form, setState] = useState<MovieFormProps>(() =>
+    getInitialForm(movieInitial)
+  );
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
-
-
 
   const handleFormReset = (e: SyntheticEvent) => {
     const newForm = getInitialForm(movieInitial);
