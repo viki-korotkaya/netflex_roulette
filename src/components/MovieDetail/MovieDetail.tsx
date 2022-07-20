@@ -30,9 +30,9 @@ const MovieDetail: React.FC = () => {
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
 
+  if (!selectedMovie) return null;
+
   return (
-    <>
-      {selectedMovie && (
         <StyledWrapper>
           <StyledFlex>
             <Logo />
@@ -63,8 +63,6 @@ const MovieDetail: React.FC = () => {
             </DetailContainer>
           </StyledMovieDetails>
         </StyledWrapper>
-      )}
-    </>
   );
 };
 

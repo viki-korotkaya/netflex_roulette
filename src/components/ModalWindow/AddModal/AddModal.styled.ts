@@ -17,7 +17,7 @@ export const Form = styled.form``;
 export const TitleModal = styled.h2`
   text-transform: uppercase;
   font-weight: ${smallWeight};
-  color: ${xxxLarge};
+  font-size: ${xxxLarge};
 `;
 
 export const Label = styled.label`

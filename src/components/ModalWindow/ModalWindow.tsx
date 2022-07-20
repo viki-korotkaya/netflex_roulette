@@ -26,20 +26,13 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
   loadMovies,
 }) => {
   const movieInitial = editedMovie ? editedMovie : formInitial;
-  const getInitialForm = (initial: MovieFormProps) => {
-    return {
-      ...initial,
-    };
-  };
-  const [form, setState] = useState<MovieFormProps>(() =>
-    getInitialForm(movieInitial)
-  );
+
+  const [form, setState] = useState<MovieFormProps>(movieInitial);
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
 
   const handleFormReset = (e: SyntheticEvent) => {
-    const newForm = getInitialForm(movieInitial);
-    setState(newForm);
+    setState(movieInitial);
     e.preventDefault();
   };
 
