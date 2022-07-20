@@ -8,7 +8,7 @@ import {
   red,
   smallWeight,
   xlarge,
-  xxLarge,
+  xxxLarge,
 } from "../../../styles/global_varables";
 import Calendar from "../../../assets/images/calendar.svg";
 
@@ -17,7 +17,7 @@ export const Form = styled.form``;
 export const TitleModal = styled.h2`
   text-transform: uppercase;
   font-weight: ${smallWeight};
-  color: ${xxLarge};
+  font-size: ${xxxLarge};
 `;
 
 export const Label = styled.label`

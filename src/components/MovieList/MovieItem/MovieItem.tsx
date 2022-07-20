@@ -8,21 +8,22 @@ import {
 } from "./MovieItem.styled";
 import ContextMenu from "../../ContextMenu/ContextMenu";
 import { Mode, Movie } from "../../../models/movie";
+import { useAppContext } from "../../../hooks/useAppContext";
 
 interface MovieProps {
   movie: Movie;
-  modalOpenHandler: (mode: Mode, movie?: Movie) => void;
 }
 
-const MovieItem: React.FC<MovieProps> = ({ movie, modalOpenHandler }) => {
+const MovieItem: React.FC<MovieProps> = ({ movie }) => {
   const { title, url, genre, releaseDate } = movie;
+  const { setSelectedMovie, openModalHandler } = useAppContext();
 
   const openEditModal = () => {
-    modalOpenHandler(Mode.Edit, movie);
+    openModalHandler(Mode.Edit, movie);
   };
 
   const openDeleteModal = () => {
-    modalOpenHandler(Mode.Delete, movie);
+    openModalHandler(Mode.Delete, movie);
   };
 
   const getMovieSrc = (url: string): string => {
@@ -30,11 +31,16 @@ const MovieItem: React.FC<MovieProps> = ({ movie, modalOpenHandler }) => {
   };
 
   return (
-    <StyledMovieItem>
+    <StyledMovieItem
+      onClick={() => {
+        setSelectedMovie(movie);
+      }}
+    >
       <ContextMenu
         editModalHandler={openEditModal}
         deleteModalHandler={openDeleteModal}
       />
+
       <div>
         <img src={process.env.PUBLIC_URL + getMovieSrc(url)} alt={title} />
       </div>

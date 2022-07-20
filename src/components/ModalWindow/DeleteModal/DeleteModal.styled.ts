@@ -4,7 +4,7 @@ import {
   mainFontColor,
   smallWeight,
   xlarge,
-  xxLarge,
+  xxxLarge,
 } from "../../../styles/global_varables";
 
 export const DeleteModal = styled.div`
@@ -14,7 +14,7 @@ export const DeleteModal = styled.div`
 export const TitleModal = styled.h2`
   text-transform: uppercase;
   font-weight: ${smallWeight};
-  font-size: ${xxLarge};
+  font-size: ${xxxLarge};
   margin: 0;
 `;
 

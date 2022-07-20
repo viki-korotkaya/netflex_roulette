@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 
 import {
   StyledContextMenu,
@@ -19,17 +19,18 @@ interface ContextMenuProps {
 const ContextMenu: React.FC<ContextMenuProps> = (props) => {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
 
-  const toggleDropDown = () => {
+  const toggleDropDown = (e: SyntheticEvent) => {
     setIsOpenDropDown(!isOpenDropDown);
+    e.stopPropagation();
   };
 
-  const handleClickEdit = () => {
-    toggleDropDown();
+  const handleClickEdit = (e: SyntheticEvent) => {
+    toggleDropDown(e);
     props.editModalHandler();
   };
 
-  const handleClickDelete = () => {
-    toggleDropDown();
+  const handleClickDelete = (e: SyntheticEvent) => {
+    toggleDropDown(e);
     props.deleteModalHandler();
   };
 

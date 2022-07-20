@@ -17,7 +17,8 @@ export const small = "12px";
 export const medium = "16px";
 export const large = "18px";
 export const xlarge = "20px";
-export const xxLarge = "40px";
+export const xxlarge = "24px";
+export const xxxLarge = "40px";
 
 export const baseWeight = 400;
 export const smallWeight = 300;
