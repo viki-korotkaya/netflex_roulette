@@ -1,27 +1,30 @@
 export interface Movie {
-  id: string;
   title: string;
-  url: string;
-  releaseDate: string;
+  tagline: string;
+  vote_average: number;
+  vote_count: number;
+  release_date: string;
+  poster_path: string;
   overview: string;
-  rating: number;
-  genre: { value: string; label: string }[] | [];
+  budget: number;
+  revenue: number;
   runtime: number;
+  genres: any[];
+  id: number;
 }
 
 export interface MovieFormProps {
   title: string;
-  releaseDate: string;
-  url: string;
-  rating: number;
-  genre: { value: string; label: string }[] | [];
+  release_date: string;
+  poster_path: string;
+  vote_average: number;
+  genres: Option[];
   runtime: number;
   overview: string;
 }
 
 export interface Option {
   value: string;
-  label: string;
 }
 
 export enum Mode {

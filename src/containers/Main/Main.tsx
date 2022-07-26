@@ -12,7 +12,7 @@ interface MainProps {
 
 function callSorting(data: Movie[], sortType: string): Movie[] {
   let sorted;
-  if (sortType === "releaseDate") {
+  if (sortType === "release_date") {
     sorted = [...data].sort(
       (a, b) => +new Date(b[sortType]) - +new Date(a[sortType])
     );

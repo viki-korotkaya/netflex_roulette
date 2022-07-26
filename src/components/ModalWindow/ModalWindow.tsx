@@ -7,29 +7,36 @@ import {
 } from "./ModalWindow.styled";
 import AddModalWindow from "./AddModal/AddModal";
 import DeleteModalWindow from "./DeleteModal/DeleteModal";
-import { addMovie, deleteMovie, editMovie } from "../../api/movieService";
 import SuccessModalWindow from "./SuccessModal/SuccessModal";
 import { MovieFormProps, Mode, Movie } from "../../models/movie";
 import { formInitial } from "../../assets/data/constData";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import {addMovie, editMovie, deleteMovie} from "../../features/movies/moviesSelector";
 
 interface ModalWindowProps {
   closeHandler: () => void;
-  loadMovies: () => void;
   mode: Mode;
   editedMovie: Movie | null;
+}
+
+const getInitialMovieForm = (movie: Movie) => {
+  return {
+    ...movie,
+    genres: movie.genres.map((str) => ({ value: str}))
+  }
 }
 
 const ModalWindow: React.FC<ModalWindowProps> = ({
   closeHandler,
   editedMovie,
-  mode,
-  loadMovies,
+  mode
 }) => {
-  const movieInitial = editedMovie ? editedMovie : formInitial;
-
+  const movieInitial = editedMovie ? getInitialMovieForm(editedMovie) : formInitial;
   const [form, setState] = useState<MovieFormProps>(movieInitial);
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
+
+  const dispatch = useAppDispatch();
 
   const handleFormReset = (e: SyntheticEvent) => {
     setState(movieInitial);
@@ -38,42 +45,48 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
 
   const handleOnChange = (e: SyntheticEvent) => {
     let target = e.target as HTMLFormElement;
-    setState({ ...form, [target.name]: target.value });
+    setState({ ...form, [target.name]: target.type === "number" ? parseInt(target.value, 10) : target.value });
   };
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const movie: Movie = {
-      ...form,
-      id: editedMovie ? editedMovie.id : Date.now().toString(),
-    };
     if (mode === Mode.Edit && editedMovie) {
-      editMovie(movie, editedMovie.id).then((res) => {
+      const movie: Movie = {
+        ...editedMovie,
+        ...form,
+        genres: form.genres.map(o => o.value)
+      };
+      dispatch(editMovie(movie)).then(() => {
         setStep(2);
         setMessage("The movie has been edited successfully");
-        loadMovies();
-      });
+      })
     } else {
-      addMovie(movie).then((res) => {
-        setStep(2);
-        setMessage("The movie has been added to database successfully");
-        loadMovies();
-      });
+      const movie: Partial<Movie> = {
+        ...form,
+        genres: form.genres.map(o => o.value)
+      };
+      dispatch(addMovie(movie));
+      setStep(2);
+      setMessage("The movie has been added to database successfully");
     }
   };
 
   const handleGenreChange = (
-    selectedList: { value: string; label: string }[] | []
+    selectedList: any[]
   ) => {
-    setState({ ...form, genre: selectedList });
+    console.log(selectedList);
+    setState({ ...form, genres: selectedList});
   };
 
   const handleDeleteMovie = () => {
-    deleteMovie(editedMovie?.id).then((res) => {
-      setStep(2);
-      setMessage("The movie has been deleted successfully");
-      loadMovies();
-    });
+    if (!editedMovie) return false;
+    dispatch(deleteMovie(editedMovie.id));
+    setStep(2);
+    setMessage("The movie has been edited successfully");
+    // deleteMovie(editedMovie?.id).then((res) => {
+    //   setStep(2);
+    //   setMessage("The movie has been deleted successfully");
+    // });
   };
 
   return (

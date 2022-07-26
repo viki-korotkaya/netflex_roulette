@@ -15,13 +15,10 @@ import {
 } from "./MovieDetail.styled";
 import Logo from "../Logo/Logo";
 import SearchButton from "../../assets/images/search_button.svg";
-import { useAppContext } from "../../hooks/useAppContext";
+import { useAppContext } from "../../hooks/hooks";
 
 const MovieDetail: React.FC = () => {
   const { selectedMovie, setSelectedMovie } = useAppContext();
-  const getMovieSrc = (url: string | undefined): string => {
-    return `/images/${url}.png`;
-  };
 
   const getRuntimeFormat = (runtime?: number) => {
     if (!runtime) return "";
@@ -43,20 +40,20 @@ const MovieDetail: React.FC = () => {
           <StyledMovieDetails>
             <ImgContainer>
               <img
-                src={process.env.PUBLIC_URL + getMovieSrc(selectedMovie?.url)}
-                alt={selectedMovie?.title}
+                src={selectedMovie.poster_path}
+                alt={selectedMovie.title}
               />
             </ImgContainer>
             <DetailContainer>
               <StyledTitleContainer>
                 <h2>{selectedMovie.title}</h2>
-                <RatingStyled>{selectedMovie.rating}</RatingStyled>
+                <RatingStyled>{selectedMovie.vote_average}</RatingStyled>
               </StyledTitleContainer>
               <DivForGenre>
-                {selectedMovie.genre.map((item) => item.label).join(", ")}
+                {selectedMovie.genres.join(", ")}
               </DivForGenre>
               <YearAndTimeContainer>
-                <div>{selectedMovie.releaseDate.split("-")[0]}</div>
+                <div>{selectedMovie.release_date.split("-")[0]}</div>
                 <div>{getRuntimeFormat(selectedMovie.runtime)}</div>
               </YearAndTimeContainer>
               <Overview>{selectedMovie.overview}</Overview>

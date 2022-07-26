@@ -27,7 +27,7 @@ const Filter: React.FC<FilterProps> = (props) => {
           <option value="default" disabled>
             Sort option:
           </option>
-          <option value="releaseDate">Release Date</option>
+          <option value="release_date">Release Date</option>
           <option value="title">Title</option>
         </Select>
       </SelectWrapper>

@@ -58,48 +58,48 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
           />
         </div>
         <div>
-          <Label htmlFor="releaseDate">Release Date</Label>
+          <Label htmlFor="release_date">Release Date</Label>
           <InputDate
             type="date"
-            name="releaseDate"
-            id="releaseDate"
-            value={form.releaseDate}
+            name="release_date"
+            id="release_date"
+            value={form.release_date}
             onChange={handleOnChange}
           />
         </div>
       </StyledFlex>
       <StyledFlex>
         <div>
-          <Label htmlFor="url">Models URL</Label>
+          <Label htmlFor="poster_path">Models URL</Label>
           <InputLeft
             type="text"
-            name="url"
-            id="url"
+            name="poster_path"
+            id="poster_path"
             placeholder="https://"
-            value={form.url}
+            value={form.poster_path}
             onChange={handleOnChange}
           />
         </div>
         <div>
-          <Label htmlFor="rating">Rating</Label>
+          <Label htmlFor="vote_average">Rating</Label>
           <InputRight
             type="number"
-            name="rating"
-            id="rating"
+            name="vote_average"
+            id="vote_average"
             min="0"
             max="10"
             step="0.1"
-            value={form.rating}
+            value={form.vote_average}
             onChange={handleOnChange}
           />
         </div>
       </StyledFlex>
       <StyledFlex>
         <div>
-          <Label htmlFor="genre">Genre</Label>
+          <Label htmlFor="genres">Genre</Label>
           <Multiselect
-            displayValue="label"
-            selectedValues={form.genre}
+            displayValue="value"
+            selectedValues={form.genres}
             hidePlaceholder={true}
             placeholder="Select Genre"
             onRemove={handleGenreChange}

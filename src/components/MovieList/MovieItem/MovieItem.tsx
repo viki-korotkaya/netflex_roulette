@@ -8,14 +8,14 @@ import {
 } from "./MovieItem.styled";
 import ContextMenu from "../../ContextMenu/ContextMenu";
 import { Mode, Movie } from "../../../models/movie";
-import { useAppContext } from "../../../hooks/useAppContext";
+import { useAppContext } from "../../../hooks/hooks";
 
 interface MovieProps {
   movie: Movie;
 }
 
 const MovieItem: React.FC<MovieProps> = ({ movie }) => {
-  const { title, url, genre, releaseDate } = movie;
+  const { title, poster_path, tagline, release_date } = movie;
   const { setSelectedMovie, openModalHandler } = useAppContext();
 
   const openEditModal = () => {
@@ -26,9 +26,9 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
     openModalHandler(Mode.Delete, movie);
   };
 
-  const getMovieSrc = (url: string): string => {
-    return `/images/${url}.png`;
-  };
+  // const getMovieSrc = (url: string): string => {
+  //   return `/images/${url}.png`;
+  // };
 
   return (
     <StyledMovieItem
@@ -42,13 +42,13 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
       />
 
       <div>
-        <img src={process.env.PUBLIC_URL + getMovieSrc(url)} alt={title} />
+        <img src={poster_path} alt={title} />
       </div>
       <StyledFlex>
         <StyledMovieTitle>{title}</StyledMovieTitle>
-        <StyledMovieYear>{releaseDate.split("-")[0]}</StyledMovieYear>
+        <StyledMovieYear>{release_date.split("-")[0]}</StyledMovieYear>
       </StyledFlex>
-      <div>{genre.map((item) => item.label).join(", ")}</div>
+      <div>{tagline}</div>
     </StyledMovieItem>
   );
 };
