@@ -34,22 +34,16 @@ export const fetchMovies = createAsyncThunk<MovieListResponse, undefined, { stat
 )
 
 export const fetchMovie = createAsyncThunk<MovieServerFormat, number, {rejectValue: string}>(
-  'movies/fetchMovie', (id) => getMovie(id)
-)
+  'movies/fetchMovie', (id) => getMovie(id))
 
 export const editMovie = createAsyncThunk<MovieServerFormat, Movie, {rejectValue: string}>(
-  'movies/editMovie', (editedMovie) => updateMovie(editedMovie)
-)
+  'movies/editMovie', (editedMovie) => updateMovie(editedMovie))
 
 export const addMovie = createAsyncThunk<MovieServerFormat, Partial<Movie>, {rejectValue: string}>(
-  'movies/addMovie', (newMovie) => postMovie(newMovie)
-)
+  'movies/addMovie', (newMovie) => postMovie(newMovie))
 
 export const deleteMovie = createAsyncThunk<any, number, {rejectValue: string}>(
-  'movies/deleteMovie', (index) =>  {
-    deleteSelectedMovie(index);
-  }
-)
+  'movies/deleteMovie', (index) => deleteSelectedMovie(index))
 
 function transformMovieList(movie: any){
     return {
@@ -95,19 +89,13 @@ export const moviesSlice = createSlice({
         state.status = StatusType.Failed
         state.error = action.error.message
       })
-
-      .addCase(editMovie.fulfilled, (state, action) => {
-        // let index = state.moviesList.findIndex((movie) => movie.id === action.payload.id);
-        // state.moviesList.splice(index, 1, transformMovieList(action.payload))
+      .addCase(editMovie.fulfilled, (state) => {
         state.status = StatusType.Idle
       })
-      .addCase(addMovie.fulfilled, (state, action) => {
-        // state.moviesList.push(transformMovieList(action.payload))
+      .addCase(addMovie.fulfilled, (state) => {
         state.status = StatusType.Idle
       })
       .addCase(deleteMovie.fulfilled, (state) => {
-        // let index = state.moviesList.findIndex((movie) => movie.id === action.payload);
-        // state.moviesList.splice(index, 1);
         state.status = StatusType.Idle
       })
       .addCase(fetchMovie.fulfilled, (state, action) => {

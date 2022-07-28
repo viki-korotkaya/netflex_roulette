@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useEffect, useState} from "react";
+import React, {SyntheticEvent, useState} from "react";
 import {
   CloseBtn,
   ModalContent,
@@ -10,8 +10,8 @@ import DeleteModalWindow from "./DeleteModal/DeleteModal";
 import SuccessModalWindow from "./SuccessModal/SuccessModal";
 import { MovieFormProps, Mode, Movie } from "../../models/movie";
 import { formInitial } from "../../assets/data/constData";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {addMovie, editMovie, deleteMovie, fetchMovies} from "../../features/movies/moviesSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { addMovie, editMovie, deleteMovie } from "../../features/movies/moviesSelector";
 import { modalWindowAction } from "../../features/modalWindow/modalWindowSelector";
 
 
@@ -97,7 +97,7 @@ const ModalWindow: React.FC = () => {
         </StyledFlex>
         {step === 2 ? (
           <SuccessModalWindow message={message} />
-        ) : mode === "delete" ? (
+        ) : mode === Mode.Delete ? (
           <DeleteModalWindow handleDeleteMovie={handleDeleteMovie} />
         ) : (
           <AddModalWindow

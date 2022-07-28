@@ -21,6 +21,7 @@ import { moviesAction } from "../../features/movies/moviesSelector";
 const MovieDetail: React.FC = () => {
   const selectedMovie = useAppSelector((state) => state.movies.selectedMovie);
   const dispatch = useAppDispatch();
+
   const getRuntimeFormat = (runtime?: number) => {
     if (!runtime) return "";
     const hours = Math.floor(runtime / 60);

@@ -10,7 +10,7 @@ import ContextMenu from "../../ContextMenu/ContextMenu";
 import { Mode, Movie } from "../../../models/movie";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { fetchMovie } from "../../../features/movies/moviesSelector";
-import {modalWindowAction} from "../../../features/modalWindow/modalWindowSelector";
+import { modalWindowAction } from "../../../features/modalWindow/modalWindowSelector";
 
 interface MovieProps {
   movie: Movie;
