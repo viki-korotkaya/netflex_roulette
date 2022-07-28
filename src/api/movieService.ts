@@ -1,12 +1,11 @@
-
-import { Movie } from "../models/movie";
-import {MovieListResponse} from "../features/movies/moviesSelector";
-
-const baseUrl = 'http://localhost:4000';
+const baseUrl = 'http://localhost:4000/movies';
 const baseFetch = async (url: string, params?: any) => {
   try {
     const response = await fetch(url, params);
-    //add conditions
+    if (!response.ok) {
+      throw new Error("HTTP status code: " + response.status)
+    }
+
     if (response.statusText === 'No Content' && response.ok){
       return true;
     }
@@ -59,40 +58,57 @@ export const deleteRequest = async (url: string, params?: any) => {
   })
 }
 
-export const getMovies = () => {
-  return get(`${baseUrl}/movies`)
+export const getMovies = (queries: { sortBy: string, filter: string }) => {
+  const url = getUrlWithQuery(queries);
+  return get(url);
+}
+
+const getUrlWithQuery = (queries: { sortBy: string, filter: string }) => {
+  let urlString = Object.entries(queries).map((el, index) =>{
+    if (index === 0 && el[1] ) {
+      return `${el[0]}=${el[1]}&sortOrder=asc`
+    } else if (el[1] && index !== 0){
+      return `${el[0]}=${el[1]}`
+    }
+    return '';
+  }).join('&');
+  return urlString.length > 0 ? `${baseUrl}?${urlString}` : baseUrl
 }
 
 export const getMovie = (id: number) => {
-  return baseFetch(`${baseUrl}/movies/${id}`)
+  return get(`${baseUrl}/${id}`)
 }
 
 export const postMovie = (body: any) => {
-  const newMovie = prepareDataForServer(body);
-  return post(`${baseUrl}/movies`, {
-    body: JSON.stringify(newMovie)
+  const movie = prepareDataForServer(body);
+  return post(baseUrl, {
+    body: JSON.stringify(movie)
   })
 }
 
 export const updateMovie = (body: any) => {
   const movie = prepareDataForServer(body);
-  return put(`${baseUrl}/movies`, {
+  return put(baseUrl, {
     body: JSON.stringify(movie)
   })
 }
 
 export const deleteSelectedMovie = (id: number) => {
-  return deleteRequest(`${baseUrl}/movies/${id}`, {
+  return deleteRequest(`${baseUrl}/${id}`, {
     headers: {'Content-Type': 'application/json;charset=utf-8'}
   })
 }
 
 function prepareDataForServer(data: any){
-  return {
-    ...data,
-    tagline: 'Bla bla bla',
-    vote_count: 6782,
-    budget: 30006782,
-    revenue: 30006782,
-  }
+ return {
+      title: data.title,
+      tagline: data.tagline? data.tagline : 'Blabla bla bla blablabla',
+      vote_average: data.rating,
+      release_date: data.releaseDate,
+      poster_path: data.movieUrl,
+      overview: data.overview,
+      runtime: data.runtime,
+      genres: data.genres,
+      id: data.id
+    }
 }

@@ -1,23 +1,35 @@
 export interface Movie {
   title: string;
   tagline: string;
-  vote_average: number;
-  vote_count: number;
-  release_date: string;
-  poster_path: string;
+  rating: number;
+  releaseDate: string;
+  movieUrl: string;
   overview: string;
-  budget: number;
-  revenue: number;
   runtime: number;
   genres: any[];
   id: number;
 }
 
+export interface MovieServerFormat {
+  title: string,
+  tagline: string,
+  vote_average: number,
+  vote_count: number,
+  release_date: string,
+  poster_path: string,
+  overview: string,
+  runtime: number,
+  budget: number,
+  revenue: number,
+  genres: string[],
+  id: number
+}
+
 export interface MovieFormProps {
   title: string;
-  release_date: string;
-  poster_path: string;
-  vote_average: number;
+  releaseDate: string;
+  movieUrl: string;
+  rating: number;
   genres: Option[];
   runtime: number;
   overview: string;
@@ -32,4 +44,11 @@ export enum Mode {
   Edit = "edit",
   Delete = "delete",
   Default = "",
+}
+
+export enum StatusType {
+  Idle = "idle",
+  Pending = "pending",
+  Success = "success",
+  Failed = "failed",
 }

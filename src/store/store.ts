@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import moviesReducer from "../features/movies/moviesSelector";
+import modalWindowReducer from "../features/modalWindow/modalWindowSelector";
 
 export const store = configureStore({
   reducer: {
-    movies: moviesReducer
+    movies: moviesReducer,
+    modalWindow: modalWindowReducer
   }
 })
 

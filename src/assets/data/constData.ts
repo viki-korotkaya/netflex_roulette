@@ -1,14 +1,12 @@
-import { MovieFormProps, Movie, Option } from "../../models/movie";
+import { MovieFormProps, Option } from "../../models/movie";
 
 export const nav = ["all", "documentary", "comedy", "horror", "crime"];
 
-export const sortBy = ["release date", "name"];
-
 export const formInitial: MovieFormProps = {
   title: "",
-  release_date: "",
-  poster_path: "",
-  vote_average: 0,
+  releaseDate: "",
+  movieUrl: "",
+  rating: 0,
   genres: [],
   runtime: 0,
   overview: "",

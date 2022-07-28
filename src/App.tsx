@@ -13,11 +13,11 @@ import { useAppSelector, useAppDispatch } from "./hooks/hooks";
 import { fetchMovies } from "./features/movies/moviesSelector";
 
 const App: React.FC = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  // const [isOpenModal, setIsOpenModal] = useState(false);
   const [mode, setMode] = useState<Mode>(Mode.Default);
   const [editedMovie, setEditedMovie] = useState<Movie | null>(null);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const {moviesList, status, error} = useAppSelector((state) => state.movies);
+  const { status, selectedMovie} = useAppSelector((state) => state.movies);
+  const { isOpen } = useAppSelector((state) => state.modalWindow);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -26,33 +26,23 @@ const App: React.FC = () => {
     }
   }, [status, dispatch]);
 
-  const openModalHandler = (mode: Mode, movie?: Movie) => {
-    setMode(mode);
-    if (movie) setEditedMovie(movie);
-    setIsOpenModal(true);
-  };
-
-  const closeModalHandler = () => {
-    setIsOpenModal(false);
-    setEditedMovie(null);
-  };
+  // const openModalHandler = (mode: Mode, movie?: Movie) => {
+  //   setMode(mode);
+  //   if (movie) setEditedMovie(movie);
+  //   setIsOpenModal(true);
+  // };
+  //
+  // const closeModalHandler = () => {
+  //   setIsOpenModal(false);
+  //   setEditedMovie(null);
+  // };
 
   return (
     <>
-      <AppContext.Provider
-        value={{ selectedMovie, setSelectedMovie, openModalHandler }}
-      >
-        {selectedMovie ? <MovieDetail /> : <Header />}
-        <Main movieList={moviesList} />
+      {selectedMovie ? <MovieDetail /> : <Header />}
+        <Main />
         <Footer />
-        {isOpenModal && (
-          <ModalWindow
-            closeHandler={closeModalHandler}
-            editedMovie={editedMovie}
-            mode={mode}
-          />
-        )}
-      </AppContext.Provider>
+        {isOpen && <ModalWindow />}
     </>
   );
 };

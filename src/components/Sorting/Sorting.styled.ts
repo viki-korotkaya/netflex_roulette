@@ -13,7 +13,7 @@ import {
   black,
 } from "../../styles/global_varables";
 
-export const StyledFilterDiv = styled.div`
+export const StyledSortingDiv = styled.div`
   margin-right: ${margin30};
   font-weight: ${baseWeight};
   font-size: ${medium};

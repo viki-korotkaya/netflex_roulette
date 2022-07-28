@@ -15,11 +15,12 @@ import {
 } from "./MovieDetail.styled";
 import Logo from "../Logo/Logo";
 import SearchButton from "../../assets/images/search_button.svg";
-import { useAppContext } from "../../hooks/hooks";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
+import { moviesAction } from "../../features/movies/moviesSelector";
 
 const MovieDetail: React.FC = () => {
-  const { selectedMovie, setSelectedMovie } = useAppContext();
-
+  const selectedMovie = useAppSelector((state) => state.movies.selectedMovie);
+  const dispatch = useAppDispatch();
   const getRuntimeFormat = (runtime?: number) => {
     if (!runtime) return "";
     const hours = Math.floor(runtime / 60);
@@ -27,33 +28,35 @@ const MovieDetail: React.FC = () => {
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
 
+  const goBackToSearch = () => dispatch(moviesAction.resetSelectedMovie())
+
   if (!selectedMovie) return null;
 
   return (
         <StyledWrapper>
           <StyledFlex>
             <Logo />
-            <AStyled onClick={() => setSelectedMovie(null)}>
+            <AStyled onClick={goBackToSearch}>
               <img src={SearchButton} alt="Go back to search field" />
             </AStyled>
           </StyledFlex>
           <StyledMovieDetails>
             <ImgContainer>
               <img
-                src={selectedMovie.poster_path}
+                src={selectedMovie.movieUrl}
                 alt={selectedMovie.title}
               />
             </ImgContainer>
             <DetailContainer>
               <StyledTitleContainer>
                 <h2>{selectedMovie.title}</h2>
-                <RatingStyled>{selectedMovie.vote_average}</RatingStyled>
+                <RatingStyled>{selectedMovie.rating}</RatingStyled>
               </StyledTitleContainer>
               <DivForGenre>
                 {selectedMovie.genres.join(", ")}
               </DivForGenre>
               <YearAndTimeContainer>
-                <div>{selectedMovie.release_date.split("-")[0]}</div>
+                <div>{selectedMovie.releaseDate.split("-")[0]}</div>
                 <div>{getRuntimeFormat(selectedMovie.runtime)}</div>
               </YearAndTimeContainer>
               <Overview>{selectedMovie.overview}</Overview>

@@ -5,15 +5,21 @@ import Logo from "../../components/Logo/Logo";
 import { TransparentButton } from "../../components/Button/Button.styled";
 import { StyledHeader, StyledFlex } from "./Header.styled";
 import { Mode } from "../../models/movie";
-import { useAppContext } from "../../hooks/hooks";
+import { useAppDispatch } from "../../hooks/hooks";
+import { modalWindowAction } from "../../features/modalWindow/modalWindowSelector";
 
 const Header: React.FC = () => {
-  const { openModalHandler } = useAppContext();
+  const dispatch = useAppDispatch();
+
+  const openModalHandler = () => {
+    dispatch(modalWindowAction.openModal(Mode.Add));
+  }
+
   return (
     <StyledHeader>
       <StyledFlex>
         <Logo />
-        <TransparentButton onClick={() => openModalHandler(Mode.Add)}>
+        <TransparentButton onClick={openModalHandler}>
           + Add movie
         </TransparentButton>
       </StyledFlex>

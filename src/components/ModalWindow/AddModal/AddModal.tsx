@@ -58,38 +58,38 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
           />
         </div>
         <div>
-          <Label htmlFor="release_date">Release Date</Label>
+          <Label htmlFor="releaseDate">Release Date</Label>
           <InputDate
             type="date"
-            name="release_date"
-            id="release_date"
-            value={form.release_date}
+            name="releaseDate"
+            id="releaseDate"
+            value={form.releaseDate}
             onChange={handleOnChange}
           />
         </div>
       </StyledFlex>
       <StyledFlex>
         <div>
-          <Label htmlFor="poster_path">Models URL</Label>
+          <Label htmlFor="movieUrl">Models URL</Label>
           <InputLeft
             type="text"
-            name="poster_path"
-            id="poster_path"
+            name="movieUrl"
+            id="movieUrl"
             placeholder="https://"
-            value={form.poster_path}
+            value={form.movieUrl}
             onChange={handleOnChange}
           />
         </div>
         <div>
-          <Label htmlFor="vote_average">Rating</Label>
+          <Label htmlFor="rating">Rating</Label>
           <InputRight
             type="number"
-            name="vote_average"
-            id="vote_average"
+            name="rating"
+            id="rating"
             min="0"
             max="10"
             step="0.1"
-            value={form.vote_average}
+            value={form.rating}
             onChange={handleOnChange}
           />
         </div>
