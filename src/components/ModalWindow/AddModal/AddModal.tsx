@@ -70,13 +70,13 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
       </StyledFlex>
       <StyledFlex>
         <div>
-          <Label htmlFor="url">Models URL</Label>
+          <Label htmlFor="movieUrl">Models URL</Label>
           <InputLeft
             type="text"
-            name="url"
-            id="url"
+            name="movieUrl"
+            id="movieUrl"
             placeholder="https://"
-            value={form.url}
+            value={form.movieUrl}
             onChange={handleOnChange}
           />
         </div>
@@ -96,10 +96,10 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
       </StyledFlex>
       <StyledFlex>
         <div>
-          <Label htmlFor="genre">Genre</Label>
+          <Label htmlFor="genres">Genre</Label>
           <Multiselect
-            displayValue="label"
-            selectedValues={form.genre}
+            displayValue="value"
+            selectedValues={form.genres}
             hidePlaceholder={true}
             placeholder="Select Genre"
             onRemove={handleGenreChange}

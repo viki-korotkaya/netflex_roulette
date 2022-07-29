@@ -33,7 +33,8 @@ export const StyledA = styled.a`
     transition: opacity 200ms, transform 200ms;
   }
   &:hover::after,
-  &:focus::after {
+  &:focus::after,
+  &.active::after {
     opacity: 1;
     transform: translate3d(0, 0.2em, 0);
   }

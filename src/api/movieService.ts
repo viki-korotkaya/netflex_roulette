@@ -1,43 +1,60 @@
-import { movieList } from "../assets/data/constData";
-import { Movie } from "../models/movie";
+import { get, post, put, deleteRequest } from "./fetchService";
 
-let movies = [...movieList];
+const baseUrl = 'http://localhost:4000/movies';
 
-export const fetchMovies: () => Promise<Movie[]> = () => {
-  return new Promise((res, rej) => {
-    return setTimeout(() => res(movies), 0);
-  });
-};
+export const getMovies = (queries: { sortBy: string, filter: string }) => {
+  const url = getUrlWithQuery(queries);
+  return get(url);
+}
 
-export const addMovie = (newMovie: Movie) => {
-  return new Promise((res, rej) =>
-    setTimeout(() => {
-      movies = [...movies, newMovie];
-      return res(true);
-    }, 1000)
-  );
-};
+const getUrlWithQuery = (queries: { sortBy: string, filter: string }) => {
+  if (!queries.sortBy && !queries.filter){
+    return baseUrl;
+  }
+  let newUrl = `${baseUrl}?`;
+  if (queries.sortBy){
+    newUrl += `sortBy=${queries.sortBy}&sortOrder=asc&`
+  }
+  if (queries.filter){
+    newUrl +=  `filter=${queries.filter}`
+  }
+  return newUrl;
+}
 
-export const editMovie = (movie: Movie, id: string) => {
-  return new Promise((res, rej) =>
-    setTimeout(() => {
-      let updatedList = [...movies];
-      const indexOfMovie = updatedList.findIndex((movie) => movie.id === id);
-      updatedList[indexOfMovie] = movie;
-      movies = updatedList;
-      return res(true);
-    }, 1000)
-  );
-};
+export const getMovie = (id: number) => {
+  return get(`${baseUrl}/${id}`)
+}
 
-export const deleteMovie = (id: string | undefined) => {
-  return new Promise((res, rej) =>
-    setTimeout(() => {
-      let updatedList = [...movies];
-      const indexOfMovie = updatedList.findIndex((movie) => movie.id === id);
-      updatedList.splice(indexOfMovie, 1);
-      movies = updatedList;
-      return res(true);
-    }, 1000)
-  );
-};
+export const postMovie = (body: any) => {
+  const movie = prepareDataForServer(body);
+  return post(baseUrl, {
+    body: JSON.stringify(movie)
+  })
+}
+
+export const updateMovie = (body: any) => {
+  const movie = prepareDataForServer(body);
+  return put(baseUrl, {
+    body: JSON.stringify(movie)
+  })
+}
+
+export const deleteSelectedMovie = (id: number) => {
+  return deleteRequest(`${baseUrl}/${id}`, {
+    headers: {'Content-Type': 'application/json;charset=utf-8'}
+  })
+}
+
+function prepareDataForServer(data: any){
+ return {
+      title: data.title,
+      tagline: data.tagline? data.tagline : 'Blabla bla bla blablabla',
+      vote_average: data.rating,
+      release_date: data.releaseDate,
+      poster_path: data.movieUrl,
+      overview: data.overview,
+      runtime: data.runtime,
+      genres: data.genres,
+      id: data.id
+    }
+}

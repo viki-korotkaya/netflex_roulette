@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, {SyntheticEvent, useState} from "react";
 import {
   CloseBtn,
   ModalContent,
@@ -7,29 +7,30 @@ import {
 } from "./ModalWindow.styled";
 import AddModalWindow from "./AddModal/AddModal";
 import DeleteModalWindow from "./DeleteModal/DeleteModal";
-import { addMovie, deleteMovie, editMovie } from "../../api/movieService";
 import SuccessModalWindow from "./SuccessModal/SuccessModal";
 import { MovieFormProps, Mode, Movie } from "../../models/movie";
 import { formInitial } from "../../assets/data/constData";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { addMovie, editMovie, deleteMovie } from "../../features/movies/moviesSelector";
+import { modalWindowAction } from "../../features/modalWindow/modalWindowSelector";
 
-interface ModalWindowProps {
-  closeHandler: () => void;
-  loadMovies: () => void;
-  mode: Mode;
-  editedMovie: Movie | null;
+
+
+const getInitialMovieForm = (movie: Movie) => {
+  return {
+    ...movie,
+    genres: movie.genres.map((str) => ({ value: str}))
+  }
 }
 
-const ModalWindow: React.FC<ModalWindowProps> = ({
-  closeHandler,
-  editedMovie,
-  mode,
-  loadMovies,
-}) => {
-  const movieInitial = editedMovie ? editedMovie : formInitial;
-
+const ModalWindow: React.FC = () => {
+  const { mode, editedMovie} = useAppSelector((state) => state.modalWindow);
+  const movieInitial = editedMovie ? getInitialMovieForm(editedMovie) : formInitial;
   const [form, setState] = useState<MovieFormProps>(movieInitial);
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
+
+  const dispatch = useAppDispatch();
 
   const handleFormReset = (e: SyntheticEvent) => {
     setState(movieInitial);
@@ -38,43 +39,51 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
 
   const handleOnChange = (e: SyntheticEvent) => {
     let target = e.target as HTMLFormElement;
-    setState({ ...form, [target.name]: target.value });
+    setState({ ...form, [target.name]: target.type === "number" ? parseInt(target.value, 10) : target.value });
   };
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    const movie: Movie = {
-      ...form,
-      id: editedMovie ? editedMovie.id : Date.now().toString(),
-    };
     if (mode === Mode.Edit && editedMovie) {
-      editMovie(movie, editedMovie.id).then((res) => {
-        setStep(2);
-        setMessage("The movie has been edited successfully");
-        loadMovies();
-      });
+      const movie: Movie = {
+        ...editedMovie,
+        ...form,
+        genres: form.genres.map(o => o.value)
+      };
+      dispatch(editMovie(movie)).unwrap().then(() => {
+          setStep(2);
+          setMessage("The movie has been edited successfully");
+      }).catch((e) => console.log(e));
     } else {
-      addMovie(movie).then((res) => {
-        setStep(2);
-        setMessage("The movie has been added to database successfully");
-        loadMovies();
-      });
+      const movie: Partial<Movie> = {
+        ...form,
+        genres: form.genres.map(o => o.value)
+      };
+      dispatch(addMovie(movie)).unwrap().then(() => {
+          setStep(2);
+          setMessage("The movie has been added successfully to database");
+      }).catch((e) => console.log(e));
     }
   };
 
   const handleGenreChange = (
-    selectedList: { value: string; label: string }[] | []
+    selectedList: any[]
   ) => {
-    setState({ ...form, genre: selectedList });
+    console.log(selectedList);
+    setState({ ...form, genres: selectedList});
   };
 
   const handleDeleteMovie = () => {
-    deleteMovie(editedMovie?.id).then((res) => {
+    if (!editedMovie) return false;
+    dispatch(deleteMovie(editedMovie.id)).unwrap().then(() => {
       setStep(2);
       setMessage("The movie has been deleted successfully");
-      loadMovies();
-    });
+    }).catch((e) => console.log(e));
   };
+
+  const closeHandler = () => {
+    dispatch(modalWindowAction.closeModal())
+  }
 
   return (
     <StyledModal onClick={closeHandler}>
@@ -88,7 +97,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({
         </StyledFlex>
         {step === 2 ? (
           <SuccessModalWindow message={message} />
-        ) : mode === "delete" ? (
+        ) : mode === Mode.Delete ? (
           <DeleteModalWindow handleDeleteMovie={handleDeleteMovie} />
         ) : (
           <AddModalWindow

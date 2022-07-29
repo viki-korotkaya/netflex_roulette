@@ -1,58 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import Header from "./containers/Header/Header";
 import Main from "./containers/Main/Main";
 import Footer from "./containers/Footer/Footer";
 import ModalWindow from "./components/ModalWindow/ModalWindow";
 import "./App.css";
-import { Mode, Movie } from "./models/movie";
-import { fetchMovies } from "./api/movieService";
 import MovieDetail from "./components/MovieDetail/MovieDetail";
-import { AppContext } from "./Context";
+import { useAppSelector, useAppDispatch } from "./hooks/hooks";
+import { fetchMovies } from "./features/movies/moviesSelector";
+import { StatusType } from "./models/movie";
 
 const App: React.FC = () => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [mode, setMode] = useState<Mode>(Mode.Default);
-  const [editedMovie, setEditedMovie] = useState<Movie | null>(null);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const { status, selectedMovie} = useAppSelector((state) => state.movies);
+  const { isOpen } = useAppSelector((state) => state.modalWindow);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    loadMovies();
-  }, []);
-
-  const loadMovies = () => {
-    fetchMovies().then((data: Movie[]) => setMovies(data));
-  };
-
-  const openModalHandler = (mode: Mode, movie?: Movie) => {
-    setMode(mode);
-    if (movie) setEditedMovie(movie);
-    setIsOpenModal(true);
-  };
-
-  const closeModalHandler = () => {
-    setIsOpenModal(false);
-    setEditedMovie(null);
-  };
-
+    if (status === StatusType.Idle){
+      dispatch(fetchMovies())
+    }
+  }, [status, dispatch]);
   return (
     <>
-      <AppContext.Provider
-        value={{ selectedMovie, setSelectedMovie, openModalHandler }}
-      >
-        {selectedMovie ? <MovieDetail /> : <Header />}
-        <Main movieList={movies} />
+      {selectedMovie ? <MovieDetail /> : <Header />}
+        <Main />
         <Footer />
-        {isOpenModal && (
-          <ModalWindow
-            closeHandler={closeModalHandler}
-            editedMovie={editedMovie}
-            mode={mode}
-            loadMovies={loadMovies}
-          />
-        )}
-      </AppContext.Provider>
+        {isOpen && <ModalWindow />}
     </>
   );
 };
