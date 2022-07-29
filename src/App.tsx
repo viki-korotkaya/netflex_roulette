@@ -8,6 +8,7 @@ import "./App.css";
 import MovieDetail from "./components/MovieDetail/MovieDetail";
 import { useAppSelector, useAppDispatch } from "./hooks/hooks";
 import { fetchMovies } from "./features/movies/moviesSelector";
+import { StatusType } from "./models/movie";
 
 const App: React.FC = () => {
   const { status, selectedMovie} = useAppSelector((state) => state.movies);
@@ -15,7 +16,7 @@ const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (status === 'idle'){
+    if (status === StatusType.Idle){
       dispatch(fetchMovies())
     }
   }, [status, dispatch]);

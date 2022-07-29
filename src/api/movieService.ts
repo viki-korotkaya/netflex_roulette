@@ -64,11 +64,11 @@ export const getMovies = (queries: { sortBy: string, filter: string }) => {
 }
 
 const getUrlWithQuery = (queries: { sortBy: string, filter: string }) => {
-  let urlString = Object.entries(queries).map((el, index) =>{
-    if (index === 0 && el[1] ) {
-      return `${el[0]}=${el[1]}&sortOrder=asc`
-    } else if (el[1] && index !== 0){
-      return `${el[0]}=${el[1]}`
+  let urlString = Object.entries(queries).map(([key, value], index) =>{
+    if (index === 0 && value ) {
+      return `${key}=${value}&sortOrder=asc`
+    } else if (value && index !== 0){
+      return `${key}=${value}`
     }
     return '';
   }).join('&');
