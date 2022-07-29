@@ -11,7 +11,7 @@ import {
   whiteCoconut,
   red,
   xxlarge,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledWrapper = styled.div`
   max-width: ${mainWidth};

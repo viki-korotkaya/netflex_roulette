@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyledInput } from "./Input.styled";
+import { StyledInput } from "components/Input/Input.styled";
 
 export interface InputProps {
   type: string;

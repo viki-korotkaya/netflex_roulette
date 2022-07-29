@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Mode, Movie } from "../../models/movie";
+import { Mode, Movie } from "models/movie";
 
 interface ModalWindowState {
   isOpen: boolean,

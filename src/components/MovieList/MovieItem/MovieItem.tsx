@@ -5,12 +5,12 @@ import {
   StyledMovieItem,
   StyledMovieTitle,
   StyledMovieYear,
-} from "./MovieItem.styled";
-import ContextMenu from "../../ContextMenu/ContextMenu";
-import { Mode, Movie } from "../../../models/movie";
-import { useAppDispatch } from "../../../hooks/hooks";
-import { fetchMovie } from "../../../features/movies/moviesSelector";
-import { modalWindowAction } from "../../../features/modalWindow/modalWindowSelector";
+} from "components/MovieList/MovieItem/MovieItem.styled";
+import ContextMenu from "components/ContextMenu/ContextMenu";
+import { Mode, Movie } from "models/movie";
+import { useAppDispatch } from "hooks/hooks";
+import { fetchMovie } from "features/movies/moviesSelector";
+import { modalWindowAction } from "features/modalWindow/modalWindowSelector";
 
 interface MovieProps {
   movie: Movie;

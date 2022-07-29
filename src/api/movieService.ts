@@ -1,4 +1,4 @@
-import { get, post, put, deleteRequest } from "./fetchService";
+import { get, post, put, deleteRequest } from "api/fetchService";
 
 const baseUrl = 'http://localhost:4000/movies';
 

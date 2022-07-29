@@ -4,7 +4,7 @@ import {
   darkTransparent,
   mainFontColor,
   mediumWeight,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledModal = styled.div`
   position: fixed;

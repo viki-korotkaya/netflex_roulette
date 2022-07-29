@@ -4,8 +4,8 @@ import {
   BodyModal,
   DeleteModal,
   StyledFlex,
-} from "./DeleteModal.styled";
-import { PrimaryButton } from "../../Button/Button.styled";
+} from "components/ModalWindow/DeleteModal/DeleteModal.styled";
+import { PrimaryButton } from "components/Button/Button.styled";
 
 interface ModalWindowProps {
   handleDeleteMovie: (e: SyntheticEvent) => void;

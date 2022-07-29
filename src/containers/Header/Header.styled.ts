@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import BackgroundImage from "../../assets/images/Header.png";
+import BackgroundImage from "assets/images/Header.png";
 import {
   headerHeight,
   mainWidth,
   paddingX,
   paddingY,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledHeader = styled.section`
   background-image: url(${BackgroundImage});

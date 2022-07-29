@@ -3,7 +3,7 @@ import {
   greyLight,
   mainWidth,
   paddingYFooter,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledFooter = styled.footer`
   max-width: ${mainWidth};

@@ -9,8 +9,8 @@ import {
   smallWeight,
   xlarge,
   xxxLarge,
-} from "../../../styles/global_varables";
-import Calendar from "../../../assets/images/calendar.svg";
+} from "styles/global_varables";
+import Calendar from "assets/images/calendar.svg";
 
 export const Form = styled.form``;
 

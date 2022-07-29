@@ -1,4 +1,4 @@
-import { MovieFormProps, Option } from "../../models/movie";
+import { MovieFormProps, Option } from "models/movie";
 
 export const nav = ["all", "documentary", "comedy", "horror", "crime"];
 

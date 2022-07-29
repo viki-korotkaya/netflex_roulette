@@ -7,7 +7,7 @@ import {
   marginMainTop,
   marginSumTop,
   paddingX,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledMain = styled.section`
   background-color: ${backgroundMain};

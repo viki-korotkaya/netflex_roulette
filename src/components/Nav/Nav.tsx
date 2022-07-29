@@ -1,9 +1,9 @@
 import React from "react";
 
-import { StyledUl, StyledDivider, StyledFlex } from "./Nav.styled";
-import NavItem from "./NavItem/NavItem";
-import Sorting from "../Sorting/Sorting";
-import { useAppSelector } from "../../hooks/hooks";
+import { StyledUl, StyledDivider, StyledFlex } from "components/Nav/Nav.styled";
+import NavItem from "components/Nav/NavItem/NavItem";
+import Sorting from "components/Sorting/Sorting";
+import { useAppSelector } from "hooks/hooks";
 
 interface NavProps {
   navList: string[];

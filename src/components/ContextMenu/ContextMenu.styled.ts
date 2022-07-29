@@ -11,7 +11,7 @@ import {
   padding7,
   purpleDark,
   red,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledContextMenu = styled.div`
   width: ${contextMenuSize};

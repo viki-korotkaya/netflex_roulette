@@ -4,8 +4,8 @@ import {
   BodyModal,
   SuccessModal,
   ImgWrapper,
-} from "./SuccessModal.styled";
-import Success from "../../../assets/images/success.svg";
+} from "components/ModalWindow/SuccessModal/SuccessModal.styled";
+import Success from "assets/images/success.svg";
 
 interface SuccessModalProps {
   message: string;

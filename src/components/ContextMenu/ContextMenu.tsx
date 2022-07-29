@@ -9,7 +9,7 @@ import {
   StyledUl,
   Span,
   StyledLi,
-} from "./ContextMenu.styled";
+} from "components/ContextMenu/ContextMenu.styled";
 
 interface ContextMenuProps {
   editModalHandler: () => void;

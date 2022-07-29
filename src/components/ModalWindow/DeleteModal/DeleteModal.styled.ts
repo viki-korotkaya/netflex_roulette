@@ -5,7 +5,7 @@ import {
   smallWeight,
   xlarge,
   xxxLarge,
-} from "../../../styles/global_varables";
+} from "styles/global_varables";
 
 export const DeleteModal = styled.div`
   color: ${mainFontColor};

@@ -1,5 +1,6 @@
 import React from "react";
 
+// @ts-ignore
 import {
   StyledWrapper,
   StyledFlex,
@@ -12,11 +13,11 @@ import {
   YearAndTimeContainer,
   StyledTitleContainer,
   Overview,
-} from "./MovieDetail.styled";
-import Logo from "../Logo/Logo";
-import SearchButton from "../../assets/images/search_button.svg";
-import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
-import { moviesAction } from "../../features/movies/moviesSelector";
+} from "components/MovieDetail/MovieDetail.styled";
+import Logo from "components/Logo/Logo";
+import SearchButton from "assets/images/search_button.svg";
+import { useAppSelector, useAppDispatch } from "hooks/hooks";
+import { moviesAction } from "features/movies/moviesSelector";
 
 const MovieDetail: React.FC = () => {
   const selectedMovie = useAppSelector((state) => state.movies.selectedMovie);

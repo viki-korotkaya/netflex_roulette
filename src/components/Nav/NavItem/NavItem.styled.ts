@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { dividerHeight, medium, red } from "../../../styles/global_varables";
+import { dividerHeight, medium, red } from "styles/global_varables";
 
 interface LiProps {
   index: number;

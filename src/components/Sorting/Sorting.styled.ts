@@ -11,7 +11,7 @@ import {
   borderTopTriangle,
   mainFontColor,
   black,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledSortingDiv = styled.div`
   margin-right: ${margin30};

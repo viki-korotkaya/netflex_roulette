@@ -5,7 +5,7 @@ import {
   dividerHeight,
   greyLight,
   paddingY,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledFlex = styled.div`
   display: flex;

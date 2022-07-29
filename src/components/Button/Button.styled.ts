@@ -10,7 +10,7 @@ import {
   mediumWeight,
   radius,
   red,
-} from "../../styles/global_varables";
+} from "styles/global_varables";
 
 export const StyledButton = styled.button`
   width: ${buttonWidth};

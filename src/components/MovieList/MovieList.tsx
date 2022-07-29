@@ -1,8 +1,8 @@
 import React from "react";
 
-import MovieItem from "./MovieItem/MovieItem";
-import { StyledFlex } from "./MovieList.styled";
-import { useAppSelector } from "../../hooks/hooks";
+import MovieItem from "components/MovieList/MovieItem/MovieItem";
+import { StyledFlex } from "components/MovieList/MovieList.styled";
+import { useAppSelector } from "hooks/hooks";
 
 const MovieList: React.FC = () => {
   const moviesList = useAppSelector((state) => state.movies.moviesList);

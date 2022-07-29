@@ -4,15 +4,15 @@ import {
   ModalContent,
   StyledFlex,
   StyledModal,
-} from "./ModalWindow.styled";
-import AddModalWindow from "./AddModal/AddModal";
-import DeleteModalWindow from "./DeleteModal/DeleteModal";
-import SuccessModalWindow from "./SuccessModal/SuccessModal";
-import { MovieFormProps, Mode, Movie } from "../../models/movie";
-import { formInitial } from "../../assets/data/constData";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { addMovie, editMovie, deleteMovie } from "../../features/movies/moviesSelector";
-import { modalWindowAction } from "../../features/modalWindow/modalWindowSelector";
+} from "components/ModalWindow/ModalWindow.styled";
+import AddModalWindow from "components/ModalWindow/AddModal/AddModal";
+import DeleteModalWindow from "components/ModalWindow/DeleteModal/DeleteModal";
+import SuccessModalWindow from "components/ModalWindow/SuccessModal/SuccessModal";
+import { MovieFormProps, Mode, Movie } from "models/movie";
+import { formInitial } from "assets/data/constData";
+import { useAppDispatch, useAppSelector } from "hooks/hooks";
+import { addMovie, editMovie, deleteMovie } from "features/movies/moviesSelector";
+import { modalWindowAction } from "features/modalWindow/modalWindowSelector";
 
 
 

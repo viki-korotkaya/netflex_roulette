@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Movie, MovieServerFormat, StatusType } from "../../models/movie";
-import { RootState } from "../../store/store";
-import { getMovies, postMovie, updateMovie, deleteSelectedMovie, getMovie } from "../../api/movieService";
+import { Movie, MovieServerFormat, StatusType } from "models/movie";
+import { RootState } from "store/store";
+import { getMovies, postMovie, updateMovie, deleteSelectedMovie, getMovie } from "api/movieService";
 
 export interface MoviesState {
   moviesList: Movie[],

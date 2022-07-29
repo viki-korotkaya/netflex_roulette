@@ -1,12 +1,12 @@
 import React, { ChangeEvent } from "react";
-import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
-import { moviesAction } from "../../features/movies/moviesSelector";
+import { useAppSelector, useAppDispatch } from "hooks/hooks";
+import { moviesAction } from "features/movies/moviesSelector";
 import {
   StyledSortingDiv,
   StyledFlex,
   Select,
   SelectWrapper,
-} from "./Sorting.styled";
+} from "components/Sorting/Sorting.styled";
 
 
 const Sorting: React.FC = () => {

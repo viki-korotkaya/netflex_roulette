@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from "react";
-import { useAppDispatch } from "../../../hooks/hooks";
-import { StyledLi, StyledA } from "./NavItem.styled";
-import { moviesAction } from "../../../features/movies/moviesSelector";
+import { useAppDispatch } from "hooks/hooks";
+import { StyledLi, StyledA } from "components/Nav/NavItem/NavItem.styled";
+import { moviesAction } from "features/movies/moviesSelector";
 
 interface NavItemProps {
   navItem: string;

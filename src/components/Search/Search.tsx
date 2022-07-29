@@ -1,8 +1,8 @@
 import React from "react";
 
-import { StyledSearch } from "./Search.styled";
-import Title from "../Title/Title";
-import SearchBar from "./SearchBar/SearchBar";
+import { StyledSearch } from "components/Search/Search.styled";
+import Title from "components/Title/Title";
+import SearchBar from "components/Search/SearchBar/SearchBar";
 
 const Search: React.FC = () => {
   return (

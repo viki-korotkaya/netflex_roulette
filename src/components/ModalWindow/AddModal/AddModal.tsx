@@ -9,9 +9,9 @@ import {
   StyledFlex,
   StyledFlexForButtons,
   TextArea,
-} from "./AddModal.styled";
-import { PrimaryButton, SecondaryButton } from "../../Button/Button.styled";
-import { genreOptions } from "../../../assets/data/constData";
+} from "components/ModalWindow/AddModal/AddModal.styled";
+import { PrimaryButton, SecondaryButton } from "components/Button/Button.styled";
+import { genreOptions } from "assets/data/constData";
 import {
   backgroundGrey,
   backgroundMain,
@@ -19,9 +19,9 @@ import {
   mainFontColor,
   xlarge,
   red,
-} from "../../../styles/global_varables";
+} from "styles/global_varables";
 import { Multiselect } from "multiselect-react-dropdown";
-import { MovieFormProps } from "../../../models/movie";
+import { MovieFormProps } from "models/movie";
 
 interface ModalWindowProps {
   form: MovieFormProps;

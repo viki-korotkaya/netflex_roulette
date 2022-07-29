@@ -11,8 +11,8 @@ import {
   padding8,
   radius,
   whiteCoconut,
-} from "../../../styles/global_varables";
-import { StyledContextMenu } from "../../ContextMenu/ContextMenu.styled";
+} from "styles/global_varables";
+import { StyledContextMenu } from "components/ContextMenu/ContextMenu.styled";
 
 export const StyledMovieItem = styled.div`
   margin-bottom: ${margin50};

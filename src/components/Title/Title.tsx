@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledTitle } from "./StyledTitle";
+import { StyledTitle } from "components/Title/StyledTitle";
 
 export interface TitleProps {
   children: string;
