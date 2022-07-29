@@ -8,6 +8,7 @@ const Footer: React.FC = () => {
     <StyledFooter>
       <div>
         <Logo />
+        <h1>FORTNITE COOOOOOOL</h1>
       </div>
     </StyledFooter>
   );
