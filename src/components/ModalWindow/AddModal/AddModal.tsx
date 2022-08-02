@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from "react";
+import { Formik, Form, Field } from "formik";
 import {
-  Form,
   TitleModal,
   InputDate,
   InputLeft,
@@ -24,9 +24,9 @@ import { Multiselect } from "multiselect-react-dropdown";
 import { MovieFormProps } from "models/movie";
 
 interface ModalWindowProps {
-  form: MovieFormProps;
+  initialValues: MovieFormProps;
   handleOnChange: (e: SyntheticEvent) => void;
-  handleSubmit: (e: SyntheticEvent) => void;
+  submitHandler: (e: SyntheticEvent) => void;
   handleFormReset: (e: SyntheticEvent) => void;
   handleGenreChange: (selectedList: [], selectedItem: {}) => void;
   mode: string;
@@ -34,111 +34,107 @@ interface ModalWindowProps {
 
 const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
   const {
-    form,
+    initialValues,
     handleOnChange,
-    handleSubmit,
+    submitHandler,
     handleFormReset,
     handleGenreChange,
     mode,
   } = props;
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <TitleModal>{mode === "add" ? "Add movie" : "Edit movie"}</TitleModal>
-      <StyledFlex>
-        <div>
-          <Label htmlFor="title">Title</Label>
-          <InputLeft
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Title"
-            value={form.title}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <Label htmlFor="releaseDate">Release Date</Label>
-          <InputDate
-            type="date"
-            name="releaseDate"
-            id="releaseDate"
-            value={form.releaseDate}
-            onChange={handleOnChange}
-          />
-        </div>
-      </StyledFlex>
-      <StyledFlex>
-        <div>
-          <Label htmlFor="movieUrl">Models URL</Label>
-          <InputLeft
-            type="text"
-            name="movieUrl"
-            id="movieUrl"
-            placeholder="https://"
-            value={form.movieUrl}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <Label htmlFor="rating">Rating</Label>
-          <InputRight
-            type="number"
-            name="rating"
-            id="rating"
-            min="0"
-            max="10"
-            step="0.1"
-            value={form.rating}
-            onChange={handleOnChange}
-          />
-        </div>
-      </StyledFlex>
-      <StyledFlex>
-        <div>
-          <Label htmlFor="genres">Genre</Label>
-          <Multiselect
-            displayValue="value"
-            selectedValues={form.genres}
-            hidePlaceholder={true}
-            placeholder="Select Genre"
-            onRemove={handleGenreChange}
-            onSelect={handleGenreChange}
-            options={genreOptions}
-            showCheckbox
-            showArrow={false}
-            style={styleForMultiSelect}
-          />
-        </div>
-        <div>
-          <Label htmlFor="runtime">Runtime</Label>
-          <InputRight
-            type="number"
-            name="runtime"
-            id="runtime"
-            placeholder="minutes"
-            value={form.runtime}
-            onChange={handleOnChange}
-          />
-        </div>
-      </StyledFlex>
-      <div>
-        <Label htmlFor="overview">Overview</Label>
-        <TextArea
-          id="overview"
-          name="overview"
-          rows={4}
-          cols={50}
-          placeholder="Models description"
-          value={form.overview}
-          onChange={handleOnChange}
-        />
-      </div>
-      <StyledFlexForButtons>
-        <SecondaryButton onClick={handleFormReset}>Reset</SecondaryButton>
-        <PrimaryButton type="submit">Submit</PrimaryButton>
-      </StyledFlexForButtons>
-    </Form>
+   <Formik initialValues={initialValues} onSubmit={(values) => console.log(values)}>
+     {(props) => (
+       <Form>
+         <TitleModal>{mode === "add" ? "Add movie" : "Edit movie"}</TitleModal>
+         <StyledFlex>
+           <div>
+             <Label htmlFor="title">Title</Label>
+             <InputLeft
+               placeholder="Title"
+               name="title"
+               type="text"
+             />
+           </div>
+           <div>
+             <Label htmlFor="releaseDate">Release Date</Label>
+             <InputDate
+               type="date"
+               name="releaseDate"
+             />
+           </div>
+         </StyledFlex>
+         <StyledFlex>
+           <div>
+             <Label htmlFor="movieUrl">Models URL</Label>
+             <InputLeft
+               type="text"
+               name="movieUrl"
+               placeholder="https://"
+             />
+           </div>
+           <div>
+             <Label htmlFor="rating">Rating</Label>
+             <InputRight
+               type="number"
+               name="rating"
+               min="0"
+               max="10"
+               step="0.1"
+             />
+           </div>
+         </StyledFlex>
+         <StyledFlex>
+           <div>
+             <Label htmlFor="genres">Genre</Label>
+             <Field name="genres">
+               {({
+                   field, // { name, value, onChange, onBlur }
+                   form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                   meta,
+                 }) => (
+                 <Multiselect
+                   displayValue="value"
+                   selectedValues={props.values.genres}
+                   hidePlaceholder={true}
+                   placeholder="Select Genre"
+                   onRemove={handleGenreChange}
+                   onSelect={handleGenreChange}
+                   options={genreOptions}
+                   showCheckbox
+                   showArrow={false}
+                   style={styleForMultiSelect}
+                 />
+               )}
+             </Field>
+           </div>
+           <div>
+             <Label htmlFor="runtime">Runtime</Label>
+             <InputRight
+               type="number"
+               name="runtime"
+               placeholder="minutes"
+             />
+           </div>
+         </StyledFlex>
+         <div>
+           <Label htmlFor="overview">Overview</Label>
+           <TextArea
+             component="textarea"
+             name="overview"
+             placeholder="Movie description"
+             rows={4}
+             cols={50}
+           />
+         </div>
+         <StyledFlexForButtons>
+           <SecondaryButton onClick={handleFormReset}>Reset</SecondaryButton>
+           <PrimaryButton type="submit">Submit</PrimaryButton>
+         </StyledFlexForButtons>
+         <pre>{JSON.stringify(props.values.genres, null, 2 )}</pre>
+       </Form>
+     )}
+   </Formik>
   );
 };
 

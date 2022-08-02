@@ -69,7 +69,6 @@ const ModalWindow: React.FC = () => {
   const handleGenreChange = (
     selectedList: any[]
   ) => {
-    console.log(selectedList);
     setState({ ...form, genres: selectedList});
   };
 
@@ -101,9 +100,9 @@ const ModalWindow: React.FC = () => {
           <DeleteModalWindow handleDeleteMovie={handleDeleteMovie} />
         ) : (
           <AddModalWindow
-            form={form}
+            initialValues={movieInitial}
             handleOnChange={handleOnChange}
-            handleSubmit={handleSubmit}
+            submitHandler={handleSubmit}
             handleFormReset={handleFormReset}
             handleGenreChange={handleGenreChange}
             mode={mode}

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Field } from "formik";
 import {
   backgroundGrey,
   baseWeight,
@@ -11,8 +12,6 @@ import {
   xxxLarge,
 } from "styles/global_varables";
 import Calendar from "assets/images/calendar.svg";
-
-export const Form = styled.form``;
 
 export const TitleModal = styled.h2`
   text-transform: uppercase;
@@ -29,7 +28,7 @@ export const Label = styled.label`
   margin-bottom: 13px;
 `;
 
-export const InputLeft = styled.input`
+export const InputLeft = styled(Field)`
   width: 525px;
   background: ${backgroundGrey};
   border: 0;
@@ -40,7 +39,7 @@ export const InputLeft = styled.input`
   padding: 17px;
 `;
 
-export const InputRight = styled.input`
+export const InputRight = styled(Field)`
   width: 300px;
   background: ${backgroundGrey};
   border: 0;
@@ -54,9 +53,11 @@ export const InputRight = styled.input`
   }
 `;
 
-export const InputDate = styled(InputRight)``;
+export const InputDate = styled(InputRight)`
+  height: 56.5px
+`;
 
-export const TextArea = styled.textarea`
+export const TextArea = styled(Field)`
   width: 100%;
   background: ${backgroundGrey};
   border: 0;
