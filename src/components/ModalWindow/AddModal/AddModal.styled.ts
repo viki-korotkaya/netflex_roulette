@@ -6,7 +6,7 @@ import {
   largeWeight,
   mainFontColor,
   medium,
-  red,
+  red, small,
   smallWeight,
   xlarge,
   xxxLarge,
@@ -80,4 +80,10 @@ export const StyledFlex = styled.div`
   justify-content: space-between;
   margin-bottom: 30px;
   gap: 30px;
+`;
+
+export const ErrorSpan = styled.span`
+  display: block;
+  color: ${red};
+  font-size: ${small};
 `;

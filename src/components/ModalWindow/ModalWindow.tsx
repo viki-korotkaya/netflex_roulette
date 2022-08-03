@@ -26,24 +26,24 @@ const getInitialMovieForm = (movie: Movie) => {
 const ModalWindow: React.FC = () => {
   const { mode, editedMovie} = useAppSelector((state) => state.modalWindow);
   const movieInitial = editedMovie ? getInitialMovieForm(editedMovie) : formInitial;
-  const [form, setState] = useState<MovieFormProps>(movieInitial);
+  // const [form, setState] = useState<MovieFormProps>(movieInitial);
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
 
   const dispatch = useAppDispatch();
 
   const handleFormReset = (e: SyntheticEvent) => {
-    setState(movieInitial);
+    // setState(movieInitial);
     e.preventDefault();
   };
 
   const handleOnChange = (e: SyntheticEvent) => {
     let target = e.target as HTMLFormElement;
-    setState({ ...form, [target.name]: target.type === "number" ? parseInt(target.value, 10) : target.value });
+    // setState({ ...form, [target.name]: target.type === "number" ? parseInt(target.value, 10) : target.value });
   };
 
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
+  const handleSubmit = (form: MovieFormProps) => {
+    // e.preventDefault();
     if (mode === Mode.Edit && editedMovie) {
       const movie: Movie = {
         ...editedMovie,
@@ -66,11 +66,7 @@ const ModalWindow: React.FC = () => {
     }
   };
 
-  const handleGenreChange = (
-    selectedList: any[]
-  ) => {
-    setState({ ...form, genres: selectedList});
-  };
+
 
   const handleDeleteMovie = () => {
     if (!editedMovie) return false;
@@ -101,10 +97,7 @@ const ModalWindow: React.FC = () => {
         ) : (
           <AddModalWindow
             initialValues={movieInitial}
-            handleOnChange={handleOnChange}
             submitHandler={handleSubmit}
-            handleFormReset={handleFormReset}
-            handleGenreChange={handleGenreChange}
             mode={mode}
           />
         )}

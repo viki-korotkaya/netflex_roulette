@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FieldProps, useField, FieldAttributes } from "formik";
+import * as yup from 'yup';
 import {
   TitleModal,
   InputDate,
@@ -9,6 +10,7 @@ import {
   StyledFlex,
   StyledFlexForButtons,
   TextArea,
+  ErrorSpan,
 } from "components/ModalWindow/AddModal/AddModal.styled";
 import { PrimaryButton, SecondaryButton } from "components/Button/Button.styled";
 import { genreOptions } from "assets/data/constData";
@@ -25,25 +27,45 @@ import { MovieFormProps } from "models/movie";
 
 interface ModalWindowProps {
   initialValues: MovieFormProps;
-  handleOnChange: (e: SyntheticEvent) => void;
-  submitHandler: (e: SyntheticEvent) => void;
-  handleFormReset: (e: SyntheticEvent) => void;
-  handleGenreChange: (selectedList: [], selectedItem: {}) => void;
-  mode: string;
+  // handleOnChange: (e: SyntheticEvent) => void;
+  submitHandler: (data: MovieFormProps ) => void;
+  // handleFormReset: (e: SyntheticEvent) => void;
+  // handleGenreChange: (selectedList: [], selectedItem: {}) => void;
+  mode: string
 }
+
+const validationSchema = yup.object({
+  title: yup.string()
+    .trim()
+    .required('Title is a required field'),
+  releaseDate: yup.string(),
+  movieUrl: yup.string()
+    .trim()
+    .required('Movie URL is a required field'),
+  rating: yup.number().typeError('Rating has to be a number')
+    .min(0, 'Rating has to be greater than or equal to 0')
+    .max(10, 'Rating has to be less than or equal to 10'),
+  genres: yup.array().min(1, 'Select at least one genre to proceed'),
+  runtime: yup.number().typeError('Rating has to be a number')
+    .required('Rantime is a required field'),
+  overview: yup.string()
+    .trim()
+    .required('Overview is a required field'),
+})
 
 const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
   const {
     initialValues,
-    handleOnChange,
     submitHandler,
-    handleFormReset,
-    handleGenreChange,
-    mode,
+    mode
   } = props;
 
   return (
-   <Formik initialValues={initialValues} onSubmit={(values) => console.log(values)}>
+   <Formik
+     initialValues={initialValues}
+     validationSchema={validationSchema}
+     onSubmit={(values) => submitHandler(values)}
+   >
      {(props) => (
        <Form>
          <TitleModal>{mode === "add" ? "Add movie" : "Edit movie"}</TitleModal>
@@ -55,6 +77,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
                name="title"
                type="text"
              />
+             {(props.errors.title && props.touched.title) && <ErrorSpan>{props.errors.title}</ErrorSpan>}
            </div>
            <div>
              <Label htmlFor="releaseDate">Release Date</Label>
@@ -72,6 +95,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
                name="movieUrl"
                placeholder="https://"
              />
+             {(props.errors.movieUrl && props.touched.movieUrl) && <ErrorSpan>{props.errors.movieUrl}</ErrorSpan>}
            </div>
            <div>
              <Label htmlFor="rating">Rating</Label>
@@ -82,6 +106,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
                max="10"
                step="0.1"
              />
+             {(props.errors.rating && props.touched.rating) && <ErrorSpan>{props.errors.rating}</ErrorSpan>}
            </div>
          </StyledFlex>
          <StyledFlex>
@@ -89,24 +114,38 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
              <Label htmlFor="genres">Genre</Label>
              <Field name="genres">
                {({
-                   field, // { name, value, onChange, onBlur }
-                   form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                   field,
+                   form,
                    meta,
-                 }) => (
+                 }: FieldProps<{}>) => (
+                   <>
                  <Multiselect
+                   {...field}
+                   id="genres"
                    displayValue="value"
                    selectedValues={props.values.genres}
                    hidePlaceholder={true}
                    placeholder="Select Genre"
-                   onRemove={handleGenreChange}
-                   onSelect={handleGenreChange}
+                   onRemove={(selectedList: any[]) => {
+                     props.setFieldValue(field.name, selectedList);
+                     // props.setTouched({...form.touched,[field.name]: true });
+                   }}
+                   onSelect={(selectedList: any[]) => {
+                     props.setFieldValue(field.name, selectedList);
+                     // props.setTouched({...form.touched,[field.name]: true });
+                   }}
                    options={genreOptions}
                    showCheckbox
                    showArrow={false}
                    style={styleForMultiSelect}
                  />
+                     {meta.error && meta.touched && (
+                       <ErrorSpan>{meta.error}</ErrorSpan>
+                     )}
+                 </>
                )}
              </Field>
+             {/*{(props.errors.genres && props.touched.genres) && <ErrorSpan>{props.errors.genres as string}</ErrorSpan>}*/}
            </div>
            <div>
              <Label htmlFor="runtime">Runtime</Label>
@@ -115,10 +154,12 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
                name="runtime"
                placeholder="minutes"
              />
+             {(props.errors.runtime && props.touched.runtime) && <ErrorSpan>{props.errors.runtime}</ErrorSpan>}
            </div>
          </StyledFlex>
          <div>
            <Label htmlFor="overview">Overview</Label>
+           { (props.errors.overview && props.touched.overview) && <ErrorSpan>{props.errors.overview}</ErrorSpan>}
            <TextArea
              component="textarea"
              name="overview"
@@ -128,10 +169,10 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
            />
          </div>
          <StyledFlexForButtons>
-           <SecondaryButton onClick={handleFormReset}>Reset</SecondaryButton>
+           <SecondaryButton type="reset" onClick={() => props.handleReset()}>Reset</SecondaryButton>
            <PrimaryButton type="submit">Submit</PrimaryButton>
          </StyledFlexForButtons>
-         <pre>{JSON.stringify(props.values.genres, null, 2 )}</pre>
+         <pre>{JSON.stringify(props.touched)}</pre>
        </Form>
      )}
    </Formik>
