@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState} from "react";
+import React, { useState } from "react";
 import {
   CloseBtn,
   ModalContent,
@@ -26,24 +26,12 @@ const getInitialMovieForm = (movie: Movie) => {
 const ModalWindow: React.FC = () => {
   const { mode, editedMovie} = useAppSelector((state) => state.modalWindow);
   const movieInitial = editedMovie ? getInitialMovieForm(editedMovie) : formInitial;
-  // const [form, setState] = useState<MovieFormProps>(movieInitial);
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
 
   const dispatch = useAppDispatch();
 
-  const handleFormReset = (e: SyntheticEvent) => {
-    // setState(movieInitial);
-    e.preventDefault();
-  };
-
-  const handleOnChange = (e: SyntheticEvent) => {
-    let target = e.target as HTMLFormElement;
-    // setState({ ...form, [target.name]: target.type === "number" ? parseInt(target.value, 10) : target.value });
-  };
-
   const handleSubmit = (form: MovieFormProps) => {
-    // e.preventDefault();
     if (mode === Mode.Edit && editedMovie) {
       const movie: Movie = {
         ...editedMovie,

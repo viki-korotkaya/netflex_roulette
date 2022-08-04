@@ -65,7 +65,6 @@ export const TextArea = styled(Field)`
   color: ${mainFontColor};
   font-weight: ${baseWeight};
   font-size: ${xlarge};
-  margin-bottom: 30px;
   padding: 17px;
 `;
 
@@ -73,6 +72,7 @@ export const StyledFlexForButtons = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 15px;
+  margin-top: 30px;
 `;
 
 export const StyledFlex = styled.div`
@@ -86,4 +86,5 @@ export const ErrorSpan = styled.span`
   display: block;
   color: ${red};
   font-size: ${small};
+  font-weight: ${smallWeight};
 `;

@@ -1,5 +1,5 @@
-import React, { SyntheticEvent } from "react";
-import { Formik, Form, Field, FieldProps, useField, FieldAttributes } from "formik";
+import React from "react";
+import { Formik, Form, Field, FieldProps } from "formik";
 import * as yup from 'yup';
 import {
   TitleModal,
@@ -23,14 +23,11 @@ import {
   red,
 } from "styles/global_varables";
 import { Multiselect } from "multiselect-react-dropdown";
-import { MovieFormProps } from "models/movie";
+import {Mode, MovieFormProps} from "models/movie";
 
 interface ModalWindowProps {
   initialValues: MovieFormProps;
-  // handleOnChange: (e: SyntheticEvent) => void;
   submitHandler: (data: MovieFormProps ) => void;
-  // handleFormReset: (e: SyntheticEvent) => void;
-  // handleGenreChange: (selectedList: [], selectedItem: {}) => void;
   mode: string
 }
 
@@ -47,7 +44,7 @@ const validationSchema = yup.object({
     .max(10, 'Rating has to be less than or equal to 10'),
   genres: yup.array().min(1, 'Select at least one genre to proceed'),
   runtime: yup.number().typeError('Rating has to be a number')
-    .required('Rantime is a required field'),
+    .min(1, 'Runtime is a required field'),
   overview: yup.string()
     .trim()
     .required('Overview is a required field'),
@@ -68,7 +65,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
    >
      {(props) => (
        <Form>
-         <TitleModal>{mode === "add" ? "Add movie" : "Edit movie"}</TitleModal>
+         <TitleModal>{mode === Mode.Add ? "Add movie" : "Edit movie"}</TitleModal>
          <StyledFlex>
            <div>
              <Label htmlFor="title">Title</Label>
@@ -159,7 +156,6 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
          </StyledFlex>
          <div>
            <Label htmlFor="overview">Overview</Label>
-           { (props.errors.overview && props.touched.overview) && <ErrorSpan>{props.errors.overview}</ErrorSpan>}
            <TextArea
              component="textarea"
              name="overview"
@@ -167,12 +163,12 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
              rows={4}
              cols={50}
            />
+           { (props.errors.overview && props.touched.overview) && <ErrorSpan>{props.errors.overview}</ErrorSpan>}
          </div>
          <StyledFlexForButtons>
            <SecondaryButton type="reset" onClick={() => props.handleReset()}>Reset</SecondaryButton>
-           <PrimaryButton type="submit">Submit</PrimaryButton>
+           <PrimaryButton disabled={ !props.isValid || !props.dirty || props.isSubmitting} type="submit">Submit</PrimaryButton>
          </StyledFlexForButtons>
-         <pre>{JSON.stringify(props.touched)}</pre>
        </Form>
      )}
    </Formik>
