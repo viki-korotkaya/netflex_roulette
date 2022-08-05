@@ -11,10 +11,9 @@ import SuccessModalWindow from "components/ModalWindow/SuccessModal/SuccessModal
 import { MovieFormProps, Mode, Movie } from "models/movie";
 import { formInitial } from "assets/data/constData";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
-import { addMovie, editMovie, deleteMovie } from "features/movies/moviesSelector";
+import { addMovie, editMovie, deleteMovie, fetchMovie } from "features/movies/moviesSelector";
 import { modalWindowAction } from "features/modalWindow/modalWindowSelector";
-
-
+import { moviesAction } from "features/movies/moviesSelector";
 
 const getInitialMovieForm = (movie: Movie) => {
   return {
@@ -25,6 +24,7 @@ const getInitialMovieForm = (movie: Movie) => {
 
 const ModalWindow: React.FC = () => {
   const { mode, editedMovie} = useAppSelector((state) => state.modalWindow);
+  const { selectedMovie} = useAppSelector((state) => state.movies);
   const movieInitial = editedMovie ? getInitialMovieForm(editedMovie) : formInitial;
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
@@ -38,10 +38,20 @@ const ModalWindow: React.FC = () => {
         ...form,
         genres: form.genres.map(o => o.value)
       };
-      dispatch(editMovie(movie)).unwrap().then(() => {
+      dispatch(editMovie(movie))
+        .unwrap()
+        .then(() => {
           setStep(2);
           setMessage("The movie has been edited successfully");
-      }).catch((e) => console.log(e));
+        })
+        .catch((e) => {
+          console.log(e)
+        }).then(() => {
+          if (movie.id === selectedMovie?.id) {
+            dispatch(fetchMovie(movie.id))
+          }
+        }
+      );
     } else {
       const movie: Partial<Movie> = {
         ...form,
@@ -54,14 +64,20 @@ const ModalWindow: React.FC = () => {
     }
   };
 
-
-
   const handleDeleteMovie = () => {
     if (!editedMovie) return false;
-    dispatch(deleteMovie(editedMovie.id)).unwrap().then(() => {
-      setStep(2);
-      setMessage("The movie has been deleted successfully");
-    }).catch((e) => console.log(e));
+    dispatch(deleteMovie(editedMovie.id))
+      .unwrap()
+      .then(() => {
+        setStep(2);
+        setMessage("The movie has been deleted successfully");
+      })
+      .catch((e) => console.log(e))
+      .then(() => {
+        if (editedMovie.id === selectedMovie?.id) {
+          dispatch(moviesAction.resetSelectedMovie());
+        }
+      });
   };
 
   const closeHandler = () => {

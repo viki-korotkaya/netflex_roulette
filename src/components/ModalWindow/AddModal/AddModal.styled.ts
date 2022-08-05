@@ -28,8 +28,15 @@ export const Label = styled.label`
   margin-bottom: 13px;
 `;
 
-export const InputLeft = styled(Field)`
+
+export const Left = styled.div`
   width: 525px;
+`;
+export const Right = styled.div`
+  width: 300px;
+`;
+export const InputLeft = styled(Field)`
+  
   background: ${backgroundGrey};
   border: 0;
   outline: 0;
@@ -40,7 +47,7 @@ export const InputLeft = styled(Field)`
 `;
 
 export const InputRight = styled(Field)`
-  width: 300px;
+  
   background: ${backgroundGrey};
   border: 0;
   outline: 0;

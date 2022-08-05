@@ -1,16 +1,12 @@
 import React from "react";
-import { Formik, Form, Field, FieldProps } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as yup from 'yup';
 import {
   TitleModal,
-  InputDate,
-  InputLeft,
-  InputRight,
-  Label,
   StyledFlex,
   StyledFlexForButtons,
-  TextArea,
-  ErrorSpan,
+  Left,
+  Right,
 } from "components/ModalWindow/AddModal/AddModal.styled";
 import { PrimaryButton, SecondaryButton } from "components/Button/Button.styled";
 import { genreOptions } from "assets/data/constData";
@@ -22,8 +18,9 @@ import {
   xlarge,
   red,
 } from "styles/global_varables";
-import { Multiselect } from "multiselect-react-dropdown";
 import {Mode, MovieFormProps} from "models/movie";
+import FormField from "../../FormField/FormField";
+import {FormMultiselect} from "../../FormField/FormMultiselect/FormMultiselect";
 
 interface ModalWindowProps {
   initialValues: MovieFormProps;
@@ -61,109 +58,80 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
    <Formik
      initialValues={initialValues}
      validationSchema={validationSchema}
-     onSubmit={(values) => submitHandler(values)}
+     onSubmit={async (values, {resetForm}) => {
+       await submitHandler(values);
+       resetForm();
+     }}
    >
      {(props) => (
        <Form>
          <TitleModal>{mode === Mode.Add ? "Add movie" : "Edit movie"}</TitleModal>
          <StyledFlex>
-           <div>
-             <Label htmlFor="title">Title</Label>
-             <InputLeft
+           <Left>
+             <Field
+               component={FormField}
                placeholder="Title"
                name="title"
                type="text"
              />
-             {(props.errors.title && props.touched.title) && <ErrorSpan>{props.errors.title}</ErrorSpan>}
-           </div>
-           <div>
-             <Label htmlFor="releaseDate">Release Date</Label>
-             <InputDate
-               type="date"
+           </Left>
+           <Right>
+             <Field
+               component={FormField}
                name="releaseDate"
+               type="date"
              />
-           </div>
+           </Right>
          </StyledFlex>
          <StyledFlex>
-           <div>
-             <Label htmlFor="movieUrl">Models URL</Label>
-             <InputLeft
+           <Left>
+             <Field
+               component={FormField}
                type="text"
                name="movieUrl"
                placeholder="https://"
              />
-             {(props.errors.movieUrl && props.touched.movieUrl) && <ErrorSpan>{props.errors.movieUrl}</ErrorSpan>}
-           </div>
-           <div>
-             <Label htmlFor="rating">Rating</Label>
-             <InputRight
+           </Left>
+           <Right>
+             <Field
+               component={FormField}
                type="number"
                name="rating"
-               min="0"
-               max="10"
                step="0.1"
              />
-             {(props.errors.rating && props.touched.rating) && <ErrorSpan>{props.errors.rating}</ErrorSpan>}
-           </div>
+           </Right>
          </StyledFlex>
          <StyledFlex>
-           <div>
-             <Label htmlFor="genres">Genre</Label>
-             <Field name="genres">
-               {({
-                   field,
-                   form,
-                   meta,
-                 }: FieldProps<{}>) => (
-                   <>
-                 <Multiselect
-                   {...field}
-                   id="genres"
-                   displayValue="value"
-                   selectedValues={props.values.genres}
-                   hidePlaceholder={true}
-                   placeholder="Select Genre"
-                   onRemove={(selectedList: any[]) => {
-                     props.setFieldValue(field.name, selectedList);
-                     // props.setTouched({...form.touched,[field.name]: true });
-                   }}
-                   onSelect={(selectedList: any[]) => {
-                     props.setFieldValue(field.name, selectedList);
-                     // props.setTouched({...form.touched,[field.name]: true });
-                   }}
-                   options={genreOptions}
-                   showCheckbox
-                   showArrow={false}
-                   style={styleForMultiSelect}
-                 />
-                     {meta.error && meta.touched && (
-                       <ErrorSpan>{meta.error}</ErrorSpan>
-                     )}
-                 </>
-               )}
-             </Field>
-             {/*{(props.errors.genres && props.touched.genres) && <ErrorSpan>{props.errors.genres as string}</ErrorSpan>}*/}
-           </div>
-           <div>
-             <Label htmlFor="runtime">Runtime</Label>
-             <InputRight
+           <Left>
+             <Field
+               component={FormMultiselect}
+               name="genres"
+               displayValue="value"
+               selectedValues={props.values.genres}
+               hidePlaceholder
+               placeholder="Select Genre"
+               options={genreOptions}
+               showCheckbox
+               showArrow={false}
+               style={styleForMultiSelect}
+             />
+           </Left>
+           <Right>
+             <Field
+               component={FormField}
                type="number"
                name="runtime"
                placeholder="minutes"
              />
-             {(props.errors.runtime && props.touched.runtime) && <ErrorSpan>{props.errors.runtime}</ErrorSpan>}
-           </div>
+           </Right>
          </StyledFlex>
          <div>
-           <Label htmlFor="overview">Overview</Label>
-           <TextArea
-             component="textarea"
+           <Field
+             component={FormField}
+             type="textarea"
              name="overview"
              placeholder="Movie description"
-             rows={4}
-             cols={50}
            />
-           { (props.errors.overview && props.touched.overview) && <ErrorSpan>{props.errors.overview}</ErrorSpan>}
          </div>
          <StyledFlexForButtons>
            <SecondaryButton type="reset" onClick={() => props.handleReset()}>Reset</SecondaryButton>
