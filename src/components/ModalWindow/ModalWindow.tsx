@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState} from "react";
+import React, { useState } from "react";
 import {
   CloseBtn,
   ModalContent,
@@ -11,10 +11,9 @@ import SuccessModalWindow from "components/ModalWindow/SuccessModal/SuccessModal
 import { MovieFormProps, Mode, Movie } from "models/movie";
 import { formInitial } from "assets/data/constData";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
-import { addMovie, editMovie, deleteMovie } from "features/movies/moviesSelector";
+import { addMovie, editMovie, deleteMovie, fetchMovie } from "features/movies/moviesSelector";
 import { modalWindowAction } from "features/modalWindow/modalWindowSelector";
-
-
+import { moviesAction } from "features/movies/moviesSelector";
 
 const getInitialMovieForm = (movie: Movie) => {
   return {
@@ -25,35 +24,34 @@ const getInitialMovieForm = (movie: Movie) => {
 
 const ModalWindow: React.FC = () => {
   const { mode, editedMovie} = useAppSelector((state) => state.modalWindow);
+  const { selectedMovie} = useAppSelector((state) => state.movies);
   const movieInitial = editedMovie ? getInitialMovieForm(editedMovie) : formInitial;
-  const [form, setState] = useState<MovieFormProps>(movieInitial);
   const [step, setStep] = useState(1);
   const [message, setMessage] = useState("");
 
   const dispatch = useAppDispatch();
 
-  const handleFormReset = (e: SyntheticEvent) => {
-    setState(movieInitial);
-    e.preventDefault();
-  };
-
-  const handleOnChange = (e: SyntheticEvent) => {
-    let target = e.target as HTMLFormElement;
-    setState({ ...form, [target.name]: target.type === "number" ? parseInt(target.value, 10) : target.value });
-  };
-
-  const handleSubmit = (e: SyntheticEvent) => {
-    e.preventDefault();
+  const handleSubmit = (form: MovieFormProps) => {
     if (mode === Mode.Edit && editedMovie) {
       const movie: Movie = {
         ...editedMovie,
         ...form,
         genres: form.genres.map(o => o.value)
       };
-      dispatch(editMovie(movie)).unwrap().then(() => {
+      dispatch(editMovie(movie))
+        .unwrap()
+        .then(() => {
           setStep(2);
           setMessage("The movie has been edited successfully");
-      }).catch((e) => console.log(e));
+        })
+        .catch((e) => {
+          console.log(e)
+        }).then(() => {
+          if (movie.id === selectedMovie?.id) {
+            dispatch(fetchMovie(movie.id))
+          }
+        }
+      );
     } else {
       const movie: Partial<Movie> = {
         ...form,
@@ -66,19 +64,20 @@ const ModalWindow: React.FC = () => {
     }
   };
 
-  const handleGenreChange = (
-    selectedList: any[]
-  ) => {
-    console.log(selectedList);
-    setState({ ...form, genres: selectedList});
-  };
-
   const handleDeleteMovie = () => {
     if (!editedMovie) return false;
-    dispatch(deleteMovie(editedMovie.id)).unwrap().then(() => {
-      setStep(2);
-      setMessage("The movie has been deleted successfully");
-    }).catch((e) => console.log(e));
+    dispatch(deleteMovie(editedMovie.id))
+      .unwrap()
+      .then(() => {
+        setStep(2);
+        setMessage("The movie has been deleted successfully");
+      })
+      .catch((e) => console.log(e))
+      .then(() => {
+        if (editedMovie.id === selectedMovie?.id) {
+          dispatch(moviesAction.resetSelectedMovie());
+        }
+      });
   };
 
   const closeHandler = () => {
@@ -101,11 +100,8 @@ const ModalWindow: React.FC = () => {
           <DeleteModalWindow handleDeleteMovie={handleDeleteMovie} />
         ) : (
           <AddModalWindow
-            form={form}
-            handleOnChange={handleOnChange}
-            handleSubmit={handleSubmit}
-            handleFormReset={handleFormReset}
-            handleGenreChange={handleGenreChange}
+            initialValues={movieInitial}
+            submitHandler={handleSubmit}
             mode={mode}
           />
         )}

@@ -23,6 +23,10 @@ export const StyledButton = styled.button`
   font-size: ${xlarge};
   font-weight: ${mediumWeight};
   cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.2;
+  }
 `;
 
 export const PrimaryButton = styled(StyledButton)`

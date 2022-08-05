@@ -12,7 +12,7 @@ const Header: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const openModalHandler = () => {
-    dispatch(modalWindowAction.openModal(Mode.Add));
+    dispatch(modalWindowAction.openModal({mode: Mode.Add}));
   }
 
   return (

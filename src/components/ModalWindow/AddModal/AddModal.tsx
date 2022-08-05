@@ -1,144 +1,152 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
+import { Formik, Form, Field } from "formik";
+import * as yup from "yup";
 import {
-  Form,
   TitleModal,
-  InputDate,
-  InputLeft,
-  InputRight,
-  Label,
   StyledFlex,
   StyledFlexForButtons,
-  TextArea,
+  Left,
+  Right,
 } from "components/ModalWindow/AddModal/AddModal.styled";
-import { PrimaryButton, SecondaryButton } from "components/Button/Button.styled";
+import {
+  PrimaryButton,
+  SecondaryButton,
+} from "components/Button/Button.styled";
 import { genreOptions } from "assets/data/constData";
+import { Mode, MovieFormProps } from "models/movie";
+import FormInputField from "components/FormComponents/FormInputField/FormInputField";
+import { FormMultiselect } from "components/FormComponents/FormMultiselect/FormMultiselect";
+import FormTextareaField from "components/FormComponents/FormTextareaField/FormTextareaField";
 import {
   backgroundGrey,
   backgroundMain,
   baseWeight,
   mainFontColor,
-  xlarge,
   red,
+  xlarge,
 } from "styles/global_varables";
-import { Multiselect } from "multiselect-react-dropdown";
-import { MovieFormProps } from "models/movie";
 
 interface ModalWindowProps {
-  form: MovieFormProps;
-  handleOnChange: (e: SyntheticEvent) => void;
-  handleSubmit: (e: SyntheticEvent) => void;
-  handleFormReset: (e: SyntheticEvent) => void;
-  handleGenreChange: (selectedList: [], selectedItem: {}) => void;
+  initialValues: MovieFormProps;
+  submitHandler: (data: MovieFormProps) => void;
   mode: string;
 }
 
+const validationSchema = yup.object({
+  title: yup.string().trim().required("Title is a required field"),
+  releaseDate: yup.string(),
+  movieUrl: yup.string().trim().required("Movie URL is a required field"),
+  rating: yup
+    .number()
+    .typeError("Rating has to be a number")
+    .min(0, "Rating has to be greater than or equal to 0")
+    .max(10, "Rating has to be less than or equal to 10"),
+  genres: yup.array().min(1, "Select at least one genre to proceed"),
+  runtime: yup
+    .number()
+    .typeError("Rating has to be a number")
+    .min(1, "Runtime is a required field"),
+  overview: yup.string().trim().required("Overview is a required field"),
+});
+
 const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
-  const {
-    form,
-    handleOnChange,
-    handleSubmit,
-    handleFormReset,
-    handleGenreChange,
-    mode,
-  } = props;
+  const { initialValues, submitHandler, mode } = props;
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <TitleModal>{mode === "add" ? "Add movie" : "Edit movie"}</TitleModal>
-      <StyledFlex>
-        <div>
-          <Label htmlFor="title">Title</Label>
-          <InputLeft
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Title"
-            value={form.title}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <Label htmlFor="releaseDate">Release Date</Label>
-          <InputDate
-            type="date"
-            name="releaseDate"
-            id="releaseDate"
-            value={form.releaseDate}
-            onChange={handleOnChange}
-          />
-        </div>
-      </StyledFlex>
-      <StyledFlex>
-        <div>
-          <Label htmlFor="movieUrl">Models URL</Label>
-          <InputLeft
-            type="text"
-            name="movieUrl"
-            id="movieUrl"
-            placeholder="https://"
-            value={form.movieUrl}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <Label htmlFor="rating">Rating</Label>
-          <InputRight
-            type="number"
-            name="rating"
-            id="rating"
-            min="0"
-            max="10"
-            step="0.1"
-            value={form.rating}
-            onChange={handleOnChange}
-          />
-        </div>
-      </StyledFlex>
-      <StyledFlex>
-        <div>
-          <Label htmlFor="genres">Genre</Label>
-          <Multiselect
-            displayValue="value"
-            selectedValues={form.genres}
-            hidePlaceholder={true}
-            placeholder="Select Genre"
-            onRemove={handleGenreChange}
-            onSelect={handleGenreChange}
-            options={genreOptions}
-            showCheckbox
-            showArrow={false}
-            style={styleForMultiSelect}
-          />
-        </div>
-        <div>
-          <Label htmlFor="runtime">Runtime</Label>
-          <InputRight
-            type="number"
-            name="runtime"
-            id="runtime"
-            placeholder="minutes"
-            value={form.runtime}
-            onChange={handleOnChange}
-          />
-        </div>
-      </StyledFlex>
-      <div>
-        <Label htmlFor="overview">Overview</Label>
-        <TextArea
-          id="overview"
-          name="overview"
-          rows={4}
-          cols={50}
-          placeholder="Models description"
-          value={form.overview}
-          onChange={handleOnChange}
-        />
-      </div>
-      <StyledFlexForButtons>
-        <SecondaryButton onClick={handleFormReset}>Reset</SecondaryButton>
-        <PrimaryButton type="submit">Submit</PrimaryButton>
-      </StyledFlexForButtons>
-    </Form>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={async (values, { resetForm }) => {
+        await submitHandler(values);
+        resetForm();
+      }}
+    >
+      {(props) => (
+        <Form>
+          <TitleModal>
+            {mode === Mode.Add ? "Add movie" : "Edit movie"}
+          </TitleModal>
+          <StyledFlex>
+            <Left>
+              <Field
+                component={FormInputField}
+                placeholder="Title"
+                name="title"
+                type="text"
+              />
+            </Left>
+            <Right>
+              <Field
+                component={FormInputField}
+                name="releaseDate"
+                type="date"
+              />
+            </Right>
+          </StyledFlex>
+          <StyledFlex>
+            <Left>
+              <Field
+                component={FormInputField}
+                type="text"
+                name="movieUrl"
+                placeholder="https://"
+              />
+            </Left>
+            <Right>
+              <Field
+                component={FormInputField}
+                type="number"
+                name="rating"
+                step="0.1"
+              />
+            </Right>
+          </StyledFlex>
+          <StyledFlex>
+            <Left>
+              <Field
+                component={FormMultiselect}
+                name="genres"
+                displayValue="value"
+                selectedValues={props.values.genres}
+                hidePlaceholder
+                placeholder="Select Genre"
+                options={genreOptions}
+                showCheckbox
+                showArrow={false}
+                style={styleForMultiSelect}
+              />
+            </Left>
+            <Right>
+              <Field
+                component={FormInputField}
+                type="number"
+                name="runtime"
+                placeholder="minutes"
+              />
+            </Right>
+          </StyledFlex>
+          <div>
+            <Field
+              component={FormTextareaField}
+              name="overview"
+              placeholder="Movie description"
+              rows={4}
+            />
+          </div>
+          <StyledFlexForButtons>
+            <SecondaryButton type="reset" onClick={() => props.handleReset()}>
+              Reset
+            </SecondaryButton>
+            <PrimaryButton
+              disabled={!props.isValid || !props.dirty || props.isSubmitting}
+              type="submit"
+            >
+              Submit
+            </PrimaryButton>
+          </StyledFlexForButtons>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
