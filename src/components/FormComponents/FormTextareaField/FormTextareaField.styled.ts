@@ -4,27 +4,13 @@ import {
   backgroundGrey,
   baseWeight,
   largeWeight,
-  mainFontColor, medium,
+  mainFontColor,
+  medium,
   red,
   small,
   smallWeight,
-  xlarge
-} from "../../styles/global_varables";
-import Calendar from "assets/images/calendar.svg";
-
-export const FormFieldStyled = styled.input`
-  width: 100%;
-  background: ${backgroundGrey};
-  border: 0;
-  outline: 0;
-  color: ${mainFontColor};
-  font-weight: ${baseWeight};
-  font-size: ${xlarge};
-  padding: 17px;
-  &::-webkit-calendar-picker-indicator {
-    background-image: url(${Calendar});
-  }
-`;
+  xlarge,
+} from "../../../styles/global_varables";
 
 export const ErrorSpan = styled.span`
   display: block;
