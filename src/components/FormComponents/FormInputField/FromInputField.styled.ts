@@ -7,10 +7,8 @@ import {
   mainFontColor,
   medium,
   red,
-  small,
-  smallWeight,
   xlarge,
-} from "../../../styles/global_varables";
+} from "styles/global_varables";
 import Calendar from "assets/images/calendar.svg";
 
 export const FormFieldStyled = styled.input`
@@ -26,13 +24,6 @@ export const FormFieldStyled = styled.input`
   &::-webkit-calendar-picker-indicator {
     background-image: url(${Calendar});
   }
-`;
-
-export const ErrorSpan = styled.span`
-  display: block;
-  color: ${red};
-  font-size: ${small};
-  font-weight: ${smallWeight};
 `;
 
 export const Label = styled.label`

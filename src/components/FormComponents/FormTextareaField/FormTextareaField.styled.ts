@@ -7,17 +7,8 @@ import {
   mainFontColor,
   medium,
   red,
-  small,
-  smallWeight,
   xlarge,
-} from "../../../styles/global_varables";
-
-export const ErrorSpan = styled.span`
-  display: block;
-  color: ${red};
-  font-size: ${small};
-  font-weight: ${smallWeight};
-`;
+} from "styles/global_varables";
 
 export const Label = styled.label`
   display: block;

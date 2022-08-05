@@ -14,9 +14,17 @@ import {
 } from "components/Button/Button.styled";
 import { genreOptions } from "assets/data/constData";
 import { Mode, MovieFormProps } from "models/movie";
-import FormInputField from "../../FormComponents/FormInputField/FormInputField";
-import { FormMultiselect } from "../../FormComponents/FormMultiselect/FormMultiselect";
-import FormTextareaField from "../../FormComponents/FormTextareaField/FormTextareaField";
+import FormInputField from "components/FormComponents/FormInputField/FormInputField";
+import { FormMultiselect } from "components/FormComponents/FormMultiselect/FormMultiselect";
+import FormTextareaField from "components/FormComponents/FormTextareaField/FormTextareaField";
+import {
+  backgroundGrey,
+  backgroundMain,
+  baseWeight,
+  mainFontColor,
+  red,
+  xlarge,
+} from "styles/global_varables";
 
 interface ModalWindowProps {
   initialValues: MovieFormProps;
@@ -105,6 +113,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
                 options={genreOptions}
                 showCheckbox
                 showArrow={false}
+                style={styleForMultiSelect}
               />
             </Left>
             <Right>
@@ -121,6 +130,7 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
               component={FormTextareaField}
               name="overview"
               placeholder="Movie description"
+              rows={4}
             />
           </div>
           <StyledFlexForButtons>
@@ -141,3 +151,40 @@ const AddModalWindow: React.FC<ModalWindowProps> = (props) => {
 };
 
 export default AddModalWindow;
+
+const styleForMultiSelect = {
+  searchBox: {
+    display: "flex",
+    width: "525px",
+    height: "56.5px",
+    paddingLeft: "17px",
+    paddingRight: "17px",
+    borderRadius: 0,
+    background: `${backgroundGrey}`,
+    border: 0,
+    color: `${mainFontColor}`,
+    fontWeight: `${baseWeight}`,
+    fontSize: `${xlarge}`,
+    backgroundImage: `linear-gradient(45deg, transparent 50%, ${red} 50%), linear-gradient(135deg, ${red} 50%, transparent 50%)`,
+    backgroundPosition: `calc(100% - 20px) calc(1em + 2px),
+              calc(100% - 15px) calc(1em + 2px),
+              calc(100% - .5em) .5em`,
+    backgroundSize: `5px 5px,
+              5px 5px,
+              1.5em 1.5em`,
+    backgroundRepeat: "no-repeat",
+  },
+  optionContainer: {
+    color: `${mainFontColor}`,
+    background: `${backgroundMain}`,
+    border: 0,
+  },
+  chips: {
+    background: `${red}`,
+    alignSelf: "center",
+  },
+  option: {
+    background: `${backgroundMain}`,
+  },
+  checkbox: { accentColor: `${red} !import` },
+};

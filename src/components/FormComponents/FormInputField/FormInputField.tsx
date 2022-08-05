@@ -2,9 +2,9 @@ import React from "react";
 
 import {
   FormFieldStyled,
-  ErrorSpan,
   Label,
 } from "components/FormComponents/FormInputField/FromInputField.styled";
+import ErrorSpan from "components/FormComponents/ErrorSpan/ErrorSpan";
 
 export interface FormInputFieldProps {
   field: any;
@@ -27,7 +27,7 @@ const FormInputField: React.FC<FormInputFieldProps> = (props) => {
         step={step}
         {...field}
       />
-      {touched && error && <ErrorSpan>{error}</ErrorSpan>}
+      {touched && error && <ErrorSpan message={error} />}
     </>
   );
 };
