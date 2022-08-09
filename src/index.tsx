@@ -7,6 +7,7 @@ import GlobalStyle from "./styles/global";
 import ErrorBoundary from "./HOC/ErrorBoundary/ErrorBoundary";
 import { store } from "./store/store";
 import { Provider } from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,7 +16,9 @@ root.render(
   <Provider store={store}>
     <GlobalStyle />
     <ErrorBoundary>
-      <App />
+      <BrowserRouter>
+        <App/>
+      </BrowserRouter>
     </ErrorBoundary>
   </Provider>
 );
