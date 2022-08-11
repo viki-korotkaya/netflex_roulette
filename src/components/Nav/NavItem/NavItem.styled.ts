@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { dividerHeight, medium, red } from "styles/global_varables";
-import { NavLink } from "react-router-dom";
 
 interface LiProps {
   index: number;

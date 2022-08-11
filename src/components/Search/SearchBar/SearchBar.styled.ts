@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Input from "components/Input/Input";
 
 export const StyledFlex = styled.div`
   display: flex;

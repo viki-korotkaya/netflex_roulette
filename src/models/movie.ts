@@ -11,18 +11,18 @@ export interface Movie {
 }
 
 export interface MovieServerFormat {
-  title: string,
-  tagline: string,
-  vote_average: number,
-  vote_count: number,
-  release_date: string,
-  poster_path: string,
-  overview: string,
-  runtime: number,
-  budget: number,
-  revenue: number,
-  genres: string[],
-  id: number
+  title: string;
+  tagline: string;
+  vote_average: number;
+  vote_count: number;
+  release_date: string;
+  poster_path: string;
+  overview: string;
+  runtime: number;
+  budget: number;
+  revenue: number;
+  genres: string[];
+  id: number;
 }
 
 export interface MovieFormProps {
@@ -51,4 +51,10 @@ export enum StatusType {
   Pending = "pending",
   Success = "success",
   Failed = "failed",
+}
+
+export interface SearchQuery {
+  filter?: string;
+  sortBy?: string;
+  search?: string;
 }

@@ -25,7 +25,6 @@ export const StyledModal = styled.div`
 export const ModalContent = styled.div`
   background-color: ${backgroundMain};
   padding: 20px 60px 60px 60px;
-  //width: 976px;
 `;
 
 export const StyledFlex = styled.div`

@@ -14,8 +14,6 @@ export interface MoviesState {
   status: StatusType;
   error: string | undefined;
   selectedMovie: Movie | null;
-  // sortBy: string;
-  // filter: string;
 }
 
 const initialState: MoviesState = {
@@ -23,24 +21,18 @@ const initialState: MoviesState = {
   status: StatusType.Idle,
   error: undefined,
   selectedMovie: null,
-  // sortBy: "",
-  // filter: "",
 };
 
 export interface MovieListResponse {
   data: MovieServerFormat[];
 }
 
-export const fetchMovies = createAsyncThunk<
-  MovieListResponse,
-  any
-  // { state: RootState }
->("movies/fetchMovies", (query, undefined) => {
-  // const state = thunkAPI.getState();
-  // const queries = { sortBy: state.movies.sortBy, filter: state.movies.filter };
-
-  return getMovies(query);
-});
+export const fetchMovies = createAsyncThunk<MovieListResponse, any>(
+  "movies/fetchMovies",
+  (query) => {
+    return getMovies(query);
+  }
+);
 
 export const fetchMovie = createAsyncThunk<
   MovieServerFormat,
@@ -87,14 +79,6 @@ export const moviesSlice = createSlice({
     resetSelectedMovie(state) {
       state.selectedMovie = null;
     },
-    // setSortingParams(state, action) {
-    //   state.sortBy = action.payload;
-    //   state.status = StatusType.Idle;
-    // },
-    // setFilterParams(state, action) {
-    //   state.filter = action.payload;
-    //   state.status = StatusType.Idle;
-    // },
     resetState(state) {
       state.status = StatusType.Idle;
     },
@@ -114,15 +98,6 @@ export const moviesSlice = createSlice({
       .addCase(fetchMovies.rejected, (state, action) => {
         state.status = StatusType.Failed;
         state.error = action.error.message;
-      })
-      .addCase(editMovie.fulfilled, (state) => {
-        state.status = StatusType.Idle;
-      })
-      .addCase(addMovie.fulfilled, (state) => {
-        state.status = StatusType.Idle;
-      })
-      .addCase(deleteMovie.fulfilled, (state) => {
-        state.status = StatusType.Idle;
       })
       .addCase(fetchMovie.fulfilled, (state, action) => {
         state.selectedMovie = transformMovieList(action.payload);

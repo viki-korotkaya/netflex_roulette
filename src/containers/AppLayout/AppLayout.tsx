@@ -1,33 +1,31 @@
 import React, { useEffect } from "react";
-
 import Header from "containers/Header/Header";
 import Main from "containers/Main/Main";
 import Footer from "containers/Footer/Footer";
 import ModalWindow from "components/ModalWindow/ModalWindow";
 import "App.css";
 import MovieDetail from "components/MovieDetail/MovieDetail";
-import { useAppSelector, useAppDispatch } from "hooks/hooks";
+import {
+  useAppSelector,
+  useAppDispatch,
+  useMovieSearchParams,
+} from "hooks/hooks";
 import {
   fetchMovies,
   fetchMovie,
   moviesAction,
 } from "features/movies/moviesSelector";
-import { StatusType } from "models/movie";
-import { Outlet, Route, Routes, useSearchParams } from "react-router-dom";
-import NotFound from "../../components/NotFound/NotFound";
+import { SearchQuery } from "models/movie";
 
 const AppLayout: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const selectedMovieId = searchParams.get("movie");
-  const filterQuery = searchParams.get("filter");
-  const sortQuery = searchParams.get("sortBy");
-  const searchKey = searchParams.get("searchKey");
-  const { status, selectedMovie } = useAppSelector((state) => state.movies);
+  const { selectedMovie } = useAppSelector((state) => state.movies);
   const { isOpen } = useAppSelector((state) => state.modalWindow);
   const dispatch = useAppDispatch();
+  const { selectedMovieId, filterQuery, sortQuery, searchKey } =
+    useMovieSearchParams();
 
   useEffect(() => {
-    let searchQuery: any = {};
+    let searchQuery: SearchQuery = {};
     if (filterQuery) {
       searchQuery.filter = filterQuery;
     }
@@ -37,28 +35,20 @@ const AppLayout: React.FC = () => {
     if (searchKey) {
       searchQuery.search = searchKey;
     }
-    if (status === StatusType.Idle) {
-      dispatch(fetchMovies(searchQuery));
-    }
-  }, [status]);
+    dispatch(fetchMovies(searchQuery));
+  }, [filterQuery, sortQuery, searchKey, dispatch]);
 
   useEffect(() => {
-    if (selectedMovieId && +selectedMovieId !== selectedMovie?.id) {
+    if (selectedMovieId) {
       dispatch(fetchMovie(+selectedMovieId));
-    } else if (!selectedMovieId && selectedMovie?.id) {
+    } else {
       dispatch(moviesAction.resetSelectedMovie());
     }
-  }, [selectedMovieId]);
+  }, [selectedMovieId, dispatch]);
 
   return (
     <>
-      {/*<Routes>*/}
-      {/*  <Route path="/movie" element={<MovieDetail />} />*/}
-      {/*  <Route index element={<Header />} />*/}
-      {/*  <Route path="*" element={<NotFound />} />*/}
-      {/*</Routes>*/}
       {selectedMovie ? <MovieDetail /> : <Header />}
-      <Outlet />
       <Main />
       <Footer />
       {isOpen && <ModalWindow />}

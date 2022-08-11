@@ -29,9 +29,6 @@ const getUrlWithQuery = (queries: {
   if (queries.filter) {
     newUrl += `filter=${queries.filter}`;
   }
-  if (queries.filter) {
-    newUrl += `filter=${queries.filter}`;
-  }
   return newUrl;
 };
 

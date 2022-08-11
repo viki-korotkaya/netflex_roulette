@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { useAppDispatch } from "hooks/hooks";
 import { StyledLi, StyledLink } from "components/Nav/NavItem/NavItem.styled";
 import { moviesAction } from "features/movies/moviesSelector";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 interface NavItemProps {
   navItem: string;
@@ -19,10 +19,6 @@ const NavItem: React.FC<NavItemProps> = (props) => {
     searchParams.set("filter", props.navItem === "all" ? "" : props.navItem);
     setSearchParams(searchParams);
     dispatch(moviesAction.resetState());
-  };
-
-  let activeStyle = {
-    textDecoration: "underline",
   };
 
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import {
   StyledFlex,
   StyledMovieItem,
@@ -9,7 +9,6 @@ import {
 import ContextMenu from "components/ContextMenu/ContextMenu";
 import { Mode, Movie } from "models/movie";
 import { useAppDispatch } from "hooks/hooks";
-import { fetchMovie } from "features/movies/moviesSelector";
 import { modalWindowAction } from "features/modalWindow/modalWindowSelector";
 
 interface MovieProps {
@@ -34,14 +33,12 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
   };
 
   const getMovie = () => {
-    searchParams.set("movie", movie.id.toString());
+    searchParams.set("movie", id.toString());
     setSearchParams(searchParams);
-    // dispatch(fetchMovie(id));
   };
 
   return (
     <StyledMovieItem onClick={getMovie}>
-      {/*<Link >*/}
       <ContextMenu
         editModalHandler={openEditModal}
         deleteModalHandler={openDeleteModal}
@@ -54,7 +51,6 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
         <StyledMovieYear>{releaseDate.split("-")[0]}</StyledMovieYear>
       </StyledFlex>
       <div>{tagline}</div>
-      {/*</Link>*/}
     </StyledMovieItem>
   );
 };

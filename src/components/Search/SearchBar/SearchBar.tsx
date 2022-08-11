@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 import {
@@ -6,8 +6,8 @@ import {
   SearchInput,
 } from "components/Search/SearchBar/SearchBar.styled";
 import { PrimaryButton } from "components/Button/Button.styled";
-import { moviesAction } from "../../../features/movies/moviesSelector";
-import { useAppDispatch } from "../../../hooks/hooks";
+import { moviesAction } from "features/movies/moviesSelector";
+import { useAppDispatch } from "hooks/hooks";
 
 const SearchBar: React.FC = () => {
   const formik = useFormik({

@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import React from "react";
 import {
   StyledWrapper,
   StyledFlex,
-  AStyled,
   ImgContainer,
   DetailContainer,
   RatingStyled,
@@ -12,25 +10,16 @@ import {
   YearAndTimeContainer,
   StyledTitleContainer,
   Overview,
+  AStyled,
 } from "components/MovieDetail/MovieDetail.styled";
 import Logo from "components/Logo/Logo";
 import SearchButton from "assets/images/search_button.svg";
-import { useAppSelector, useAppDispatch } from "hooks/hooks";
-import { fetchMovie, moviesAction } from "features/movies/moviesSelector";
-import { Link } from "react-router-dom";
+import { useAppSelector } from "hooks/hooks";
+import { useSearchParams } from "react-router-dom";
 
 const MovieDetail: React.FC = () => {
-  const [searchParam] = useSearchParams();
-  // const movieId = searchParam.get("movie");
-  const dispatch = useAppDispatch();
-
-  let params = useParams();
-  // useEffect(() => {
-  //   if (movieId) {
-  //     dispatch(fetchMovie(parseInt(movieId, 10)));
-  //   }
-  // }, [movieId]);
   const selectedMovie = useAppSelector((state) => state.movies.selectedMovie);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const getRuntimeFormat = (runtime?: number) => {
     if (!runtime) return "";
@@ -39,7 +28,10 @@ const MovieDetail: React.FC = () => {
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
 
-  const goBackToSearch = () => dispatch(moviesAction.resetSelectedMovie());
+  const goBackToSearch = () => {
+    searchParams.delete("movie");
+    setSearchParams(searchParams);
+  };
 
   if (!selectedMovie) return null;
 
@@ -47,9 +39,9 @@ const MovieDetail: React.FC = () => {
     <StyledWrapper>
       <StyledFlex>
         <Logo />
-        <Link to="/search">
+        <AStyled onClick={goBackToSearch}>
           <img src={SearchButton} alt="Go back to search field" />
-        </Link>
+        </AStyled>
       </StyledFlex>
       <StyledMovieDetails>
         <ImgContainer>

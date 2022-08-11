@@ -1,7 +1,8 @@
 import React from "react";
+import { StyledDiv } from "components/NotFound/NotFound.styled";
 
 const NotFound: React.FC = () => {
-  return <div>404 page</div>;
+  return <StyledDiv>404 page</StyledDiv>;
 };
 
 export default NotFound;
