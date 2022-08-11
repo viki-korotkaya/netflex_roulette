@@ -7,6 +7,7 @@ export interface InputProps {
   id: string;
   placeholder: string;
   name: string;
+  onChange?: () => {};
 }
 
 const Input: React.FC<InputProps> = (props) => {

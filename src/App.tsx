@@ -25,8 +25,11 @@ const App: React.FC = () => {
   return (
     <>
       <Routes>
-        <Route path="/search/*" element={<AppLayout />} />
-        <Route path="/" element={<Navigate replace to="/search" />} />
+        <Route path="/search" element={<AppLayout />}>
+          {/*<Route path="movie=:movieId" element={<MovieDetail />} />*/}
+          {/*<Route index element={<Header />} />*/}
+        </Route>
+        <Route path="/" element={<Navigate replace to="/search/" />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       {/*{selectedMovie ? <MovieDetail /> : <Header />}*/}

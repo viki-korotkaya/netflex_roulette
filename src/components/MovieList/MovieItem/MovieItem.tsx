@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link, useSearchParams } from "react-router-dom";
 import {
   StyledFlex,
   StyledMovieItem,
@@ -17,28 +17,35 @@ interface MovieProps {
 }
 
 const MovieItem: React.FC<MovieProps> = ({ movie }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { title, movieUrl, tagline, releaseDate, id } = movie;
   const dispatch = useAppDispatch();
 
   const openEditModal = () => {
-    dispatch(modalWindowAction.openModal({mode: Mode.Edit, editedMovie: movie}));
+    dispatch(
+      modalWindowAction.openModal({ mode: Mode.Edit, editedMovie: movie })
+    );
   };
 
   const openDeleteModal = () => {
-    dispatch(modalWindowAction.openModal({mode: Mode.Delete, editedMovie: movie}));
+    dispatch(
+      modalWindowAction.openModal({ mode: Mode.Delete, editedMovie: movie })
+    );
   };
 
   const getMovie = () => {
-    dispatch(fetchMovie(id));
-  }
+    searchParams.set("movie", movie.id.toString());
+    setSearchParams(searchParams);
+    // dispatch(fetchMovie(id));
+  };
 
   return (
     <StyledMovieItem onClick={getMovie}>
+      {/*<Link >*/}
       <ContextMenu
         editModalHandler={openEditModal}
         deleteModalHandler={openDeleteModal}
       />
-
       <div>
         <img src={movieUrl} alt={title} />
       </div>
@@ -47,6 +54,7 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
         <StyledMovieYear>{releaseDate.split("-")[0]}</StyledMovieYear>
       </StyledFlex>
       <div>{tagline}</div>
+      {/*</Link>*/}
     </StyledMovieItem>
   );
 };
