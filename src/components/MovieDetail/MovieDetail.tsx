@@ -1,10 +1,7 @@
 import React from "react";
-
-// @ts-ignore
 import {
   StyledWrapper,
   StyledFlex,
-  AStyled,
   ImgContainer,
   DetailContainer,
   RatingStyled,
@@ -13,15 +10,16 @@ import {
   YearAndTimeContainer,
   StyledTitleContainer,
   Overview,
+  AStyled,
 } from "components/MovieDetail/MovieDetail.styled";
 import Logo from "components/Logo/Logo";
 import SearchButton from "assets/images/search_button.svg";
-import { useAppSelector, useAppDispatch } from "hooks/hooks";
-import { moviesAction } from "features/movies/moviesSelector";
+import { useAppSelector } from "hooks/hooks";
+import { useSearchParams } from "react-router-dom";
 
 const MovieDetail: React.FC = () => {
   const selectedMovie = useAppSelector((state) => state.movies.selectedMovie);
-  const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const getRuntimeFormat = (runtime?: number) => {
     if (!runtime) return "";
@@ -30,41 +28,39 @@ const MovieDetail: React.FC = () => {
     return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
   };
 
-  const goBackToSearch = () => dispatch(moviesAction.resetSelectedMovie())
+  const goBackToSearch = () => {
+    searchParams.delete("movie");
+    setSearchParams(searchParams);
+  };
 
   if (!selectedMovie) return null;
 
   return (
-        <StyledWrapper>
-          <StyledFlex>
-            <Logo />
-            <AStyled onClick={goBackToSearch}>
-              <img src={SearchButton} alt="Go back to search field" />
-            </AStyled>
-          </StyledFlex>
-          <StyledMovieDetails>
-            <ImgContainer>
-              <img
-                src={selectedMovie.movieUrl}
-                alt={selectedMovie.title}
-              />
-            </ImgContainer>
-            <DetailContainer>
-              <StyledTitleContainer>
-                <h2>{selectedMovie.title}</h2>
-                <RatingStyled>{selectedMovie.rating}</RatingStyled>
-              </StyledTitleContainer>
-              <DivForGenre>
-                {selectedMovie.genres.join(", ")}
-              </DivForGenre>
-              <YearAndTimeContainer>
-                <div>{selectedMovie.releaseDate.split("-")[0]}</div>
-                <div>{getRuntimeFormat(selectedMovie.runtime)}</div>
-              </YearAndTimeContainer>
-              <Overview>{selectedMovie.overview}</Overview>
-            </DetailContainer>
-          </StyledMovieDetails>
-        </StyledWrapper>
+    <StyledWrapper>
+      <StyledFlex>
+        <Logo />
+        <AStyled onClick={goBackToSearch}>
+          <img src={SearchButton} alt="Go back to search field" />
+        </AStyled>
+      </StyledFlex>
+      <StyledMovieDetails>
+        <ImgContainer>
+          <img src={selectedMovie.movieUrl} alt={selectedMovie.title} />
+        </ImgContainer>
+        <DetailContainer>
+          <StyledTitleContainer>
+            <h2>{selectedMovie.title}</h2>
+            <RatingStyled>{selectedMovie.rating}</RatingStyled>
+          </StyledTitleContainer>
+          <DivForGenre>{selectedMovie.genres.join(", ")}</DivForGenre>
+          <YearAndTimeContainer>
+            <div>{selectedMovie.releaseDate.split("-")[0]}</div>
+            <div>{getRuntimeFormat(selectedMovie.runtime)}</div>
+          </YearAndTimeContainer>
+          <Overview>{selectedMovie.overview}</Overview>
+        </DetailContainer>
+      </StyledMovieDetails>
+    </StyledWrapper>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useSearchParams } from "react-router-dom";
 import {
   StyledFlex,
   StyledMovieItem,
@@ -9,7 +9,6 @@ import {
 import ContextMenu from "components/ContextMenu/ContextMenu";
 import { Mode, Movie } from "models/movie";
 import { useAppDispatch } from "hooks/hooks";
-import { fetchMovie } from "features/movies/moviesSelector";
 import { modalWindowAction } from "features/modalWindow/modalWindowSelector";
 
 interface MovieProps {
@@ -17,20 +16,26 @@ interface MovieProps {
 }
 
 const MovieItem: React.FC<MovieProps> = ({ movie }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { title, movieUrl, tagline, releaseDate, id } = movie;
   const dispatch = useAppDispatch();
 
   const openEditModal = () => {
-    dispatch(modalWindowAction.openModal({mode: Mode.Edit, editedMovie: movie}));
+    dispatch(
+      modalWindowAction.openModal({ mode: Mode.Edit, editedMovie: movie })
+    );
   };
 
   const openDeleteModal = () => {
-    dispatch(modalWindowAction.openModal({mode: Mode.Delete, editedMovie: movie}));
+    dispatch(
+      modalWindowAction.openModal({ mode: Mode.Delete, editedMovie: movie })
+    );
   };
 
   const getMovie = () => {
-    dispatch(fetchMovie(id));
-  }
+    searchParams.set("movie", id.toString());
+    setSearchParams(searchParams);
+  };
 
   return (
     <StyledMovieItem onClick={getMovie}>
@@ -38,7 +43,6 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
         editModalHandler={openEditModal}
         deleteModalHandler={openDeleteModal}
       />
-
       <div>
         <img src={movieUrl} alt={title} />
       </div>

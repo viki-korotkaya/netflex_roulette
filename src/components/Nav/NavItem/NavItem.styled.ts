@@ -16,7 +16,7 @@ export const StyledLi = styled.li<LiProps>`
   }};
 `;
 
-export const StyledA = styled.a`
+export const StyledLink = styled.a`
   text-decoration: none;
   color: inherit;
   display: inline-block;

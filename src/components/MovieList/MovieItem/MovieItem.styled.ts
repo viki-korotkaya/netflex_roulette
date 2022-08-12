@@ -13,9 +13,12 @@ import {
   whiteCoconut,
 } from "styles/global_varables";
 import { StyledContextMenu } from "components/ContextMenu/ContextMenu.styled";
+import { Link } from "react-router-dom";
 
 export const StyledMovieItem = styled.div`
+  display: block;
   margin-bottom: ${margin50};
+  text-decoration: none;
   color: ${whiteCoconut};
   position: relative;
   cursor: pointer;

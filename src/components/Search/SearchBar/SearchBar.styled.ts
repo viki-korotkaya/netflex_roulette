@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Input from "components/Input/Input";
 
 export const StyledFlex = styled.div`
   display: flex;
@@ -9,7 +8,7 @@ export const StyledFlex = styled.div`
   align-items: stretch;
 `;
 
-export const SearchInput = styled(Input)`
+export const SearchInput = styled.input`
   flex: 1;
   margin-right: 15px;
   background: rgba(50, 50, 50, 0.8);
