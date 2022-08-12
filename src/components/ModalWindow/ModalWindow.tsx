@@ -76,12 +76,10 @@ const ModalWindow: React.FC = () => {
           console.log(e);
         })
         .then(() => {
+          dispatch(fetchMovies(createSearchQueries()));
           if (selectedMovieId && movie.id === +selectedMovieId) {
             dispatch(fetchMovie(movie.id));
           }
-        })
-        .then(() => {
-          dispatch(fetchMovies(createSearchQueries()));
         });
     } else {
       const movie: Partial<Movie> = {
@@ -111,12 +109,10 @@ const ModalWindow: React.FC = () => {
       })
       .catch((e) => console.log(e))
       .then(() => {
+        dispatch(fetchMovies(createSearchQueries()));
         if (selectedMovieId && editedMovie.id === +selectedMovieId) {
           dispatch(moviesAction.resetSelectedMovie());
         }
-      })
-      .then(() => {
-        dispatch(fetchMovies(createSearchQueries()));
       });
   };
 
