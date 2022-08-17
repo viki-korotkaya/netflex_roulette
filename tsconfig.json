@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
-//    "types": ["node", "jest"]
+    "types": ["node", "cypress"]
   },
   "include": ["src"],
 //  "exclude": ["**/*.test.*", "**/__mocks__/*", "**/__tests__/*"]
