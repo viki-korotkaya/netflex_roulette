@@ -15,7 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src",
+//    "types": ["node", "jest"]
   },
-  "include": ["src"]
+  "include": ["src"],
+//  "exclude": ["**/*.test.*", "**/__mocks__/*", "**/__tests__/*"]
 }

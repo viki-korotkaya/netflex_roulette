@@ -20,7 +20,6 @@ const SearchBar: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const callHandler = (text: string) => {
-    console.log(text);
     searchParams.set("searchKey", text);
     setSearchParams(searchParams);
     dispatch(moviesAction.resetState());

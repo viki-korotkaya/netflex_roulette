@@ -5,9 +5,9 @@ import modalWindowReducer from "features/modalWindow/modalWindowSelector";
 export const store = configureStore({
   reducer: {
     movies: moviesReducer,
-    modalWindow: modalWindowReducer
-  }
-})
+    modalWindow: modalWindowReducer,
+  },
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
