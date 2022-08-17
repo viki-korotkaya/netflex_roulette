@@ -58,6 +58,7 @@
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^28.1.3",
     "cypress": "^10.6.0",
+    "cypress-react-selector": "^3.0.0",
     "jest": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
     "jest-transform-stub": "^2.0.0",

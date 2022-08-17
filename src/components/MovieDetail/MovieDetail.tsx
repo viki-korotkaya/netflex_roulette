@@ -36,7 +36,7 @@ const MovieDetail: React.FC = () => {
   if (!selectedMovie) return null;
 
   return (
-    <StyledWrapper>
+    <StyledWrapper id="selectedMovie">
       <StyledFlex>
         <Logo />
         <AStyled onClick={goBackToSearch}>

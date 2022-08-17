@@ -8,7 +8,7 @@ const MovieList: React.FC = () => {
   const moviesList = useAppSelector((state) => state.movies.moviesList);
 
   return (
-    <StyledFlex>
+    <StyledFlex id="movieList">
       {moviesList.map((movie) => (
         <MovieItem movie={movie} key={movie.id} />
       ))}

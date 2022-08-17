@@ -47,7 +47,7 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
         <img src={movieUrl} alt={title} />
       </div>
       <StyledFlex>
-        <StyledMovieTitle>{title}</StyledMovieTitle>
+        <StyledMovieTitle className="title">{title}</StyledMovieTitle>
         <StyledMovieYear>{releaseDate.split("-")[0]}</StyledMovieYear>
       </StyledFlex>
       <div>{tagline}</div>
