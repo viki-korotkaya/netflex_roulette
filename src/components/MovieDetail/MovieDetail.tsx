@@ -36,7 +36,7 @@ const MovieDetail: React.FC = () => {
   if (!selectedMovie) return null;
 
   return (
-    <StyledWrapper id="selectedMovie">
+    <StyledWrapper>
       <StyledFlex>
         <Logo />
         <AStyled onClick={goBackToSearch}>
@@ -49,7 +49,7 @@ const MovieDetail: React.FC = () => {
         </ImgContainer>
         <DetailContainer>
           <StyledTitleContainer>
-            <h2>{selectedMovie.title}</h2>
+            <h2 data-cy="titleSelectedMovie">{selectedMovie.title}</h2>
             <RatingStyled>{selectedMovie.rating}</RatingStyled>
           </StyledTitleContainer>
           <DivForGenre>{selectedMovie.genres.join(", ")}</DivForGenre>

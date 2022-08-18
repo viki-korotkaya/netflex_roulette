@@ -1,6 +1,3 @@
-import { Simulate } from "react-dom/test-utils";
-import pause = Simulate.pause;
-
 describe("End-to-End test", () => {
   it("Visiting the home page", () => {
     cy.visit("/");
@@ -9,12 +6,16 @@ describe("End-to-End test", () => {
     cy.contains("horror").click();
     //check that after filter by horror url contains query parameters with filter
     cy.url().should("include", "?filter=horror");
-    cy.get("#movieList > div:first-child ").click();
-    const title = cy.get("#movieList > div:first-child").get(".title");
+    cy.get('[data-cy="movieList"] > div').first().click();
+    //check if url contains movie query parameter
     cy.url().should("include", "&movie=");
-    // const title: any = movie.get("h2");
-    expect(cy.get("#selectedMovie > h2")).to.equal(
-      cy.get("#movieList > div:first-child.title")
-    );
+    //check if title of selectedMovie equal to title of clicked movie
+    cy.get('[data-cy="titleSelectedMovie"]')
+      .invoke("text")
+      .then((title1) => {
+        cy.get('[data-cy="titleMovie"]').then(($el) => {
+          expect($el[0].innerText).to.equal(title1);
+        });
+      });
   });
 });
