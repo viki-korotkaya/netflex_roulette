@@ -18,9 +18,14 @@ const FormInputField: React.FC<FormInputFieldProps> = (props) => {
   const { field, form, type, placeholder, step } = props;
   const error = form.errors[field.name];
   const touched = form.touched[field.name];
+
+  const convertFieldName = (fieldName: string) => {
+    return fieldName.replace(/([A-Z])/g, " $1");
+  };
+
   return (
     <>
-      <Label htmlFor={field.name}>{field.name}</Label>
+      <Label htmlFor={field.name}>{convertFieldName(field.name)}</Label>
       <FormFieldStyled
         placeholder={placeholder}
         type={type}
