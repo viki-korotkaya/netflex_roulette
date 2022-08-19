@@ -5,75 +5,61 @@ import reducer, {
 import { Mode } from "models/movie";
 
 describe("modalWindow selectors", () => {
-  // const state: RootState = {
-  //   counter: {
-  //     value: 3,
-  //     status: "idle",
-  //   },
-  // };
+  const initialState: ModalWindowState = {
+    isOpen: false,
+    mode: Mode.Default,
+    editedMovie: null,
+  };
 
   test("should return the initial state", () => {
-    expect(reducer(undefined, { type: undefined })).toEqual({
-      isOpen: false,
-      mode: Mode.Default,
-      editedMovie: null,
-    });
+    expect(reducer(undefined, { type: undefined })).toEqual(initialState);
   });
 
   test("should return state for open Add Modal", () => {
-    const previousState: ModalWindowState = {
-      isOpen: false,
-      mode: Mode.Default,
-      editedMovie: null,
-    };
-
     expect(
-      reducer(previousState, modalWindowAction.openModal({ mode: Mode.Add }))
-    ).toEqual({ isOpen: true, mode: Mode.Add, editedMovie: null });
+      reducer(initialState, modalWindowAction.openModal({ mode: Mode.Add }))
+    ).toEqual(
+      expect.objectContaining({
+        isOpen: true,
+        mode: Mode.Add,
+      })
+    );
   });
 
   test("should return state for open Edit Modal", () => {
-    const previousState: ModalWindowState = {
-      isOpen: false,
-      mode: Mode.Default,
-      editedMovie: null,
-    };
-
     expect(
       reducer(
-        previousState,
+        initialState,
         modalWindowAction.openModal({
           mode: Mode.Edit,
           editedMovie: { title: "testMovie" },
         })
       )
-    ).toEqual({
-      isOpen: true,
-      mode: Mode.Edit,
-      editedMovie: { title: "testMovie" },
-    });
+    ).toEqual(
+      expect.objectContaining({
+        isOpen: true,
+        mode: Mode.Edit,
+        editedMovie: { title: "testMovie" },
+      })
+    );
   });
 
   test("should return state for open Delete Modal", () => {
-    const previousState: ModalWindowState = {
-      isOpen: false,
-      mode: Mode.Default,
-      editedMovie: null,
-    };
-
     expect(
       reducer(
-        previousState,
+        initialState,
         modalWindowAction.openModal({
           mode: Mode.Delete,
           editedMovie: { title: "testMovie" },
         })
       )
-    ).toEqual({
-      isOpen: true,
-      mode: Mode.Delete,
-      editedMovie: { title: "testMovie" },
-    });
+    ).toEqual(
+      expect.objectContaining({
+        isOpen: true,
+        mode: Mode.Delete,
+        editedMovie: { title: "testMovie" },
+      })
+    );
   });
 
   test("should return state for close Modal", () => {
@@ -83,10 +69,8 @@ describe("modalWindow selectors", () => {
       editedMovie: null,
     };
 
-    expect(reducer(previousState, modalWindowAction.closeModal())).toEqual({
-      isOpen: false,
-      mode: Mode.Default,
-      editedMovie: null,
-    });
+    expect(reducer(previousState, modalWindowAction.closeModal())).toEqual(
+      initialState
+    );
   });
 });
