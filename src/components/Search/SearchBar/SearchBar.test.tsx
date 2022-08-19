@@ -23,7 +23,7 @@ describe("SearchBar testing", () => {
     );
     expect(baseElement).toMatchSnapshot();
   });
-  test("fire input event, search event and calling fetchMovies", async () => {
+  test("fire input event, search event and check if it calls the resetState action in movies reduces", async () => {
     renderWithProviders(
       <ErrorBoundary>
         <MemoryRouter>
@@ -31,6 +31,7 @@ describe("SearchBar testing", () => {
         </MemoryRouter>
       </ErrorBoundary>
     );
+
     userEvent.type(
       screen.getByPlaceholderText("What do you want to watch?"),
       "mockname"

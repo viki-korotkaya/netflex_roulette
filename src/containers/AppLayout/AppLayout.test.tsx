@@ -4,7 +4,7 @@ import { renderWithProviders, screen, fireEvent } from "utils/test-utils";
 import AppLayout from "containers/AppLayout/AppLayout";
 import { waitFor } from "@testing-library/react";
 
-test("AppLayout testing", async () => {
+test("AppLayout testing, fire Add Movie event and check if ModalWindow opens", async () => {
   renderWithProviders(
     <ErrorBoundary>
       <MemoryRouter>
