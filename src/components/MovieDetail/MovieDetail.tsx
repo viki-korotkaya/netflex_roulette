@@ -15,11 +15,11 @@ import {
 import Logo from "components/Logo/Logo";
 import SearchButton from "assets/images/search_button.svg";
 import { useAppSelector } from "hooks/hooks";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 
 const MovieDetail: React.FC = () => {
   const selectedMovie = useAppSelector((state) => state.movies.selectedMovie);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
 
   const getRuntimeFormat = (runtime?: number) => {
     if (!runtime) return "";
@@ -29,8 +29,7 @@ const MovieDetail: React.FC = () => {
   };
 
   const goBackToSearch = () => {
-    searchParams.delete("movie");
-    setSearchParams(searchParams);
+    delete router.query.movie;
   };
 
   if (!selectedMovie) return null;

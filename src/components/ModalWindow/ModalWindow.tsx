@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
   CloseBtn,
   ModalContent,
@@ -10,11 +11,7 @@ import DeleteModalWindow from "components/ModalWindow/DeleteModal/DeleteModal";
 import SuccessModalWindow from "components/ModalWindow/SuccessModal/SuccessModal";
 import { MovieFormProps, Mode, Movie, SearchQuery } from "models/movie";
 import { formInitial } from "assets/data/constData";
-import {
-  useAppDispatch,
-  useAppSelector,
-  useMovieSearchParams,
-} from "hooks/hooks";
+import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import {
   addMovie,
   editMovie,
@@ -42,19 +39,18 @@ const ModalWindow: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const { selectedMovieId, filterQuery, sortQuery, searchKey } =
-    useMovieSearchParams();
+  const { query } = useRouter();
 
   const createSearchQueries = () => {
-    const searchQuery: SearchQuery = {};
-    if (filterQuery) {
-      searchQuery.filter = filterQuery;
+    const searchQuery: any = {};
+    if (query.filter) {
+      searchQuery.filter = query.filter;
     }
-    if (sortQuery) {
-      searchQuery.sortBy = sortQuery;
+    if (query.sortBy) {
+      searchQuery.sortBy = query.sortBy;
     }
-    if (searchKey) {
-      searchQuery.search = searchKey;
+    if (query.searchKey) {
+      searchQuery.search = query.searchKey;
     }
     return searchQuery;
   };
@@ -77,7 +73,7 @@ const ModalWindow: React.FC = () => {
         })
         .then(() => {
           dispatch(fetchMovies(createSearchQueries()));
-          if (selectedMovieId && movie.id === +selectedMovieId) {
+          if (query.movie && movie.id === +query.movie) {
             dispatch(fetchMovie(movie.id));
           }
         });
@@ -110,7 +106,7 @@ const ModalWindow: React.FC = () => {
       .catch((e) => console.log(e))
       .then(() => {
         dispatch(fetchMovies(createSearchQueries()));
-        if (selectedMovieId && editedMovie.id === +selectedMovieId) {
+        if (query.movie && editedMovie.id === +query.movie) {
           dispatch(moviesAction.resetSelectedMovie());
         }
       });

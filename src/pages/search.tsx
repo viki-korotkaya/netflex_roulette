@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+import { Provider } from "react-redux";
+import { store } from "store/store";
 import { useRouter } from "next/router";
 import Header from "containers/Header/Header";
 import Main from "containers/Main/Main";
 import Footer from "containers/Footer/Footer";
 import ModalWindow from "components/ModalWindow/ModalWindow";
-
 import MovieDetail from "components/MovieDetail/MovieDetail";
 import { useAppSelector, useAppDispatch } from "hooks/hooks";
 import {
@@ -43,12 +44,12 @@ const AppLayout: React.FC = () => {
   }, [query.movie, dispatch]);
 
   return (
-    <>
+    <Provider store={store}>
       {selectedMovie ? <MovieDetail /> : <Header />}
       <Main />
       <Footer />
       {isOpen && <ModalWindow />}
-    </>
+    </Provider>
   );
 };
 

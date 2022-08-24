@@ -7,19 +7,25 @@ import {
   Select,
   SelectWrapper,
 } from "components/Sorting/Sorting.styled";
-import { useSearchParams } from "react-router-dom";
+import { useFormik } from "formik";
+import { useRouter } from "next/router";
 
 const Sorting: React.FC = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const type = searchParams.get("sortBy") || "";
+  const router = useRouter();
+  const type = router.query.sortBy || "";
   const dispatch = useAppDispatch();
 
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     const sortingType = e.target.value;
-    searchParams.set("sortBy", sortingType);
-    setSearchParams(searchParams);
-    dispatch(moviesAction.resetState());
+    router
+      .replace({
+        query: {
+          ...router.query,
+          sortBy: sortingType,
+        },
+      })
+      .then((res) => dispatch(moviesAction.resetState()));
   };
 
   return (

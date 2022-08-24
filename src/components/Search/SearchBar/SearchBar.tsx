@@ -1,5 +1,5 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import {
   StyledFlex,
@@ -16,13 +16,15 @@ const SearchBar: React.FC = () => {
     },
     onSubmit: (values) => callHandler(values.searchbar),
   });
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const callHandler = (text: string) => {
-    searchParams.set("searchKey", text);
-    setSearchParams(searchParams);
-    dispatch(moviesAction.resetState());
+    router
+      .replace({
+        query: { ...router.query, searchKey: text },
+      })
+      .then((res) => dispatch(moviesAction.resetState()));
   };
 
   return (

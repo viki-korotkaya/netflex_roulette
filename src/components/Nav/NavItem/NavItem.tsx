@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from "react";
 import { useAppDispatch } from "hooks/hooks";
 import { StyledLi, StyledLink } from "components/Nav/NavItem/NavItem.styled";
 import { moviesAction } from "features/movies/moviesSelector";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 
 interface NavItemProps {
   navItem: string;
@@ -10,15 +10,20 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = (props) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentFilter = searchParams.get("filter") || "all";
+  const router = useRouter();
+  const currentFilter = router.query.filter || "all";
   const dispatch = useAppDispatch();
 
   const handleFiltering = (e: SyntheticEvent) => {
     e.preventDefault();
-    searchParams.set("filter", props.navItem === "all" ? "" : props.navItem);
-    setSearchParams(searchParams);
-    dispatch(moviesAction.resetState());
+    router
+      .replace({
+        query: {
+          ...router.query,
+          filter: props.navItem === "all" ? "" : props.navItem,
+        },
+      })
+      .then((res) => dispatch(moviesAction.resetState()));
   };
 
   return (
