@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import BackgroundImage from "assets/images/Header.png";
 import {
   headerHeight,
   mainWidth,
@@ -8,7 +7,7 @@ import {
 } from "styles/global_varables";
 
 export const StyledHeader = styled.section`
-  background-image: url(${BackgroundImage});
+  background-image: url("/images/Header.png");
   background-size: cover;
   max-width: ${mainWidth};
   margin: 0 auto;

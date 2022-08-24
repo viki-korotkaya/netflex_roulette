@@ -3,7 +3,7 @@ import React from "react";
 import Search from "components/Search/Search";
 import Logo from "components/Logo/Logo";
 import { TransparentButton } from "components/Button/Button.styled";
-import { StyledHeader, StyledFlex } from "containers/Header/Header.styled";
+import { StyledHeader, StyledFlex } from "components/Header/Header.styled";
 import { Mode } from "models/movie";
 import { useAppDispatch } from "hooks/hooks";
 import { modalWindowAction } from "features/modalWindow/modalWindowSelector";
@@ -12,8 +12,8 @@ const Header: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const openModalHandler = () => {
-    dispatch(modalWindowAction.openModal({mode: Mode.Add}));
-  }
+    dispatch(modalWindowAction.openModal({ mode: Mode.Add }));
+  };
 
   return (
     <StyledHeader>
