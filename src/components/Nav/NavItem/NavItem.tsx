@@ -16,14 +16,12 @@ const NavItem: React.FC<NavItemProps> = (props) => {
 
   const handleFiltering = (e: SyntheticEvent) => {
     e.preventDefault();
-    router
-      .replace({
-        query: {
-          ...router.query,
-          filter: props.navItem === "all" ? "" : props.navItem,
-        },
-      })
-      .then((res) => dispatch(moviesAction.resetState()));
+    router.replace({
+      query: {
+        ...router.query,
+        filter: props.navItem === "all" ? "" : props.navItem,
+      },
+    });
   };
 
   return (

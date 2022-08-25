@@ -18,14 +18,12 @@ const Sorting: React.FC = () => {
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     const sortingType = e.target.value;
-    router
-      .replace({
-        query: {
-          ...router.query,
-          sortBy: sortingType,
-        },
-      })
-      .then((res) => dispatch(moviesAction.resetState()));
+    router.replace({
+      query: {
+        ...router.query,
+        sortBy: sortingType,
+      },
+    });
   };
 
   return (

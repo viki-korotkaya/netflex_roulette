@@ -32,7 +32,6 @@ const MovieDetail: React.FC = () => {
     const queriesObj = { ...router.query };
 
     delete queriesObj.movie;
-    console.log(queriesObj);
     router.replace({
       query: { ...queriesObj },
     });

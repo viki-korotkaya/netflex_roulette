@@ -20,11 +20,9 @@ const SearchBar: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const callHandler = (text: string) => {
-    router
-      .replace({
-        query: { ...router.query, searchKey: text },
-      })
-      .then((res) => dispatch(moviesAction.resetState()));
+    router.replace({
+      query: { ...router.query, searchKey: text },
+    });
   };
 
   return (
