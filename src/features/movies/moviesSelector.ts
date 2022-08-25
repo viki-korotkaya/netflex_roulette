@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Movie, MovieServerFormat, StatusType } from "models/movie";
-import { RootState } from "store/store";
+import { AppState } from "store/store";
 import {
   getMovies,
   postMovie,
@@ -8,6 +8,7 @@ import {
   deleteSelectedMovie,
   getMovie,
 } from "api/movieService";
+import { HYDRATE } from "next-redux-wrapper";
 
 export interface MoviesState {
   moviesList: Movie[];
@@ -85,6 +86,16 @@ export const moviesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(HYDRATE, (state, action: any) => {
+        const newData = action.payload.data.map((item: any) =>
+          transformMovieList(item)
+        );
+        state.moviesList = newData;
+        return {
+          ...state,
+          moviesList: newData,
+        };
+      })
       .addCase(fetchMovies.pending, (state) => {
         state.status = StatusType.Pending;
       })
@@ -105,6 +116,6 @@ export const moviesSlice = createSlice({
   },
 });
 
-export const selectMovies = (state: RootState) => state.movies.moviesList;
+export const selectMovies = (state: AppState) => state.movies.moviesList;
 export const moviesAction = moviesSlice.actions;
 export default moviesSlice.reducer;

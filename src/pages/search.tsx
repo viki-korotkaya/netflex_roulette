@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Provider } from "react-redux";
-import { store } from "store/store";
+import { wrapper } from "store/store";
 import { useRouter } from "next/router";
 import Header from "components/Header/Header";
 import Main from "components/Main/Main";
@@ -13,7 +13,6 @@ import {
   fetchMovie,
   moviesAction,
 } from "features/movies/moviesSelector";
-import { SearchQuery } from "models/movie";
 
 const AppLayout: React.FC = () => {
   const { selectedMovie } = useAppSelector((state) => state.movies);
@@ -44,13 +43,24 @@ const AppLayout: React.FC = () => {
   }, [query.movie, dispatch]);
 
   return (
-    <Provider store={store}>
+    <>
+      {/*<Provider store={store}>*/}
       {selectedMovie ? <MovieDetail /> : <Header />}
       <Main />
       <Footer />
       {isOpen && <ModalWindow />}
-    </Provider>
+      {/*</Provider>*/}
+    </>
   );
 };
 
 export default AppLayout;
+
+// @ts-ignore
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    async ({ params }) => {
+      // @ts-ignore
+      store.dispatch(fetchMovies({}));
+    }
+);
