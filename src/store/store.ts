@@ -40,12 +40,6 @@ export function useStore(initialState: any) {
   const store = useMemo(() => initializeStore(initialState), [initialState]);
   return store;
 }
-// export const store = configureStore({
-//   reducer: {
-//     movies: moviesReducer,
-//     modalWindow: modalWindowReducer,
-//   },
-// });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

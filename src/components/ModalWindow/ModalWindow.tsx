@@ -9,7 +9,7 @@ import {
 import AddModalWindow from "components/ModalWindow/AddModal/AddModal";
 import DeleteModalWindow from "components/ModalWindow/DeleteModal/DeleteModal";
 import SuccessModalWindow from "components/ModalWindow/SuccessModal/SuccessModal";
-import { MovieFormProps, Mode, Movie, SearchQuery } from "models/movie";
+import { MovieFormProps, Mode, Movie } from "models/movie";
 import { formInitial } from "assets/data/constData";
 import { useAppDispatch, useAppSelector } from "hooks/hooks";
 import {
@@ -68,7 +68,7 @@ const ModalWindow: React.FC = () => {
           setStep(2);
           setMessage("The movie has been edited successfully");
         })
-        .catch((e) => {
+        .catch((e: any) => {
           console.log(e);
         })
         .then(() => {
@@ -88,7 +88,7 @@ const ModalWindow: React.FC = () => {
           setStep(2);
           setMessage("The movie has been added successfully to database");
         })
-        .catch((e) => console.log(e))
+        .catch((e: any) => console.log(e))
         .then(() => {
           dispatch(fetchMovies(createSearchQueries()));
         });
@@ -103,7 +103,7 @@ const ModalWindow: React.FC = () => {
         setStep(2);
         setMessage("The movie has been deleted successfully");
       })
-      .catch((e) => console.log(e))
+      .catch((e: any) => console.log(e))
       .then(() => {
         dispatch(fetchMovies(createSearchQueries()));
         if (query.movie && editedMovie.id === +query.movie) {

@@ -6,8 +6,6 @@ import {
   SearchInput,
 } from "components/Search/SearchBar/SearchBar.styled";
 import { PrimaryButton } from "components/Button/Button.styled";
-import { moviesAction } from "features/movies/moviesSelector";
-import { useAppDispatch } from "hooks/hooks";
 
 const SearchBar: React.FC = () => {
   const formik = useFormik({
@@ -17,7 +15,6 @@ const SearchBar: React.FC = () => {
     onSubmit: (values) => callHandler(values.searchbar),
   });
   const router = useRouter();
-  const dispatch = useAppDispatch();
 
   const callHandler = (text: string) => {
     router.replace({
