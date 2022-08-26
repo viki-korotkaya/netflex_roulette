@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Header from "components/Header/Header";
 import Main from "components/Main/Main";
@@ -13,16 +13,29 @@ import {
   transformMovieList,
 } from "features/movies/moviesSelector";
 import { getMovie, getMovies } from "api/movieService";
-import { StatusType } from "../models/movie";
+import { GetServerSidePropsContext } from "next/types";
 
 const AppLayout: React.FC = () => {
-  const { selectedMovie, status } = useAppSelector((state) => state.movies);
+  const { selectedMovie } = useAppSelector((state) => state.movies);
   const { isOpen } = useAppSelector((state) => state.modalWindow);
   const dispatch = useAppDispatch();
   const { query } = useRouter();
+  const firstRender = useRef(true);
 
   useEffect(() => {
-    if (status !== StatusType.Success) {
+    if (!firstRender.current) {
+      if (query.movie) {
+        dispatch(fetchMovie(+query.movie));
+      } else {
+        dispatch(moviesAction.resetSelectedMovie());
+      }
+    }
+  }, [query.movie, dispatch]);
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+    } else {
       let searchQuery: any = {};
       if (query.filter) {
         searchQuery.filter = query.filter;
@@ -35,19 +48,7 @@ const AppLayout: React.FC = () => {
       }
       dispatch(fetchMovies(searchQuery));
     }
-  }, [status, query.filter, query.sortBy, query.searchKey, dispatch]);
-
-  useEffect(() => {
-    if (query.movie) {
-      dispatch(fetchMovie(+query.movie));
-    } else {
-      dispatch(moviesAction.resetSelectedMovie());
-    }
-  }, [query.movie, dispatch]);
-
-  useEffect(() => {
-    dispatch(moviesAction.setState());
-  }, []);
+  }, [query.filter, query.sortBy, query.searchKey, dispatch]);
 
   return (
     <>
@@ -61,8 +62,7 @@ const AppLayout: React.FC = () => {
 
 export default AppLayout;
 
-// @ts-ignore
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { query } = context;
   const allFetches = [];
   let searchQuery: any = {};
@@ -86,7 +86,6 @@ export async function getServerSideProps(context) {
         movies: {
           moviesList: newData,
           selectedMovie: selectedMovie,
-          error: undefined,
         },
       },
     },
