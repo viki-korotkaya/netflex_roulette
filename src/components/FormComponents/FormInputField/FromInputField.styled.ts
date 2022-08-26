@@ -9,7 +9,6 @@ import {
   red,
   xlarge,
 } from "styles/global_varables";
-import Calendar from "assets/images/calendar.svg";
 
 export const FormFieldStyled = styled.input`
   width: 100%;
@@ -22,7 +21,7 @@ export const FormFieldStyled = styled.input`
   font-weight: ${baseWeight};
   font-size: ${xlarge};
   &::-webkit-calendar-picker-indicator {
-    background-image: url(${Calendar});
+    background-image: url("/images/calendar.svg");
   }
 `;
 

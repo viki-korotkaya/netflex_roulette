@@ -1,11 +1,10 @@
 import React from "react";
-
-import LogoImage from "assets/images/logo.svg";
+import Image from "next/image";
 
 const Logo: React.FC = () => {
   return (
     <div>
-      <img src={LogoImage} alt="Logo" />
+      <Image src="/images/logo.svg" alt="Logo" width="150" height="18" />
     </div>
   );
 };

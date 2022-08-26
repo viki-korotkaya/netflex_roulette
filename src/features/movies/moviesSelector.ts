@@ -58,7 +58,7 @@ export const deleteMovie = createAsyncThunk<
   { rejectValue: string }
 >("movies/deleteMovie", (index) => deleteSelectedMovie(index));
 
-function transformMovieList(movie: any) {
+export function transformMovieList(movie: any) {
   return {
     title: movie.title,
     tagline: movie.tagline,
@@ -79,8 +79,8 @@ export const moviesSlice = createSlice({
     resetSelectedMovie(state) {
       state.selectedMovie = null;
     },
-    resetState(state) {
-      state.status = StatusType.Idle;
+    setState(state) {
+      state.status = StatusType.Success;
     },
   },
   extraReducers(builder) {
@@ -105,6 +105,5 @@ export const moviesSlice = createSlice({
   },
 });
 
-export const selectMovies = (state: RootState) => state.movies.moviesList;
 export const moviesAction = moviesSlice.actions;
 export default moviesSlice.reducer;

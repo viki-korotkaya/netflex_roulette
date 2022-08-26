@@ -1,5 +1,5 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import {
   StyledFlex,
   StyledMovieItem,
@@ -16,7 +16,7 @@ interface MovieProps {
 }
 
 const MovieItem: React.FC<MovieProps> = ({ movie }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
   const { title, movieUrl, tagline, releaseDate, id } = movie;
   const dispatch = useAppDispatch();
 
@@ -33,8 +33,12 @@ const MovieItem: React.FC<MovieProps> = ({ movie }) => {
   };
 
   const getMovie = () => {
-    searchParams.set("movie", id.toString());
-    setSearchParams(searchParams);
+    router.replace({
+      query: {
+        ...router.query,
+        movie: id.toString(),
+      },
+    });
   };
 
   return (

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   StyledWrapper,
   StyledFlex,
@@ -13,13 +14,12 @@ import {
   AStyled,
 } from "components/MovieDetail/MovieDetail.styled";
 import Logo from "components/Logo/Logo";
-import SearchButton from "assets/images/search_button.svg";
 import { useAppSelector } from "hooks/hooks";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 
 const MovieDetail: React.FC = () => {
   const selectedMovie = useAppSelector((state) => state.movies.selectedMovie);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
 
   const getRuntimeFormat = (runtime?: number) => {
     if (!runtime) return "";
@@ -29,8 +29,12 @@ const MovieDetail: React.FC = () => {
   };
 
   const goBackToSearch = () => {
-    searchParams.delete("movie");
-    setSearchParams(searchParams);
+    const queriesObj = { ...router.query };
+
+    delete queriesObj.movie;
+    router.replace({
+      query: { ...queriesObj },
+    });
   };
 
   if (!selectedMovie) return null;
@@ -40,7 +44,12 @@ const MovieDetail: React.FC = () => {
       <StyledFlex>
         <Logo />
         <AStyled onClick={goBackToSearch}>
-          <img src={SearchButton} alt="Go back to search field" />
+          <Image
+            src="/images/search_button.svg"
+            alt="Go back to search field"
+            width="29"
+            height="30"
+          />
         </AStyled>
       </StyledFlex>
       <StyledMovieDetails>

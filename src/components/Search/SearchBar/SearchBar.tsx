@@ -1,13 +1,11 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import {
   StyledFlex,
   SearchInput,
 } from "components/Search/SearchBar/SearchBar.styled";
 import { PrimaryButton } from "components/Button/Button.styled";
-import { moviesAction } from "features/movies/moviesSelector";
-import { useAppDispatch } from "hooks/hooks";
 
 const SearchBar: React.FC = () => {
   const formik = useFormik({
@@ -16,13 +14,12 @@ const SearchBar: React.FC = () => {
     },
     onSubmit: (values) => callHandler(values.searchbar),
   });
-  const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const callHandler = (text: string) => {
-    searchParams.set("searchKey", text);
-    setSearchParams(searchParams);
-    dispatch(moviesAction.resetState());
+    router.replace({
+      query: { ...router.query, searchKey: text },
+    });
   };
 
   return (

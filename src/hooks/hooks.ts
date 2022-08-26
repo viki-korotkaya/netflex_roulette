@@ -7,13 +7,13 @@ export const useAppDispatch: () => AppDispatch = useDispatch;
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export const useMovieSearchParams = () => {
-  const [searchParams] = useSearchParams();
-
-  return {
-    selectedMovieId: searchParams.get("movie"),
-    filterQuery: searchParams.get("filter"),
-    sortQuery: searchParams.get("sortBy"),
-    searchKey: searchParams.get("searchKey"),
-  };
-};
+// export const useMovieSearchParams = () => {
+//   const [searchParams] = useSearchParams();
+//
+//   return {
+//     selectedMovieId: searchParams.get("movie"),
+//     filterQuery: searchParams.get("filter"),
+//     sortQuery: searchParams.get("sortBy"),
+//     searchKey: searchParams.get("searchKey"),
+//   };
+// };
