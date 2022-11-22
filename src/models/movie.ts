@@ -53,6 +53,11 @@ export enum StatusType {
   Failed = "failed",
 }
 
+export enum SortOrder {
+  Desk = 'desk',
+  Asc = 'asc'
+}
+
 export interface SearchQuery {
   filter?: string;
   sortBy?: string;

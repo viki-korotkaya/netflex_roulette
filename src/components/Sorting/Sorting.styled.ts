@@ -52,6 +52,16 @@ export const SelectWrapper = styled.div`
   grid-template-areas: "select";
   align-items: center;
   position: relative;
+`;
+
+export const ArrowWrapper = styled.div`
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+`;
+
+export const ArrowDown = styled.div`
+  display: grid;
   &:after {
     content: "";
     width: 12px;
@@ -60,6 +70,19 @@ export const SelectWrapper = styled.div`
     grid-area: select;
     justify-self: end;
     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  }
+`;
+
+export const ArrowUp = styled.div`
+  display: grid;
+  &:after {
+    content: "";
+    width: 12px;
+    height: 7px;
+    background-color: ${red};
+    grid-area: select;
+    justify-self: end;
+    clip-path: polygon(50% 0%,0 100%,100% 100%);
   }
 `;
 
